@@ -2,19 +2,21 @@ import React from "react";
 import { useState } from "react";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
-import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPasword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
+  const navigate = useNavigate();
+
   const Login = () => {
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
     } else {
       setErrorMsg("");
-      
+      navigate("/find-party");
     }
   };
   return (
