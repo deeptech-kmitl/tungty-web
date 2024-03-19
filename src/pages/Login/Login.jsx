@@ -48,8 +48,7 @@ export const Login = () => {
         />
         <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
         <YellowButton title="Login" handleOnClick={Login}></YellowButton>
-
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <h4 style={{ color: "#ffffff" }}>ยังไม่มีบัญชี? &nbsp;</h4>
           <div
             onClick={() => {

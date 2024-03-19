@@ -6,7 +6,7 @@ export const YellowButton = ({ title, handleOnClick }) => {
       onClick={handleOnClick}
       style={{
         backgroundColor: "#FDC319",
-        margin: "24px",
+        margin: "36px",
         borderRadius: 32,
         color: "#4542C1",
       }}
