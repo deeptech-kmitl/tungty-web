@@ -48,6 +48,17 @@ export const Login = () => {
         />
         <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
         <YellowButton title="Login" handleOnClick={Login}></YellowButton>
+
+        <div style={{ display: "flex" }}>
+          <h4 style={{ color: "#ffffff" }}>ยังไม่มีบัญชี? &nbsp;</h4>
+          <div
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            <h4 style={{ color: "#FDC319" }}>สมัครสมาชิก</h4>
+          </div>
+        </div>
       </div>
     </div>
   );
