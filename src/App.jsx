@@ -7,12 +7,18 @@ import { FindParty } from "./pages/find_party/FindParty";
 import { BottomNav } from "./components/BottomNav";
 
 function App() {
-
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />}></Route>
+          <Route
+            path="/"
+            element={
+              <div style={{ backgroundColor: "#4542C1" }}>
+                <Login />
+              </div>
+            }
+          ></Route>
 
           <Route
             path="/find-party"

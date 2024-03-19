@@ -1,12 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: "Kanit", sans-serif;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  /* background-color: #4542C1; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,10 +21,18 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+.screen-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  text-align: center;
 }
 
 h1 {
@@ -66,3 +71,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.kanit-400 {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+}
+

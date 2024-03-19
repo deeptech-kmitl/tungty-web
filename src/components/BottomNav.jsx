@@ -1,7 +1,6 @@
 import React from "react";
 import "../App.css";
-import { useState, useEffect } from "react";
-// import { Login } from "./pages/Login";
+import { useState } from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
