@@ -2,23 +2,18 @@ import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Login } from "./pages/Login/Login";
+import { Login } from "./pages/login/Login";
 import { FindParty } from "./pages/find_party/FindParty";
 import { BottomNav } from "./components/BottomNav";
+import { Register } from "./pages/register/Register";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div style={{ backgroundColor: "#4542C1" }}>
-                <Login />
-              </div>
-            }
-          ></Route>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
 
           <Route
             path="/find-party"

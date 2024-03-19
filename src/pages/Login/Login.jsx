@@ -46,15 +46,6 @@ export const Login = () => {
           value={password}
           onValueChange={(e) => setPasword(e.target.value)}
         />
-        {/* <TextField
-          hiddenLabel
-          id="filled-hidden-label-normal"
-          value={username}
-          variant="filled"
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        /> */}
         <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
         <YellowButton title="Login" handleOnClick={Login}></YellowButton>
       </div>
