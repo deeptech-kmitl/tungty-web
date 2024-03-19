@@ -7,12 +7,12 @@ export const WhiteTextField = ({ value, onValueChange, type }) => {
     <input
       type={type}
       style={{
-        padding: "13px",
+        padding: "10px 16px",
         borderRadius: 24,
         width: "70dvw",
         borderWidth: "0px",
         fontFamily: "Kanit",
-        fontSize: "0.75em",
+        fontSize: "1em",
       }}
       value={value}
       onChange={onValueChange}

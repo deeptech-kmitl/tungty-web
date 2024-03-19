@@ -16,8 +16,7 @@ export const Register = () => {
     year: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -39,7 +38,7 @@ export const Register = () => {
         </h1>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -47,16 +46,15 @@ export const Register = () => {
               }}
             >
               Name
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.name}
-              onValueChange={handleChange}
-              name="name"
+              onValueChange={(e) => handleChange("name", e.target.value)}
               placeholder="Name"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -64,16 +62,15 @@ export const Register = () => {
               }}
             >
               Surname
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.surname}
-              onValueChange={handleChange}
-              name="surname"
+              onValueChange={(e) => handleChange("surname", e.target.value)}
               placeholder="Surname"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -81,16 +78,15 @@ export const Register = () => {
               }}
             >
               Username
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.username}
-              onValueChange={handleChange}
-              name="username"
+              onValueChange={(e) => handleChange("username", e.target.value)}
               placeholder="Username"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -98,17 +94,16 @@ export const Register = () => {
               }}
             >
               Password
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.password}
-              onValueChange={handleChange}
-              name="password"
+              onValueChange={(e) => handleChange("password", e.target.value)}
               placeholder="Password"
               type="password"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -116,16 +111,15 @@ export const Register = () => {
               }}
             >
               Student ID
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.studentId}
-              onValueChange={handleChange}
-              name="studentId"
+              onValueChange={(e) => handleChange("studentId", e.target.value)}
               placeholder="Student ID"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -133,16 +127,15 @@ export const Register = () => {
               }}
             >
               Faculty
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.faculty}
-              onValueChange={handleChange}
-              name="faculty"
+              onValueChange={(e) => handleChange("faculty", e.target.value)}
               placeholder="Faculty"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -150,16 +143,15 @@ export const Register = () => {
               }}
             >
               Field
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.field}
-              onValueChange={handleChange}
-              name="field"
+              onValueChange={(e) => handleChange("field", e.target.value)}
               placeholder="Field"
             />
           </div>
           <div style={{ marginBottom: "30px" }}>
-            <h4
+            <h3
               style={{
                 marginLeft: "36px",
                 textAlign: "left",
@@ -167,11 +159,10 @@ export const Register = () => {
               }}
             >
               Year
-            </h4>
+            </h3>
             <WhiteTextField
               value={formData.year}
-              onValueChange={handleChange}
-              name="year"
+              onValueChange={(e) => handleChange("year", e.target.value)}
               placeholder="Year"
             />
           </div>
