@@ -42,7 +42,7 @@ export const BottomNav = () => {
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">สังคมของฉัน</span>}
           icon={<GroupsIcon />}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/myparty")}
         />
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">แชท</span>}
