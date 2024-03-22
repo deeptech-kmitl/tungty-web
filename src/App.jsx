@@ -7,6 +7,7 @@ import { FindParty } from "./pages/find_party/FindParty";
 import { BottomNav } from "./components/BottomNav";
 import { Register } from "./pages/register/Register";
 import { Notification } from "./pages/notification/Notification";
+import { PartyMember } from "./pages/party_member/PartyMember";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/member" element={<PartyMember />}></Route>
           <Route
             path="/notification"
             element={
@@ -24,7 +26,6 @@ function App() {
               </>
             }
           ></Route>
-
           <Route
             path="/find-party"
             element={

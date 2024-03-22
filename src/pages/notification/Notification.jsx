@@ -50,7 +50,7 @@ export const Notification = () => {
           color: "#ffffff",
         }}
       >
-        <h2>Notification</h2>
+        <h3>Notification</h3>
       </div>
       <div style={{ padding: "8%", paddingBottom: "100px" }}>
         {notilist.map((item, index) => (

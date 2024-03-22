@@ -24,9 +24,7 @@ export const BottomNav = () => {
 `);
 
   return (
-    <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-    >
+    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
       <BottomNavigation
         showLabels
         value={value}
@@ -47,7 +45,7 @@ export const BottomNav = () => {
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">แชท</span>}
           icon={<ChatIcon />}
-          onClick={() => navigate("/find-party")}
+          onClick={() => navigate("/member")}
         />
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">โปรไฟล์</span>}
