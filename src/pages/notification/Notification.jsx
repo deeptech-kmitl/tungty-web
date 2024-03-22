@@ -22,7 +22,7 @@ export const Notification = () => {
   const NotiCard = ({ name, desc }) => (
     <div
       style={{
-        backgroundColor: "#E1E9EE",
+        backgroundColor: "#ECF2F6",
         borderRadius: "16px",
         padding: "16px",
         // boxShadow: "4px 7px 5px #d9d9d9",
@@ -53,8 +53,8 @@ export const Notification = () => {
         <h3>Notification</h3>
       </div>
       <div style={{ padding: "8%", paddingBottom: "100px" }}>
-        {notilist.map((item) => (
-          <NotiCard name={item.name} desc={item.desc} />
+        {notilist.map((item, index) => (
+          <NotiCard key={index} name={item.name} desc={item.desc} />
         ))}
       </div>
     </div>
