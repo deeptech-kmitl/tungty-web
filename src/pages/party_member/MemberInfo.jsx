@@ -20,7 +20,7 @@ export const MemberInfo = () => {
         }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <h3>Members</h3>
+          <h3>Member Information</h3>
         </div>
         <div
           onClick={() => {

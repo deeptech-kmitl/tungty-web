@@ -26,7 +26,7 @@ export const PartyMember = () => {
   ];
   return (
     <div
-      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
+      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#EFEFEF" }}
     >
       <div
         style={{
@@ -51,27 +51,43 @@ export const PartyMember = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "8px",
+          gap: "18px",
           padding: "24px",
         }}
       >
         {memberList.map((item) => (
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <div
-              style={{ display: "flex" }}
+              style={{
+                display: "flex",
+                backgroundColor: "#ffffff",
+                padding: "18px",
+                borderRadius: "16px",
+                boxShadow: "4px 7px 5px #d9d9d9",
+                shadowOffset: {
+                  width: 30,
+                  height: -50,
+                },
+              }}
               onClick={() => {
                 navigate("/member-info");
               }}
             >
               <Avatar
-                sx={{ width: 50, height: 50, alignSelf: "center" }}
+                sx={{ width: 60, height: 60, alignSelf: "center" }}
                 src={item.img}
               />
-              <p style={{ alignSelf: "center", marginLeft: "5dvw" }}>
+              <p
+                style={{
+                  alignSelf: "center",
+                  marginLeft: "5dvw",
+                  color: "#4542C1",
+                }}
+              >
                 {item.name}
               </p>
             </div>
-            <Divider variant="middle" />
+            {/* <Divider variant="middle" /> */}
           </div>
         ))}
       </div>
