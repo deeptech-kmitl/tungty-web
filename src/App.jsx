@@ -6,6 +6,7 @@ import { Login } from "./pages/login/Login";
 import { FindParty } from "./pages/find_party/FindParty";
 import { BottomNav } from "./components/BottomNav";
 import { Register } from "./pages/register/Register";
+import { Notification } from "./pages/notification/Notification";
 
 function App() {
   return (
@@ -14,6 +15,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route
+            path="/notification"
+            element={
+              <>
+                <BottomNav />
+                <Notification />
+              </>
+            }
+          ></Route>
 
           <Route
             path="/find-party"
@@ -26,34 +36,6 @@ function App() {
           ></Route>
         </Routes>
       </BrowserRouter>
-      {/* <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction
-            label={<span className="kanit-400 bottomNavLabel">หากลุ่ม</span>}
-            icon={<RestoreIcon />}
-          />
-          <BottomNavigationAction
-            label={
-              <span className="kanit-400 bottomNavLabel">สังคมของฉัน</span>
-            }
-            icon={<FavoriteIcon />}
-          />
-          <BottomNavigationAction
-            label={<span className="kanit-400 bottomNavLabel">แชท</span>}
-            icon={<LocationOnIcon />}
-          />
-          <BottomNavigationAction
-            label={<span className="kanit-400 bottomNavLabel">โปรไฟล์</span>}
-            icon={<LocationOnIcon />}
-          />
-        </BottomNavigation>
-      </Paper> */}
     </>
   );
 }
