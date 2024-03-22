@@ -22,15 +22,15 @@ export const Notification = () => {
   const NotiCard = ({ name, desc }) => (
     <div
       style={{
-        backgroundColor: "#F4F4F4",
+        backgroundColor: "#E1E9EE",
         borderRadius: "16px",
         padding: "16px",
-        boxShadow: "4px 7px 5px #d9d9d9",
-        shadowOffset: {
-          width: 30,
-          height: -50,
-        },
-        shadowOpacity: 0.25,
+        // boxShadow: "4px 7px 5px #d9d9d9",
+        // shadowOffset: {
+        //   width: 30,
+        //   height: -50,
+        // },
+        // shadowOpacity: 0.25,
         marginBottom: "18px",
       }}
     >
