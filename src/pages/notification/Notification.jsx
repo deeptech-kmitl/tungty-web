@@ -53,7 +53,7 @@ export const Notification = () => {
         <h3>Notification</h3>
       </div>
       <div style={{ padding: "8%", paddingBottom: "100px" }}>
-        {notilist.map((item, index) => (
+        {notilist.map((item) => (
           <NotiCard name={item.name} desc={item.desc} />
         ))}
       </div>
