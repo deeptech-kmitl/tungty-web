@@ -41,6 +41,7 @@ export const PartyMember = () => {
         </div>
         <ArrowBackIcon
           style={{
+            marginLeft: "16px",
             position: "absolute",
             top: "50%",
             transform: "translateY(-50%)",
