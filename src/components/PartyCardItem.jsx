@@ -1,45 +1,22 @@
   import React from "react";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { useNavigate } from "react-router-dom";
+  import renderPartyCard from "./RenderPartyCard";
 
-
-  const renderPartyCard = ({ item }) => {
-    const navigate = useNavigate();
-    const navigateToParty = (item) => {
-      // Navigate to party page
-      navigate(`/party/${item.partyId}`, { state: { partyData: item } });
-    };
-
-    return (
-      <div
-        className="partyCard"
-        style={{ ...styles.partyCard, backgroundColor: item.color }}
-        onClick={() => navigateToParty(item)}
-      >
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-          alt="Party Image"
-          style={styles.partyImage}
-        />
-        <div style={styles.partyDetails}>
-          <p style={styles.partyName} title={item.partyName}>
-            {item.partyName}
-          </p>
-          <div style={styles.icons}>
-            <FontAwesomeIcon icon={["fas", "user"]} size="lg" color="#FFC107" />
-            <span style={{marginLeft: "10px"}}>{item.memberList.length}</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const PartyCard = ({ data }) => {
+  const PartyCardItem = ({ data }) => {
     return (
       <div className="flatList" style={styles.partyList}>
         {data.map((item, index) => (
           <div key={index} style={styles.partyCardContainer}>
-            {renderPartyCard({ item })}
+            {renderPartyCard({
+              partyName: item.partyName,
+              imagepath: item.imagepath,
+              memberList: item.memberList,
+              partyDescription: item.partyDescription,
+              color: item.color,
+              createDateTime: item.createDateTime,
+              appointmentTime: item.appointmentTime
+            })}
           </div>
         ))}
       </div>
@@ -94,4 +71,4 @@
     },
   };
 
-  export default PartyCard;
+  export default PartyCardItem;

@@ -16,15 +16,30 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/myparty" element={<MyParty />}></Route>
-          <Route path="/party/*" element={<PartyPage  />}></Route>
+          <Route
+            path="/myparty"
+            element={
+              <>
+                <MyParty />
+                <BottomNav />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/party/*"
+            element={
+              <>
+                <PartyPage />
+                <BottomNav />
+              </>
+            }
+          ></Route>
           <Route
             path="/find-party"
             element={
               <>
                 <BottomNav />
                 <FindParty />
-                <MyParty />
               </>
             }
           ></Route>

@@ -21,6 +21,7 @@ export const BottomNav = () => {
   &.Mui-selected {
     color: #4542C1;
   }
+  width: auto;
 `);
 
   return (
@@ -28,6 +29,7 @@ export const BottomNav = () => {
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
     >
       <BottomNavigation
+        sx={{ width: "100%", backgroundColor: "#FDC319" }}
         showLabels
         value={value}
         onChange={(event, newValue) => {

@@ -5,18 +5,13 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header";
-import {
-  ModalComponent,
-  IconToOpenModal, // Make sure to import IconToOpenModal
-} from "../../components/ModalComponent";
-import HashLoader from "react-spinners/HashLoader";
-import { green } from "@mui/material/colors";
 import { useLocation } from "react-router-dom";
 
 export const Party = () => {
     const location = useLocation();
     const { partyData } = location.state;
     const date = new Date(Date.parse(partyData.createDateTime));
+    console.log(date);
     const [month, day, year, hour, minute] = [
       date.toLocaleString("default", { month: "long" }).toUpperCase(),
       date.getDate(),
@@ -78,7 +73,7 @@ export const Party = () => {
               {partyData.partyDescription}
             </div>
           </div>
-          <div style={{ ...styles.button, backgroundColor: partyData.color }}>
+          <div style={{ ...styles.button, backgroundColor: partyData.color, color: "white" }}>
             CHAT
           </div>
         </div>
@@ -90,7 +85,7 @@ export const Party = () => {
     pageContainer: {
       display: "flex",
       flexDirection: "column",
-      minHeight: "93vh",
+      minHeight: "87vh",
 
     },
     container: {
