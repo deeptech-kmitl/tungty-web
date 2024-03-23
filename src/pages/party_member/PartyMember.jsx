@@ -38,14 +38,20 @@ export const PartyMember = () => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h3>Members</h3>
         </div>
-        <ArrowBackIcon
-          style={{
-            marginLeft: "16px",
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
+        <div
+          onClick={() => {
+            navigate("/find-party");
           }}
-        />
+        >
+          <ArrowBackIcon
+            style={{
+              marginLeft: "16px",
+              position: "absolute",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          />
+        </div>
       </div>
       <div
         style={{
