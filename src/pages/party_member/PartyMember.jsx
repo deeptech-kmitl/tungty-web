@@ -55,8 +55,11 @@ export const PartyMember = () => {
           padding: "24px",
         }}
       >
-        {memberList.map((item) => (
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        {memberList.map((item, index) => (
+          <div
+            key={index}
+            style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+          >
             <div
               style={{
                 display: "flex",
