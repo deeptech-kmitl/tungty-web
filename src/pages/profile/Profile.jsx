@@ -20,6 +20,7 @@ export const Profile = () => {
           position: "relative",
           justifyContent: "space-between",
           alignItems: "center",
+          padding: "16px",
         }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -81,7 +82,7 @@ export const Profile = () => {
                 <p>สาขา : IT</p>
               </Grid>
               <Grid item xs={6}>
-                <p>รุ่น : 20</p>
+                <p>ปี : 3</p>
               </Grid>
               <Grid item xs={6}>
                 <p>รหัส : 63xxxxx</p>

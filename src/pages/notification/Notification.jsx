@@ -25,12 +25,6 @@ export const Notification = () => {
         backgroundColor: "#ECF2F6",
         borderRadius: "16px",
         padding: "16px",
-        // boxShadow: "4px 7px 5px #d9d9d9",
-        // shadowOffset: {
-        //   width: 30,
-        //   height: -50,
-        // },
-        // shadowOpacity: 0.25,
         marginBottom: "18px",
       }}
     >
@@ -48,6 +42,7 @@ export const Notification = () => {
           textAlign: "center",
           padding: "1px",
           color: "#ffffff",
+          padding: "16px",
         }}
       >
         <h3>Notification</h3>
