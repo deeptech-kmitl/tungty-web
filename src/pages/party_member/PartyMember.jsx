@@ -1,7 +1,6 @@
 import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 
 export const PartyMember = () => {
@@ -91,7 +90,6 @@ export const PartyMember = () => {
                 {item.name}
               </p>
             </div>
-            {/* <Divider variant="middle" /> */}
           </div>
         ))}
       </div>

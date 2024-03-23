@@ -50,7 +50,7 @@ export const BottomNav = () => {
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">โปรไฟล์</span>}
           icon={<PersonIcon />}
-          onClick={() => navigate("/find-party")}
+          onClick={() => navigate("/profile")}
         />
       </BottomNavigation>
     </Paper>
