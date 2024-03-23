@@ -25,7 +25,11 @@ export const Profile = () => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h3>My Profile</h3>
         </div>
-        <div onClick={() => {}}>
+        <div
+          onClick={() => {
+            navigate("/edit-profile");
+          }}
+        >
           <EditIcon
             style={{
               marginLeft: "16px",
