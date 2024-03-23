@@ -42,7 +42,6 @@ export const Notification = () => {
           textAlign: "center",
           padding: "1px",
           color: "#ffffff",
-          padding: "16px",
         }}
       >
         <h3>Notification</h3>

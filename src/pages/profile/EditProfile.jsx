@@ -17,7 +17,6 @@ export const EditProfile = () => {
           padding: "1px",
           color: "#ffffff",
           position: "relative",
-          padding: "16px",
         }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>

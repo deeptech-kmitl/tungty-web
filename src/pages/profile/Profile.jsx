@@ -20,7 +20,6 @@ export const Profile = () => {
           position: "relative",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "16px",
         }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
