@@ -28,7 +28,7 @@ export const Party = () => {
             color="white"
             size="2x"
             onClick={() => window.history.back()}
-            style={{ marginLeft: "3%" }}
+            style={{ marginLeft: "3%", cursor: "pointer" }}
           />
         </Header>
         <div style={styles.pageContainer}>
@@ -73,7 +73,7 @@ export const Party = () => {
               {partyData.partyDescription}
             </div>
           </div>
-          <div style={{ ...styles.button, backgroundColor: partyData.color, color: "white" }}>
+          <div style={{ ...styles.button, backgroundColor: partyData.color, color: "white", cursor: "pointer" }}>
             CHAT
           </div>
         </div>

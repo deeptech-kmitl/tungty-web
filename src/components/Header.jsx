@@ -46,6 +46,7 @@ const styles = {
   },
   bell: {
     marginRight: "2%",
+    cursor: "pointer",
   },
 };
 

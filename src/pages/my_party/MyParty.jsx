@@ -12,7 +12,6 @@ import {
 } from "../../components/ModalComponent";
 import HashLoader from "react-spinners/HashLoader";
 import { green } from "@mui/material/colors";
-import { BottomNav } from "../../components/BottomNav";
 import PartyCardItem from './../../components/PartyCardItem';
 
 export const MyParty = () => {
@@ -21,7 +20,6 @@ export const MyParty = () => {
   const [originalData, setOriginalData] = useState([]);
   const [partylist, setPartylist] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const override = {
     display: "block",
@@ -48,12 +46,11 @@ export const MyParty = () => {
     console.log("Selected option:", selectedOption);
   };
 
-  const handleSearch = (value) => {
+  const handleSearch = (search) => {
     const filteredList = originalData.filter((element) =>
-      element.partyName.toLowerCase().includes(value.toLowerCase())
+      element.partyName.toLowerCase().includes(search.toLowerCase())
     );
-    const updatedRenderList =
-      filteredList.length > 0 ? filteredList : originalData;
+    const updatedRenderList = filteredList.length > 0 ? filteredList : originalData;
     setPartylist(updatedRenderList);
   };
 
@@ -61,13 +58,9 @@ export const MyParty = () => {
     // Set initial partylist state when component mounts
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    fetchPartyData();
     return () => {
-      fetchPartyData();
-
       document.body.style.overflow = bodyOverflow;
-      // setInterval(() => {
-      //   fetchPartyData();
-      // }, 6000);
     };
   }, []);
 
@@ -80,7 +73,6 @@ export const MyParty = () => {
       //   const data = await response.json();
       setOriginalData(data);
       setPartylist(data);
-      console.log(data);
       setLoading(false);
     } catch (error) {
       console.log("error" + error);

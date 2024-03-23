@@ -1,6 +1,5 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
 
 const renderPartyCard = ({
   partyName,
@@ -10,8 +9,8 @@ const renderPartyCard = ({
   color,
   createDateTime,
   appointmentTime,
+  navigate,
 }) => {
-  const navigate = useNavigate();
   const navigateToParty = () => {
     // Navigate to party page
     navigate(`/party/${partyName}`, {
@@ -36,7 +35,7 @@ const renderPartyCard = ({
       onClick={navigateToParty}
     >
       <img src={imagepath} alt="Party Image" style={styles.partyImage} />
-      <div style={{...styles.partyDetails, flex:1}}>
+      <div style={{ ...styles.partyDetails, flex: 1 }}>
         <p style={styles.partyName} title={partyName}>
           {partyName}
         </p>
@@ -44,14 +43,14 @@ const renderPartyCard = ({
           {partyDescription}
         </p>
       </div>
-      <div style={{alignSelf: 'flex-end'}}>
-          <div style={{...styles.icons, justifyContent: 'flex-end', alignContent: 'flex-end'}}>
-            <FontAwesomeIcon icon={["fas", "user"]} size="lg" color="#FFC107" />
-            <span style={{ marginLeft: "10px" }}>
-              {memberList ? memberList.length : 0}
-            </span>
-          </div>
+      <div style={{ alignSelf: "flex-end" }}>
+        <div style={{ ...styles.icons, justifyContent: "flex-end", alignContent: "flex-end" }}>
+          <FontAwesomeIcon icon={["fas", "user"]} size="lg" color="#FFC107" />
+          <span style={{ marginLeft: "10px" }}>
+            {memberList ? memberList.length : 0}
+          </span>
         </div>
+      </div>
     </div>
   );
 };
@@ -100,16 +99,6 @@ const styles = {
     fontSize: "3vh",
     alignItems: "center",
     justifyContent: "flex-end",
-  },
-  partyList: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    padding: "20px",
-  },
-  partyCardContainer: {
-    width: "calc(50% - 20px)",
-    marginBottom: "20px",
   },
 };
 

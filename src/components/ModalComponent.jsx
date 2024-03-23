@@ -20,6 +20,7 @@ const IconToOpenModal = ({ setModalVisible }) => {
         icon={["fas", "arrow-down-wide-short"]}
         size="4x"
         color="black"
+        style={{cursor: "pointer"}}
       />
     </div>
   );
@@ -53,6 +54,7 @@ const ModalComponent = ({ handleSortFilter }) => {
                   icon={["fas", "xmark"]}
                   color="white"
                   size="3x"
+                  style={{cursor: "pointer"}}
                 />
               </Button>
             </div>
@@ -72,6 +74,7 @@ const ModalComponent = ({ handleSortFilter }) => {
                           "&.Mui-checked": {
                             color: yellow[600],
                           },
+                          cursor: "pointer"
                         }}
                       />
                     }
@@ -88,6 +91,7 @@ const ModalComponent = ({ handleSortFilter }) => {
                           "&.Mui-checked": {
                             color: yellow[600],
                           },
+                          cursor: "pointer"
                         }}
                       />
                     }
@@ -104,6 +108,7 @@ const ModalComponent = ({ handleSortFilter }) => {
                           "&.Mui-checked": {
                             color: yellow[600],
                           },
+                          cursor: "pointer"
                         }}
                       />
                     }
