@@ -16,6 +16,8 @@ import PartyCardItem from "./../../components/PartyCardItem";
 
 export const MyParty = () => {
   const userId = "Rawipas";
+
+  // token for authorization
   const token =
     "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
   const [search, setSearch] = useState("");
@@ -61,9 +63,9 @@ export const MyParty = () => {
     // Set initial partylist state when component mounts
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    fetchPartyData();
     return () => {
       document.body.style.overflow = bodyOverflow;
+      fetchPartyData();
     };
   }, []);
 

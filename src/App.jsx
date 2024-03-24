@@ -10,6 +10,7 @@ import { Register } from "./pages/register/Register";
 import { Party } from "./pages/my_party/Party";
 
 function App() {
+  const [value, setValue] = useState(0);
   return (
     <>
       <BrowserRouter>
@@ -21,28 +22,28 @@ function App() {
             element={
               <>
                 <MyParty />
-                <BottomNav />
+                <BottomNav value={value} setValue={setValue} />
               </>
             }
-          ></Route>
+          />
           <Route
             path="/party/*"
             element={
               <>
                 <PartyPage />
-                <BottomNav />
+                <BottomNav value={value} setValue={setValue} />
               </>
             }
-          ></Route>
+          />
           <Route
             path="/find-party"
             element={
               <>
-                <BottomNav />
+                <BottomNav value={value} setValue={setValue} />
                 <FindParty />
               </>
             }
-          ></Route>
+          />
         </Routes>
       </BrowserRouter>
       {/* <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
