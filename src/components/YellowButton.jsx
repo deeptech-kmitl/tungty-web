@@ -11,7 +11,7 @@ export const YellowButton = ({ title, handleOnClick }) => {
         color: "#4542C1",
       }}
     >
-      <h3 style={{ padding: "8px" }}>{title}</h3>
+      <h3 style={{ padding: "8px", margin: "0px" }}>{title}</h3>
     </div>
   );
 };
