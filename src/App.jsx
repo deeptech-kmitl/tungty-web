@@ -7,7 +7,7 @@ import { FindParty } from "./pages/find_party/FindParty";
 import { MyParty } from "./pages/my_party/MyParty";
 import { BottomNav } from "./components/BottomNav";
 import { Register } from "./pages/register/Register";
-import { Party } from "./pages/my_party/Party";
+
 
 function App() {
   const [value, setValue] = useState(0);
@@ -35,6 +35,27 @@ function App() {
               </>
             }
           />
+          <Route path="/member" element={<PartyMember />}></Route>
+          <Route path="/member-info" element={<MemberInfo />}></Route>
+          <Route path="/edit-profile" element={<EditProfile />}></Route>
+          <Route
+            path="/profile"
+            element={
+              <>
+                <BottomNav />
+                <Profile />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/notification"
+            element={
+              <>
+                <BottomNav />
+                <Notification />
+              </>
+            }
+          ></Route>
           <Route
             path="/find-party"
             element={
@@ -46,34 +67,6 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-      {/* <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction
-            label={<span className="kanit-400 bottomNavLabel">หากลุ่ม</span>}
-            icon={<RestoreIcon />}
-          />
-          <BottomNavigationAction
-            label={
-              <span className="kanit-400 bottomNavLabel">สังคมของฉัน</span>
-            }
-            icon={<FavoriteIcon />}
-          />
-          <BottomNavigationAction
-            label={<span className="kanit-400 bottomNavLabel">แชท</span>}
-            icon={<LocationOnIcon />}
-          />
-          <BottomNavigationAction
-            label={<span className="kanit-400 bottomNavLabel">โปรไฟล์</span>}
-            icon={<LocationOnIcon />}
-          />
-        </BottomNavigation>
-      </Paper> */}
     </>
   );
 }

@@ -14,9 +14,23 @@ export const Login = () => {
   const Login = () => {
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
-    } else {
-      setErrorMsg("");
+    }
+    try {
+      const response = await fetch("tungty-service-be.onrender.com/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
+      }
+
       navigate("/find-party");
+    } catch (error) {
+      setErrorMsg(error.message);
     }
   };
   return (
