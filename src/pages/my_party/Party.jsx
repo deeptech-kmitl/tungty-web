@@ -34,10 +34,11 @@ export const Party = () => {
         <div style={styles.pageContainer}>
           <div style={styles.container}>
             <h2 style={styles.datecreated}>
-              {month + " " + day + ", " + year + " " + partyData.appointmentTime}
+              {/* {month + " " + day + ", " + year + " " + partyData.appointmentTime} */}
+              {month + " " + day + ", " + year + " AT " + hour + ":" + minute}
             </h2>
             <div
-              style={{ ...styles.imageContainer, backgroundColor: partyData.color }}
+              style={{ ...styles.imageContainer, backgroundColor: partyData.backgroundColor }}
             >
               <div style={styles.imageWrapper}>
                 <img
@@ -73,7 +74,7 @@ export const Party = () => {
               {partyData.partyDescription}
             </div>
           </div>
-          <div style={{ ...styles.button, backgroundColor: partyData.color, color: "white", cursor: "pointer" }}>
+          <div style={{ ...styles.button, backgroundColor: partyData.backgroundColor, color: "white", cursor: "pointer" }}>
             CHAT
           </div>
         </div>

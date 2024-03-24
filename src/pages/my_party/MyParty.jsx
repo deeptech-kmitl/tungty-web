@@ -12,10 +12,12 @@ import {
 } from "../../components/ModalComponent";
 import HashLoader from "react-spinners/HashLoader";
 import { green } from "@mui/material/colors";
-import PartyCardItem from './../../components/PartyCardItem';
+import PartyCardItem from "./../../components/PartyCardItem";
 
 export const MyParty = () => {
   const userId = "Rawipas";
+  const token =
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
   const [search, setSearch] = useState("");
   const [originalData, setOriginalData] = useState([]);
   const [partylist, setPartylist] = useState([]);
@@ -30,7 +32,7 @@ export const MyParty = () => {
   library.add(fas);
 
   const handleSortFilter = (selectedOption) => {
-    const sortedData = [...data];
+    const sortedData = [...originalData];
     if (selectedOption === "popular") {
       sortedData.sort((b, a) => a.memberList.length - b.memberList.length);
     } else if (selectedOption === "newest") {
@@ -50,7 +52,8 @@ export const MyParty = () => {
     const filteredList = originalData.filter((element) =>
       element.partyName.toLowerCase().includes(search.toLowerCase())
     );
-    const updatedRenderList = filteredList.length > 0 ? filteredList : originalData;
+    const updatedRenderList =
+      filteredList.length > 0 ? filteredList : originalData;
     setPartylist(updatedRenderList);
   };
 
@@ -66,11 +69,16 @@ export const MyParty = () => {
 
   const fetchPartyData = async () => {
     try {
-      //   const response = await fetch(
-      //     `http://localhost:8083/party/myParty/${userId}`
-      //   );
-      //   console.log(response.status);
-      //   const data = await response.json();
+      const response = await fetch(
+        `http://localhost:8083/party/myParty/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(response.status);
+      const data = await response.json();
+      console.log(data);
+
       setOriginalData(data);
       setPartylist(data);
       setLoading(false);
@@ -80,93 +88,93 @@ export const MyParty = () => {
     }
   };
 
-  const data = [
-    {
-      partyId: "1",
-      partyCode: "123",
-      partyOwner: "John",
-      partyName: "Test Party",
-      partyDescription: "เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ",
-      partyType: "Private",
-      partyCategory: "Group",
-      appointmentDate: "2022-09-20",
-      appointmentTime: "12:00 PM",
-      memberAmount: 5,
-      memberList: ["Alice", "Bob", "Charlie", "David", "Eve"],
-      createDateTime: "2022-09-19",
-      updateDateTime: "2022-09-19",
-      color: "red",
-      imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
-    },
-    {
-      partyId: "2",
-      partyCode: "456",
-      partyOwner: "Alice",
-      partyName: "Another Test Party",
-      partyDescription: "Another Test Partyasdw",
-      partyType: "Public",
-      partyCategory: "Group",
-      appointmentDate: "2022-09-21",
-      appointmentTime: "1:00 PM",
-      memberAmount: 3,
-      memberList: ["John", "Jane", "Bob", "Bob", "Bob", "Bob", "Bob"],
-      createDateTime: "2022-09-18",
-      updateDateTime: "2022-09-18",
-      color: "green",
-      imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
-    },
-    {
-      partyId: "3",
-      partyCode: "456",
-      partyOwner: "Alice",
-      partyName: "MypAge",
-      partyDescription: "Another Test Party1111",
-      partyType: "Public",
-      partyCategory: "Group",
-      appointmentDate: "2022-09-21",
-      appointmentTime: "1:00 PM",
-      memberAmount: 3,
-      memberList: ["John", "Jane", "Bob", "Akuc"],
-      createDateTime: "2022-09-18",
-      updateDateTime: "2022-09-18",
-      color: "blue",
-      imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
-    },
-    {
-      partyId: "4",
-      partyCode: "456",
-      partyOwner: "Alice",
-      partyName: "Whyyyyyyy",
-      partyDescription: "Another Test Party1111",
-      partyType: "Public",
-      partyCategory: "Group",
-      appointmentDate: "2022-09-21",
-      appointmentTime: "1:00 PM",
-      memberAmount: 3,
-      memberList: ["John", "Jane"],
-      createDateTime: "2022-09-18",
-      updateDateTime: "2022-09-18",
-      color: "pink",
-      imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
-    },
-    {
-      partyId: "5",
-      partyCode: "456",
-      partyOwner: "Alice",
-      partyName: "Whyyyyyyy",
-      partyDescription: "Another Test Party1111",
-      partyType: "Public",
-      partyCategory: "Group",
-      appointmentDate: "2022-09-21",
-      appointmentTime: "1:00 PM",
-      memberAmount: 3,
-      memberList: ["John", "Jane"],
-      createDateTime: "2022-09-18",
-      updateDateTime: "2022-09-18",
-      color: "orange",
-      imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
-    },
-  ];
+  // const data = [
+  //   {
+  //     partyId: "1",
+  //     partyCode: "123",
+  //     partyOwner: "John",
+  //     partyName: "Test Party",
+  //     partyDescription: "เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ",
+  //     partyType: "Private",
+  //     partyCategory: "Group",
+  //     appointmentDate: "2022-09-20",
+  //     appointmentTime: "12:00 PM",
+  //     memberAmount: 5,
+  //     memberList: ["Alice", "Bob", "Charlie", "David", "Eve"],
+  //     createDateTime: "2022-09-19",
+  //     updateDateTime: "2022-09-19",
+  //     color: "red",
+  //     imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
+  //   },
+  //   {
+  //     partyId: "2",
+  //     partyCode: "456",
+  //     partyOwner: "Alice",
+  //     partyName: "Another Test Party",
+  //     partyDescription: "Another Test Partyasdw",
+  //     partyType: "Public",
+  //     partyCategory: "Group",
+  //     appointmentDate: "2022-09-21",
+  //     appointmentTime: "1:00 PM",
+  //     memberAmount: 3,
+  //     memberList: ["John", "Jane", "Bob", "Bob", "Bob", "Bob", "Bob"],
+  //     createDateTime: "2022-09-18",
+  //     updateDateTime: "2022-09-18",
+  //     color: "green",
+  //     imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
+  //   },
+  //   {
+  //     partyId: "3",
+  //     partyCode: "456",
+  //     partyOwner: "Alice",
+  //     partyName: "MypAge",
+  //     partyDescription: "Another Test Party1111",
+  //     partyType: "Public",
+  //     partyCategory: "Group",
+  //     appointmentDate: "2022-09-21",
+  //     appointmentTime: "1:00 PM",
+  //     memberAmount: 3,
+  //     memberList: ["John", "Jane", "Bob", "Akuc"],
+  //     createDateTime: "2022-09-18",
+  //     updateDateTime: "2022-09-18",
+  //     color: "blue",
+  //     imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
+  //   },
+  //   {
+  //     partyId: "4",
+  //     partyCode: "456",
+  //     partyOwner: "Alice",
+  //     partyName: "Whyyyyyyy",
+  //     partyDescription: "Another Test Party1111",
+  //     partyType: "Public",
+  //     partyCategory: "Group",
+  //     appointmentDate: "2022-09-21",
+  //     appointmentTime: "1:00 PM",
+  //     memberAmount: 3,
+  //     memberList: ["John", "Jane"],
+  //     createDateTime: "2022-09-18",
+  //     updateDateTime: "2022-09-18",
+  //     color: "pink",
+  //     imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
+  //   },
+  //   {
+  //     partyId: "5",
+  //     partyCode: "456",
+  //     partyOwner: "Alice",
+  //     partyName: "Whyyyyyyy",
+  //     partyDescription: "Another Test Party1111",
+  //     partyType: "Public",
+  //     partyCategory: "Group",
+  //     appointmentDate: "2022-09-21",
+  //     appointmentTime: "1:00 PM",
+  //     memberAmount: 3,
+  //     memberList: ["John", "Jane"],
+  //     createDateTime: "2022-09-18",
+  //     updateDateTime: "2022-09-18",
+  //     color: "orange",
+  //     imagepath: "https://cdn-icons-png.flaticon.com/512/1719/1719420.png",
+  //   },
+  // ];
 
   if (loading) {
     return (
@@ -197,7 +205,7 @@ export const MyParty = () => {
           <ModalComponent handleSortFilter={handleSortFilter} />
         </div>
         <PartyCardItem data={partylist} />
-        </div>
+      </div>
     );
   }
 };

@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { blue, green, pink, purple, red } from "@mui/material/colors";
+const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
 
-const renderPartyCard = ({
+const RenderPartyCard = React.memo(({
   partyName,
   imagepath,
   memberList,
   partyDescription,
-  color,
   createDateTime,
   appointmentTime,
   navigate,
 }) => {
+  const [backgroundColor] = useState(() => {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  });
+
   const navigateToParty = () => {
     // Navigate to party page
     navigate(`/party/${partyName}`, {
@@ -20,9 +26,9 @@ const renderPartyCard = ({
           imagepath,
           memberList,
           partyDescription,
-          color,
           createDateTime,
           appointmentTime,
+          backgroundColor
         },
       },
     });
@@ -31,7 +37,7 @@ const renderPartyCard = ({
   return (
     <div
       className="partyCard"
-      style={{ ...styles.partyCard, backgroundColor: color }}
+      style={{ ...styles.partyCard, backgroundColor}}
       onClick={navigateToParty}
     >
       <img src={imagepath} alt="Party Image" style={styles.partyImage} />
@@ -53,7 +59,7 @@ const renderPartyCard = ({
       </div>
     </div>
   );
-};
+});
 
 const styles = {
   partyCard: {
@@ -102,4 +108,4 @@ const styles = {
   },
 };
 
-export default renderPartyCard;
+export default RenderPartyCard;

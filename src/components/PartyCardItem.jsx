@@ -1,26 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import renderPartyCard from "./RenderPartyCard";
-
-
+import RenderPartyCard from "./RenderPartyCard";
 
 const PartyCardItem = ({ data }) => {
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="flatList" style={styles.partyList}>
       {data.map((item, index) => (
         <div key={index} style={styles.partyCardContainer}>
-          {renderPartyCard({
+          {/* {RenderPartyCard({
             partyName: item.partyName,
             imagepath: item.imagepath,
             memberList: item.memberList,
             partyDescription: item.partyDescription,
-            color: item.color,
             createDateTime: item.createDateTime,
             appointmentTime: item.appointmentTime,
             navigate: navigate
-          })}
+          })} */}
+          <RenderPartyCard
+            partyName={item.partyName}
+            imagepath={"https://cdn-icons-png.flaticon.com/512/1719/1719420.png"}
+            memberList={item.memberList}
+            partyDescription={item.partyDescription}
+            createDateTime={item.createDateTime}
+            appointmentTime={item.appointmentTime}
+            navigate={navigate}
+          />
         </div>
       ))}
     </div>
