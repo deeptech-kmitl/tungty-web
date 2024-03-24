@@ -1,24 +1,25 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Notification = () => {
-  const notilist = [
-    {
-      name: "Party A",
-      desc: "name has been change to by",
-    },
-    {
-      name: "Party A",
-      desc: "name has been change to by",
-    },
-    {
-      name: "Party A",
-      desc: "name has been change to by",
-    },
-    {
-      name: "Party A",
-      desc: "name has been change to by",
-    },
-  ];
+  const navigate = useNavigate();
+  const [noti, setNoti] = useState([]);
+  useEffect(() => {
+    const user_id = localStorage.getItem("user_id");
+    console.log(user_id);
+    if (user_id == null) {
+      navigate("/");
+    }
+    fetch(`https://tungty-service-be.onrender.com/notify/getAll/${user_id}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setNoti(data);
+      });
+  }, []);
   const NotiCard = ({ name, desc }) => (
     <div
       style={{
@@ -26,6 +27,7 @@ export const Notification = () => {
         borderRadius: "16px",
         padding: "16px",
         marginBottom: "18px",
+        color: "#4542C1",
       }}
     >
       <h3 style={{ margin: "0px" }}>{name}</h3>
@@ -47,8 +49,12 @@ export const Notification = () => {
         <h3>Notification</h3>
       </div>
       <div style={{ padding: "8%", paddingBottom: "100px" }}>
-        {notilist.map((item, index) => (
-          <NotiCard key={index} name={item.name} desc={item.desc} />
+        {noti.map((item, index) => (
+          <NotiCard
+            key={index}
+            name={item.partyName}
+            desc={item.notifyDescription}
+          />
         ))}
       </div>
     </div>
