@@ -66,6 +66,9 @@ export const MyParty = () => {
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchPartyData();
+      setInterval(() => {
+        fetchPartyData();
+      }, 60000);
     };
   }, []);
 
