@@ -15,11 +15,11 @@ import { green } from "@mui/material/colors";
 import PartyCardItem from "./../../components/PartyCardItem";
 
 export const MyParty = () => {
-  const userId = "Rawipas";
-
+  const userId = localStorage.getItem("user_id");
+  const token = localStorage.getItem("token");
   // token for authorization
-  const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
+  // const token =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
   const [search, setSearch] = useState("");
   const [originalData, setOriginalData] = useState([]);
   const [partylist, setPartylist] = useState([]);
@@ -80,6 +80,7 @@ export const MyParty = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      console.log(token)
       console.log(response.status);
       const data = await response.json();
       console.log(data);

@@ -7,7 +7,12 @@ import { FindParty } from "./pages/find_party/FindParty";
 import { MyParty } from "./pages/my_party/MyParty";
 import { BottomNav } from "./components/BottomNav";
 import { Register } from "./pages/register/Register";
-
+import { PartyMember } from './pages/party_member/PartyMember';
+import { MemberInfo } from './pages/party_member/MemberInfo';
+import { EditProfile } from './pages/profile/EditProfile';
+import { Profile } from './pages/profile/Profile';
+import { Notification } from './pages/notification/Notification';
+import { Party } from "./pages/my_party/Party";
 
 function App() {
   const [value, setValue] = useState(0);
