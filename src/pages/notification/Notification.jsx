@@ -7,7 +7,6 @@ export const Notification = () => {
   const [noti, setNoti] = useState([]);
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
-    console.log(user_id);
     if (user_id == null) {
       navigate("/");
     }
@@ -16,7 +15,6 @@ export const Notification = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setNoti(data);
       });
   }, []);
