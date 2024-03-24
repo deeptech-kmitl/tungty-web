@@ -2,7 +2,7 @@ import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Login } from "./pages/login/Login";
+import { Login } from "./pages/Login/Login";
 import { FindParty } from "./pages/find_party/FindParty";
 import { BottomNav } from "./components/BottomNav";
 import { Register } from "./pages/register/Register";
