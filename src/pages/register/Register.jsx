@@ -11,14 +11,14 @@ export const Register = () => {
   // const [allusername, setallUsername] = useState([]);
 
   const [formData, setFormData] = useState({
-    name: "NinEAynGNa",
-    surname: "NinEAynGNa",
-    username: "NinEAynGNa",
-    password: "NinEAynGNa",
-    studentId: "64070012",
-    faculty: "NinEAynGNa",
-    field: "NinEAynGNa",
-    year: "3",
+    name: "",
+    surname: "",
+    username: "",
+    password: "",
+    studentId: "",
+    faculty: "",
+    field: "",
+    year: "",
     profileImg: "Test",
   });
 
@@ -40,9 +40,18 @@ export const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (username == "" || password == "") {
-    //   setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
-    // }
+    if (
+      formData.name == "" ||
+      formData.surname == "" ||
+      formData.username == "" ||
+      formData.password == "" ||
+      formData.studentId == "" ||
+      formData.faculty == "" ||
+      formData.field == "" ||
+      formData.year == ""
+    ) {
+      setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
+    }
     // ใช้ตรวจ username ที่ซ้ำ
     // try {
     //   const response = await fetch(
@@ -68,32 +77,30 @@ export const Register = () => {
     //   setErrorMsg("username มีคนใช้แล้ว");
     // }
     try {
-      const responses = await Promise.all(
-        fetch("http://localhost:8083/user/register", {
+      const response = await fetch(
+        "https://tungty-service-be.onrender.com/user/register",
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-        })
+        }
       );
 
-      const responseArray = [];
-
-      for (const response of responses) {
-        if (!response.ok) throw new Error(`Error ${response.status}`);
-
-        responseArray.push(await response.json());
-      }
-
-      console.log(responseArray);
-
-      // console.log(response.json());
-
       // if (!response.ok) {
-      //   setErrorMsg("gay");
-      //   throw new Error("เกิดข้อผิดพลาดในการลงทะเบียน");
+      //   throw new Error(`Error ${response.status}`);
       // }
+
+      const responseData = await response.json();
+      console.log(responseData.errorMessage.includes("username"));
+      if (responseData.errorMessage.includes("username")) {
+        setErrorMsg("username นี้มีคนใช้แล้ว");
+        throw new Error(`username ซ้ำ`);
+      } else if (responseData.errorMessage.includes("studentId")) {
+        setErrorMsg("student ID นี้มีคนใช้แล้ว");
+        throw new Error(`studentId ซ้ำ`);
+      }
 
       navigate("/");
     } catch (error) {
@@ -114,13 +121,31 @@ export const Register = () => {
         <h1 style={{ color: "#FDC319", marginTop: "0px", paddingTop: 30 }}>
           REGISTER
         </h1>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "30px" }}>
+        <form
+          style={{ display: "flex", flexDirection: "column" }}
+          onSubmit={handleSubmit}
+        >
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Name
@@ -131,12 +156,27 @@ export const Register = () => {
               placeholder="Name"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Surname
@@ -147,12 +187,27 @@ export const Register = () => {
               placeholder="Surname"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Username
@@ -163,12 +218,27 @@ export const Register = () => {
               placeholder="Username"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Password
@@ -180,12 +250,27 @@ export const Register = () => {
               type="password"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Student ID
@@ -196,12 +281,27 @@ export const Register = () => {
               placeholder="Student ID"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Faculty
@@ -212,12 +312,27 @@ export const Register = () => {
               placeholder="Faculty"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Field
@@ -228,12 +343,27 @@ export const Register = () => {
               placeholder="Field"
             />
           </div>
-          <div style={{ marginBottom: "30px" }}>
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
             <h3
               style={{
-                marginLeft: "36px",
                 textAlign: "left",
                 color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
               }}
             >
               Year
