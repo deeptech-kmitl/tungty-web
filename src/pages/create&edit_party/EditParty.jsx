@@ -9,7 +9,7 @@ import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
 import CustomDatePicker from "../../components/DatePicker";
 
-export const CreateParty = () => {
+export const EditParty = () => {
     const navigate = useNavigate();
     const [selectedType, setSelectedType] = useState("");
     const [isPublic, setIsPublic] = useState(false);
@@ -22,7 +22,10 @@ export const CreateParty = () => {
         setIsPublic(event.target.checked);
     };
 
-    const handleCreateParty = () => {
+    const handleEditParty = () => {
+    };
+
+    const handleDeleteParty = () => {
     };
 
     return (
@@ -30,7 +33,7 @@ export const CreateParty = () => {
             <div style={{ width: "100vw", height: "100vh", backgroundColor: "#EFEFEF" }}>
                 <div style={{ backgroundColor: "#4542C1", padding: "1px", color: "#ffffff", position: "relative" }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <h3>Create Party</h3>
+                        <h3>Edit Party</h3>
                     </div>
                     <div onClick={() => { navigate("/find-party"); }}>
                         <ArrowBackIcon style={{ marginLeft: "16px", position: "absolute", top: "50%", transform: "translateY(-50%)" }} />
@@ -62,7 +65,7 @@ export const CreateParty = () => {
                     <label style={{ color: "#4542C1" }}>Party name :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} />
                     <label style={{ color: "#4542C1" }}>Date :</label><br />
-                    <CustomDatePicker/><br />
+                    <CustomDatePicker /><br />
                     <label style={{ color: "#4542C1" }}>Time :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} />
                     <label style={{ color: "#4542C1" }}>About :</label><br />
@@ -73,8 +76,9 @@ export const CreateParty = () => {
                     <FormControlLabel control={<Checkbox checked={!isPublic} onChange={handleCheckboxChange} />}
                         label="Private Party" style={{ color: "#4542C1" }}
                     />
-                    <div style={{ textAlign: "center", alignContent: "center" }}>
-                        <YellowButton title="Create Party" onClick={handleCreateParty} />
+                    <div style={{ textAlign: "center", alignContent: "center", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <YellowButton title="Save" onClick={handleEditParty} />
+                        <YellowButton title="Delete" onClick={handleDeleteParty} style={{backgroundColor: 'red', color:'black'}}/>
                     </div>
                 </div>
             </div>

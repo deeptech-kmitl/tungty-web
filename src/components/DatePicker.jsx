@@ -11,7 +11,7 @@ const CustomDatePicker = ({ value, onChange }) => {
                 label="Select Date"
                 value={value}
                 onChange={onChange}
-                renderInput={(params) => (
+                textField={(params) => (
                     <WhiteTextField
                         {...params}
                         variant="standard"

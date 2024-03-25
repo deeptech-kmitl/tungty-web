@@ -12,6 +12,7 @@ import { MemberInfo } from "./pages/party_member/MemberInfo";
 import { Profile } from "./pages/profile/Profile";
 import { EditProfile } from "./pages/profile/EditProfile";
 import { CreateParty } from "./pages/create&edit_party/CreateParty";
+import { EditParty } from "./pages/create&edit_party/EditParty";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/member-info" element={<MemberInfo />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route path="/create-party" element={<CreateParty />}></Route>
+          <Route path="/edit-party" element={<EditParty />}></Route>
           <Route
             path="/profile"
             element={
