@@ -5,9 +5,19 @@ import Grid from "@mui/material/Grid";
 import { YellowButton } from "../../components/YellowButton";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export const Profile = () => {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState([]);
+  const user_id = localStorage.getItem("user_id");
+
+  useEffect(() => {
+    fetch(`https://tungty-service-be.onrender.com/user/${user_id}`)
+      .then(response => response.json())
+      .then(data => setProfile(data))
+  }, []);
+
   return (
     <div
       style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
@@ -76,26 +86,22 @@ export const Profile = () => {
               src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
             />
           </div>
-          <h2 style={{ color: "#FDC319" }}>blujay bj</h2>
+          <h2 style={{ color: "#FDC319" }}>{profile.name} {profile.surname}</h2>
           <Divider variant="middle" />
           <div style={{ textAlign: "left" }}>
             <Grid container spacing={1}>
               <Grid item xs={6}>
-                <p>คณะ : IT </p>
+                <p>คณะ : {profile.faculty} </p>
               </Grid>
               <Grid item xs={6}>
-                <p>สาขา : IT</p>
+                <p>สาขา : {profile.field}</p>
               </Grid>
               <Grid item xs={6}>
-                <p>ปี : 3</p>
-              </Grid>
-              <Grid item xs={6}>
-                <p>รหัส : 63xxxxx</p>
+                <p>ปี : {profile.year}</p>
               </Grid>
             </Grid>
             <p>
-              เรียนที่คณะเทคโนโลยีสารสนเทศ สจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก
-              ชอบเล่นบาสมากชวนเล่นได้ค่ะ
+            {profile.aboutMe}
             </p>
           </div>
           <div>

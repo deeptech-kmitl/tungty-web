@@ -4,9 +4,29 @@ import { useNavigate } from "react-router-dom";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import Grid from "@mui/material/Grid";
 import { YellowButton } from "../../components/YellowButton";
+import { useState, useEffect } from "react";
 
 export const EditProfile = () => {
   const navigate = useNavigate();
+  const [changeYear, setInputchangeYear] = useState("");
+  const [requestEdit, setRequestEdit] = useState({});
+  useEffect(() => {
+    if (Object.keys(requestEdit).length > 0) {
+      EditProfile();
+    }
+  }, [requestEdit]);
+
+  const sendChange = () => {
+    fetch("https://tungty-service-be.onrender.com/user/edit_profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestEdit),
+    })
+      .then(response => response.json())
+  };
+
   return (
     <div
       style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
@@ -60,6 +80,9 @@ export const EditProfile = () => {
             </Grid>
             <Grid item xs={9}>
               <input
+                type="number"
+                value={changeYear}
+                onChange={(e) => setInputchangeYear(e.target.value)}
                 style={{
                   padding: "10px 16px",
                   borderRadius: 24,
@@ -90,7 +113,7 @@ export const EditProfile = () => {
             </Grid>
           </Grid>
           <div style={{ textAlign: "center" }}>
-            <YellowButton title="แก้ไขข้อมูล" handleOnClick={() => {}} />
+            <YellowButton title="แก้ไขข้อมูล" onClick={() => setRequestEdit({ changeYear })} />
           </div>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -136,7 +159,7 @@ export const EditProfile = () => {
               textAlign: "center",
             }}
           >
-            <YellowButton title="เปลี่ยนรหัสผ่าน" handleOnClick={() => {}} />
+            <YellowButton title="เปลี่ยนรหัสผ่าน" handleOnClick={() => { }} />
           </div>
         </div>
       </div>
