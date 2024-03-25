@@ -1,8 +1,8 @@
+// BottomNav.jsx
 import React from "react";
 import "../App.css";
-import { useState } from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
-import MuiBottomNavigationAction from "@mui/material/BottomNavigationAction";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import SearchIcon from "@mui/icons-material/Search";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -10,22 +10,14 @@ import ChatIcon from "@mui/icons-material/Chat";
 import PersonIcon from "@mui/icons-material/Person";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
-import { styled } from "@mui/material/styles";
 
-export const BottomNav = () => {
-  const [value, setValue] = useState(0);
+export const BottomNav = ({ value, setValue }) => {
   const navigate = useNavigate();
-  const BottomNavigationAction = styled(MuiBottomNavigationAction)(`
-  background-color:#FDC319;
-  color: #FFFFFF;
-  &.Mui-selected {
-    color: #4542C1;
-  }
-`);
 
   return (
     <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
       <BottomNavigation
+        sx={{ width: "100%", backgroundColor: "#FDC319" }}
         showLabels
         value={value}
         onChange={(event, newValue) => {
@@ -40,7 +32,7 @@ export const BottomNav = () => {
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">สังคมของฉัน</span>}
           icon={<GroupsIcon />}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/myparty")}
         />
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">แชท</span>}

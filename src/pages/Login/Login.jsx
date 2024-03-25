@@ -11,12 +11,34 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const Login = () => {
+  const Login = async () => {
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
-    } else {
-      setErrorMsg("");
+    }
+    try {
+      const response = await fetch(
+        "https://tungty-service-be.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
+      }
+
+      const data = await response.json();
+      // console.log(data.accessToken)
+      localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("user_id", data.userId);
+
       navigate("/find-party");
+    } catch (error) {
+      setErrorMsg(error.message);
     }
   };
   return (

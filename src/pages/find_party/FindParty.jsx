@@ -1,15 +1,61 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { NotificationAppBar } from "../../components/NotificationAppBar";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import SearchIcon from "@mui/icons-material/Search";
-import { PartyCard } from "../../components/PartyCard";
+import PartyCardItem from "../../components/PartyCardItem";
 import Grid from "@mui/material/Grid";
+import { FilterbyModal, IconToOpenFilterbyModal } from "../../components/FilterbyModal";
 
 export const FindParty = () => {
+  const userId = localStorage.getItem("user_id");
+  // const token = localStorage.getItem("token");
+  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
+  const [partylist, setPartylist] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+
+  // useEffect(() => {
+  //   fetch(`https://tungty-service-be.onrender.com/notify/getAll`)
+  //     .then(response => response.json())
+  //     .then(data => setPartylist(data))
+  // }, []);
+
+  useEffect(() => {
+    const bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      fetchPartyData();
+      setInterval(() => {
+        fetchPartyData();
+      }, 60000);
+    };
+  }, []);
+
+  const fetchPartyData = async () => {
+    try {
+      const response = await fetch(
+        `https://tungty-service-be.onrender.com/party`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(token)
+      console.log(response.status);
+      const data = await response.json();
+      console.log(data);
+
+      setOriginalData(data);
+      setPartylist(data);
+      // setLoading(false);
+    } catch (error) {
+      console.log("error" + error);
+      // setLoading(false);
+    }
+  };
+
   return (
-    <div
-      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
-    >
+    <div style={styles.pageContainer}>
       <NotificationAppBar />
       <div style={{ textAlign: "center", marginTop: "16px" }}>
         <div
@@ -26,54 +72,35 @@ export const FindParty = () => {
             style={{ verticalAlign: "middle", marginRight: "10px" }}
           />
         </div>
-        <div style={{ padding: "8%" }}>
-          <PartyCard
-            name="Test"
-            image="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-            member={10}
-            bgColor="#FDE619"
-            desc="เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ"
+        <FilterbyModal></FilterbyModal>
+        <h1 style={{ color: '#FDC319' }}>หาปาร์ตี้</h1>
+        <div style={styles.titleNSorting}>
+          <PartyCardItem
+            data={partylist}
           />
-          <Grid container spacing={2}>
-            <Grid item xs={6} md={8}>
-              <PartyCard
-                name="Test"
-                image="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-                member={10}
-                bgColor="#FDE619"
-                desc="เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ"
-              />
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <PartyCard
-                name="Test"
-                image="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-                member={10}
-                bgColor="#FDE619"
-                desc="เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ"
-              />
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <PartyCard
-                name="Test"
-                image="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-                member={10}
-                bgColor="#FDE619"
-                desc="เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ"
-              />
-            </Grid>
-            <Grid item xs={6} md={8}>
-              <PartyCard
-                name="Test"
-                image="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-                member={10}
-                bgColor="#FDE619"
-                desc="เป็นปาร์ตี้ปลุกพาไปทานชาบูสุดอร่อย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถอย สำหรับเพื่อพื่อสามารถ"
-              />
-            </Grid>
-          </Grid>
         </div>
       </div>
     </div>
   );
+};
+const styles = {
+  pageContainer: {
+    height: "97vh",
+    overflowY: "scroll",
+  },
+  searchbar: {
+    flexDirection: "row",
+    marginTop: "3%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    marginHorizontal: 8,
+  },
+  titleNSorting: {
+    display: "flex",
+    marginRight: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 };
