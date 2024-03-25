@@ -80,10 +80,10 @@ export const MyParty = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(token)
-      console.log(response.status);
+      // console.log(token)
+      // console.log(response.status);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       setOriginalData(data);
       setPartylist(data);

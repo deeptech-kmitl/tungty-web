@@ -7,11 +7,11 @@ import { FindParty } from "./pages/find_party/FindParty";
 import { MyParty } from "./pages/my_party/MyParty";
 import { BottomNav } from "./components/BottomNav";
 import { Register } from "./pages/register/Register";
-import { PartyMember } from './pages/party_member/PartyMember';
-import { MemberInfo } from './pages/party_member/MemberInfo';
-import { EditProfile } from './pages/profile/EditProfile';
-import { Profile } from './pages/profile/Profile';
-import { Notification } from './pages/notification/Notification';
+import { PartyMember } from "./pages/party_member/PartyMember";
+import { MemberInfo } from "./pages/party_member/MemberInfo";
+import { EditProfile } from "./pages/profile/EditProfile";
+import { Profile } from "./pages/profile/Profile";
+import { Notification } from "./pages/notification/Notification";
 import { Party } from "./pages/my_party/Party";
 
 function App() {
@@ -40,15 +40,23 @@ function App() {
               </>
             }
           />
-          <Route path="/member" element={<PartyMember />}></Route>
+          <Route
+            path="/member"
+            element={
+              <>
+                <PartyMember />
+                <BottomNav value={value} setValue={setValue} />
+              </>
+            }
+          ></Route>
           <Route path="/member-info" element={<MemberInfo />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route
             path="/profile"
             element={
               <>
-                <BottomNav />
                 <Profile />
+                <BottomNav value={value} setValue={setValue} />
               </>
             }
           ></Route>
@@ -56,7 +64,7 @@ function App() {
             path="/notification"
             element={
               <>
-                <BottomNav />
+                <BottomNav value={value} setValue={setValue} />
                 <Notification />
               </>
             }
