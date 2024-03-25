@@ -49,7 +49,6 @@ const styles = {
   navbar: {
     height: "7vh",
     display: "flex",
-    justifyContent: "space-around",
     position: "sticky",
     top: 0,
     zIndex: 1,

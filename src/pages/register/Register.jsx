@@ -7,19 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
+  // const [allusername, setallUsername] = useState([]);
 
-  const handlelogout = "gay"
-  
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
-    username: "",
-    password: "",
-    studentId: "",
-    faculty: "",
-    field: "",
-    year: "",
-    profileImg: "Test"
+    name: "NinEAynGNa",
+    surname: "NinEAynGNa",
+    username: "NinEAynGNa",
+    password: "NinEAynGNa",
+    studentId: "64070012",
+    faculty: "NinEAynGNa",
+    field: "NinEAynGNa",
+    year: "3",
+    profileImg: "Test",
   });
 
   useEffect(() => {
@@ -40,21 +40,60 @@ export const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (gay){
-      console(yougay)
-    }
-    try {
-      const response = await fetch("https://tungty-service-be.onrender.com/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    // if (username == "" || password == "") {
+    //   setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
+    // }
+    // ใช้ตรวจ username ที่ซ้ำ
+    // try {
+    //   const response = await fetch(
+    //     `http://localhost:8083/user`,
+    //     {
+    //       headers: { "Content-Type": "application/json", },
+    //     }
+    //   );
+    //   // console.log(token)
+    //   // console.log(response.status);
+    //   const data = await response.json();
+    //   // console.log(data);
 
-      if (!response.ok) {
-        throw new Error("เกิดข้อผิดพลาดในการลงทะเบียน");
+    //   setallUsername(data);
+    // } catch (error) {
+    //   console.log("error" + error);
+    // }
+
+    // const filteredList = allusername.filter((element) =>
+    //   element.username.toLowerCase().includes(search.toLowerCase())
+    // );
+    // if (filteredList) {
+    //   setErrorMsg("username มีคนใช้แล้ว");
+    // }
+    try {
+      const responses = await Promise.all(
+        fetch("http://localhost:8083/user/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+      );
+
+      const responseArray = [];
+
+      for (const response of responses) {
+        if (!response.ok) throw new Error(`Error ${response.status}`);
+
+        responseArray.push(await response.json());
       }
+
+      console.log(responseArray);
+
+      // console.log(response.json());
+
+      // if (!response.ok) {
+      //   setErrorMsg("gay");
+      //   throw new Error("เกิดข้อผิดพลาดในการลงทะเบียน");
+      // }
 
       navigate("/");
     } catch (error) {
@@ -64,7 +103,12 @@ export const Register = () => {
 
   return (
     <div
-      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#4542C1", overflowY: "scroll"}}
+      style={{
+        width: "100dvw",
+        height: "100dvh",
+        backgroundColor: "#4542C1",
+        overflowY: "scroll",
+      }}
     >
       <div style={{ textAlign: "center" }}>
         <h1 style={{ color: "#FDC319", marginTop: "0px", paddingTop: 30 }}>
@@ -200,6 +244,7 @@ export const Register = () => {
               placeholder="Year"
             />
           </div>
+          <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
           <div style={{ paddingBottom: "24px" }}>
             <YellowButton
               title="Register"

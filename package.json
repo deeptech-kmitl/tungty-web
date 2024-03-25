@@ -18,12 +18,14 @@
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.13",
     "cors": "^2.8.5",
+    "i": "^0.3.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^6.1.6",
     "react-native-vector-icons": "^10.0.3",
     "react-spinners": "^0.13.8",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "sweetalert2": "^11.10.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
