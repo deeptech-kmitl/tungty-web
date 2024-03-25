@@ -3,10 +3,21 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import { YellowButton } from "../../components/YellowButton";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
 
 export const MemberInfo = () => {
   const navigate = useNavigate();
+  let { username } = useParams();
+  const [userInfo, setUserInfo] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://tungty-service-be.onrender.com/user/username/${username}`)
+      .then(response => response.json())
+      .then(data => setUserInfo(data))
+  }, []);
+
   return (
     <div
       style={{ width: "100dvw", height: "100dvh", backgroundColor: "#4542C1" }}
@@ -64,15 +75,20 @@ export const MemberInfo = () => {
             sx={{ width: 200, height: 200, alignSelf: "center" }}
             src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
           />
-          <h2 style={{ color: "#FDC319" }}>blujay bj</h2>
+          <h2 style={{ color: "#FDC319" }}>{userInfo.name} {userInfo.surname}</h2>
+          
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <p>{userInfo.field}</p>
+            </Grid>
+            <Grid item xs={6}>
+              <p>ปี {userInfo.year}</p>
+            </Grid>
+          </Grid>
           <Divider variant="middle" />
           <p>
-            เรียนที่คณะเทคโนโลยีสารสนเทศ สจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก
-            ชอบเล่นบาสมากชวนเล่นได้ค่ะ{" "}
+            {userInfo.aboutMe}
           </p>
-          <div>
-            <YellowButton title="CHAT" handleOnClick={() => {}} />
-          </div>
         </div>
       </div>
     </div>
