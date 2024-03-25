@@ -10,16 +10,18 @@ export const Profile = () => {
   const navigate = useNavigate();
   return (
     <div
-      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
+      style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF", }}
     >
       <div
         style={{
           backgroundColor: "#4542C1",
           padding: "1px",
           color: "#ffffff",
+          zIndex: 50,
           position: "relative",
           justifyContent: "space-between",
           alignItems: "center",
+          overflow: "hidden"
         }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -64,9 +66,15 @@ export const Profile = () => {
             paddingLeft: "24px",
           }}
         >
-          <div style={{ paddingRight: "75px", paddingLeft: "75px" }}>
+          <div
+            style={{
+              paddingRight: "75px",
+              paddingLeft: "75px",
+              alignSelf: "center",
+            }}
+          >
             <Avatar
-              sx={{ width: "30dvw", height: "30dvw", alignSelf: "center" }}
+              sx={{ width: "175px", height: "175px", alignSelf: "center" }}
               src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
             />
           </div>
