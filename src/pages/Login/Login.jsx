@@ -11,12 +11,34 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const Login = () => {
+  const Login = async () => {
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
-    } else {
-      setErrorMsg("");
+    }
+    try {
+      const response = await fetch(
+        "http://localhost:8083/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
+      }
+
+      const data = await response.json();
+      // console.log(data.accessToken)
+      localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("user_id", data.userId);
+
       navigate("/find-party");
+    } catch (error) {
+      setErrorMsg(error.message);
     }
   };
   return (
@@ -47,7 +69,7 @@ export const Login = () => {
           onValueChange={(e) => setPasword(e.target.value)}
         />
         <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
-        <YellowButton title="Login" handleOnClick={Login}></YellowButton>
+        <YellowButton title="Login" handleOnClick={Login} style={{cursor: "pointer"}}></YellowButton>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <h4 style={{ color: "#ffffff" }}>ยังไม่มีบัญชี? &nbsp;</h4>
           <div
