@@ -54,7 +54,7 @@ const styles = {
     zIndex: 1,
     backgroundColor: "#4542C1",
     alignItems: "center",
-    justifyContent: "flex-end", // This should be removed if you want to use space-around
+    justifyContent: "flex-end",
   },
   bell: {
     marginRight: "2%",
