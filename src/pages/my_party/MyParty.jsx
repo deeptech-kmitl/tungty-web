@@ -75,7 +75,7 @@ export const MyParty = () => {
   const fetchPartyData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8083/party/myParty/${userId}`,
+        `https://tungty-service-be.onrender.com/party/myParty/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
