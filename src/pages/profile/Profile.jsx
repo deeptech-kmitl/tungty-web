@@ -64,9 +64,15 @@ export const Profile = () => {
             paddingLeft: "24px",
           }}
         >
-          <div style={{ paddingRight: "75px", paddingLeft: "75px" }}>
+          <div
+            style={{
+              paddingRight: "75px",
+              paddingLeft: "75px",
+              alignSelf: "center",
+            }}
+          >
             <Avatar
-              sx={{ width: "30dvw", height: "30dvw", alignSelf: "center" }}
+              sx={{ width: "175px", height: "175px", alignSelf: "center" }}
               src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
             />
           </div>
