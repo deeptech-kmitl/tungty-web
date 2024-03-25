@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
 import { Padding } from "@mui/icons-material";
@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const navigate = useNavigate();
+
+  const handlelogout = "gay"
+  
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
@@ -16,7 +19,17 @@ export const Register = () => {
     faculty: "",
     field: "",
     year: "",
+    profileImg: "Test"
   });
+
+  useEffect(() => {
+    // Set initial partylist state when component mounts
+    const bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+    };
+  }, []);
 
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
@@ -25,15 +38,33 @@ export const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigate("/");
+    if (gay){
+      console(yougay)
+    }
+    try {
+      const response = await fetch("https://tungty-service-be.onrender.com/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("เกิดข้อผิดพลาดในการลงทะเบียน");
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div
-      style={{ width: "100dvw", height: "100%", backgroundColor: "#4542C1" }}
+      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#4542C1", overflowY: "scroll"}}
     >
       <div style={{ textAlign: "center" }}>
         <h1 style={{ color: "#FDC319", marginTop: "0px", paddingTop: 30 }}>
