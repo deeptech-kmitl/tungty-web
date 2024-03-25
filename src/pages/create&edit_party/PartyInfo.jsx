@@ -48,7 +48,8 @@ export const PartyInfo = () => {
                     <h2 style={{ fontSize: 30 }}>👤 12</h2>
                     <div style={{ height: '2px', backgroundColor: '#D9D9D9', margin: '10px 0' }}></div>
                     <h2 style={{ fontSize: 30 }}>หากเพื่อนๆสนใจที่จะแลกเปลี่ยนความรู้ พากันติวและ พากันเก็บA หรือพากันรอดชีวิตขอให้อย่ารีรอ ที่จะเข้ามา</h2>
-                    <div style={dividerStyle} />
+                    <div style={{ height: '2px', backgroundColor: '#D9D9D9', margin: '10px 0' }}></div>
+                    <h2 style={{ fontSize: 30, color: '#FDC319' }}>CODE:AZBrsD593</h2>
                 </div>
             </div>
             <button style={{ ...buttonStyle, width: '100%', position: 'sticky', bottom: '60px', zIndex: '2', }}>
@@ -77,6 +78,7 @@ const headerContainer = {
 const contentContainer = {
     paddingRight: "75px",
     paddingLeft: "75px",
+    marginBottom: "50px",
 };
 
 const dividerStyle = {
