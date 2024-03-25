@@ -39,6 +39,9 @@ export const EditParty = () => {
                         <ArrowBackIcon style={{ marginLeft: "16px", position: "absolute", top: "50%", transform: "translateY(-50%)" }} />
                     </div>
                 </div>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <h2 style={{ color: '#FDC319' }}>CODE:AZBrsD593</h2>
+                </div>
                 <div style={{ paddingRight: "75px", paddingLeft: "75px", display: "flex", justifyContent: "center" }}>
                     <Avatar
                         sx={{ width: "30vw", height: "30vw" }}
@@ -78,7 +81,7 @@ export const EditParty = () => {
                     />
                     <div style={{ textAlign: "center", alignContent: "center", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <YellowButton title="Save" onClick={handleEditParty} />
-                        <YellowButton title="Delete" onClick={handleDeleteParty} style={{backgroundColor: 'red', color:'black'}}/>
+                        <YellowButton title="Delete" onClick={handleDeleteParty} style={{ backgroundColor: 'red', color: 'black' }} />
                     </div>
                 </div>
             </div>
