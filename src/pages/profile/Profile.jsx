@@ -8,6 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate("/");
+  }
   return (
     <div
       style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF", }}
@@ -101,7 +106,7 @@ export const Profile = () => {
             </p>
           </div>
           <div>
-            <YellowButton title="Logout" handleOnClick={() => {}} />
+            <YellowButton title="Logout" handleOnClick={handleLogout} />
           </div>
         </div>
       </div>

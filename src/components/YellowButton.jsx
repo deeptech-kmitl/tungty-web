@@ -9,6 +9,7 @@ export const YellowButton = ({ title, handleOnClick }) => {
         margin: "36px",
         borderRadius: 32,
         color: "#4542C1",
+        cursor: "pointer"
       }}
     >
       <h3 style={{ padding: "8px", margin: "0px" }}>{title}</h3>
