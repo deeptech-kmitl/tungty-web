@@ -68,7 +68,7 @@ export const MyParty = () => {
       fetchPartyData();
       setInterval(() => {
         fetchPartyData();
-      }, 60000);
+      }, 30000);
     };
   }, []);
 
