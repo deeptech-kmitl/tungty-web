@@ -1,15 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import Header from "../../components/Header";
+import { WhiteTextField } from "../../components/WhiteTextField";
+import ChatCard from "../../components/ChatCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchBar from "../../components/SearchBar";
-import ChatCard from "../../components/ChatCard";
-import { NotificationAppBar } from "../../components/NotificationAppBar";
-import Header from "../../components/Header";
-import { useLocation } from "react-router-dom";
-import { WhiteTextField } from "../../components/WhiteTextField";
 
 export const Chat = () => {
   const [originalData, setOriginalData] = useState([]);
@@ -17,7 +13,6 @@ export const Chat = () => {
   const [sendChat, setSendChat] = useState([]);
   const location = useLocation();
   const { partyData } = location.state;
-  //   console.log(partyData.partyId);
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("user_id");
@@ -25,21 +20,17 @@ export const Chat = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    fetchChatData();
     return () => {
       document.body.style.overflow = bodyOverflow;
-      // setInterval(async () => {
-      //   await fetchPartyData()
-      // }, 1000);
+      setInterval(() => fetchChatData, 3000);
     };
   }, []);
 
-  const fetchPartyData = async () => {
+  const fetchChatData = async () => {
     try {
       const response = await fetch(
-        `https://tungty-service-be.onrender.com/chat/getAllMessage/${partyData.partyId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        `https://tungty-service-be.onrender.com/chat/getAllMessage/${partyData.partyId}`
       );
       const data = await response.json();
       setOriginalData(data);
@@ -69,8 +60,8 @@ export const Chat = () => {
       );
       if (response.ok) {
         setChatlist((prevChatList) => [...prevChatList, { message: sendChat }]);
-        await fetchPartyData();
         setSendChat("");
+        await fetchChatData();
       } else {
         console.log("Failed to send message");
       }
@@ -102,23 +93,7 @@ export const Chat = () => {
             {partyData.partyName}
           </div>
         </Header>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            justifyItems: "center",
-            alignContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-          }}
-        >
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-            alt="Chat Image"
-            style={styles.chatImage}
-          />
-        </div>
+
         <ChatCard data={chatlist} />
       </div>
       <div
@@ -147,13 +122,6 @@ export const Chat = () => {
 
 const styles = {
   pageContainer: { height: "96vh", overflowY: "scroll" },
-  chatImage: {
-    width: "20%",
-    height: "20%",
-    resizeMode: "contain",
-    borderRadius: "50%",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-  },
   buttonChat: {
     padding: "8px",
     margin: "0px",

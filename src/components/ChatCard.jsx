@@ -46,10 +46,11 @@ const renderChatCard = ({ item }) => {
                 marginBottom: "0",
                 color: "#4542C1",
                 fontWeight: "",
+                alignSelf: "center",
               }}
               title={item.partyName}
             >
-              {item.partyName}
+              {item.userId}
             </p>
           </div>
           <div style={styles.chatCardContainer}>
