@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import { NotificationAppBar } from "../../components/NotificationAppBar";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import SearchIcon from "@mui/icons-material/Search";
-import PartyCardItem from "../../components/PartyCardItem";
-import Grid from "@mui/material/Grid";
-import { FilterbyModal, IconToOpenFilterbyModal } from "../../components/FilterbyModal";
+import PartyInfoCardItem from "../../components/PartyInfoCardItem";
+import { FilterbyModal } from "../../components/FilterbyModal";
 
 export const FindParty = () => {
   const userId = localStorage.getItem("user_id");
@@ -13,12 +12,6 @@ export const FindParty = () => {
   const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
   const [partylist, setPartylist] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-
-  // useEffect(() => {
-  //   fetch(`https://tungty-service-be.onrender.com/notify/getAll`)
-  //     .then(response => response.json())
-  //     .then(data => setPartylist(data))
-  // }, []);
 
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
@@ -47,10 +40,8 @@ export const FindParty = () => {
 
       setOriginalData(data);
       setPartylist(data);
-      // setLoading(false);
     } catch (error) {
       console.log("error" + error);
-      // setLoading(false);
     }
   };
 
@@ -75,9 +66,7 @@ export const FindParty = () => {
         <FilterbyModal></FilterbyModal>
         <h1 style={{ color: '#FDC319' }}>หาปาร์ตี้</h1>
         <div style={styles.titleNSorting}>
-          <PartyCardItem
-            data={partylist}
-          />
+          <PartyInfoCardItem data={partylist} />
         </div>
       </div>
     </div>

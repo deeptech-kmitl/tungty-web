@@ -14,9 +14,8 @@ import { Profile } from "./pages/profile/Profile";
 import { EditProfile } from "./pages/profile/EditProfile";
 import { CreateParty } from "./pages/create&edit_party/CreateParty";
 import { EditParty } from "./pages/create&edit_party/EditParty";
-import { PartyInfo } from "./pages/create&edit_party/PartyInfo";
 import { Party } from "./pages/my_party/Party";
-import { JoinPrivateParty } from "./pages/find_party/JoinPrivateParty";
+import { PartyInfo } from "./pages/find_party/PartyInfo";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -44,12 +43,19 @@ function App() {
               </>
             }
           />
+          <Route
+            path="/party-info/*"
+            element={
+              <>
+                <PartyInfoPage />
+              </>
+            }
+          />
           <Route path="/member" element={<PartyMember />}></Route>
           <Route path="/member-info" element={<MemberInfo />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route path="/create-party" element={<CreateParty />}></Route>
           <Route path="/edit-party" element={<EditParty />}></Route>
-          <Route path="/party-info" element={<PartyInfo />}></Route>
           <Route
             path="/profile"
             element={
@@ -77,15 +83,6 @@ function App() {
               </>
             }
           />
-                    <Route
-            path="/join-private-party"
-            element={
-              <>
-                <BottomNav value={value} setValue={setValue} />
-                <JoinPrivateParty />
-              </>
-            }
-          />
         </Routes>
       </BrowserRouter>
     </>
@@ -96,6 +93,13 @@ function PartyPage() {
     <Routes>
       {/* Define a dynamic route to render party details */}
       <Route path=":partyId" element={<Party />} />
+    </Routes>
+  );
+}
+function PartyInfoPage() {
+  return (
+    <Routes>
+      <Route path=":partyId" element={<PartyInfo />} />
     </Routes>
   );
 }
