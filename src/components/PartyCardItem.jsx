@@ -19,8 +19,11 @@ const PartyCardItem = ({ data }) => {
             navigate: navigate
           })} */}
           <RenderPartyCard
+            partyId={item.partyId}
             partyName={item.partyName}
-            imagepath={"https://cdn-icons-png.flaticon.com/512/1719/1719420.png"}
+            imagepath={
+              "https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
+            }
             memberList={item.memberList}
             partyDescription={item.partyDescription}
             createDateTime={item.createDateTime}

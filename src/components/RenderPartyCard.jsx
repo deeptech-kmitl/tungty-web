@@ -4,6 +4,7 @@ import { blue, green, pink, purple, red } from "@mui/material/colors";
 const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
 
 const RenderPartyCard = React.memo(({
+  partyId,
   partyName,
   imagepath,
   memberList,
@@ -22,6 +23,7 @@ const RenderPartyCard = React.memo(({
     navigate(`/party/${partyName}`, {
       state: {
         partyData: {
+          partyId,
           partyName,
           imagepath,
           memberList,

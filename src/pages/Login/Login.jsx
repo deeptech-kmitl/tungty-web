@@ -33,6 +33,7 @@ export const Login = () => {
   }, []);
 
   const handleLogin = async () => {
+    localStorage.clear()
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
     }

@@ -13,6 +13,7 @@ import { EditProfile } from "./pages/profile/EditProfile";
 import { Profile } from "./pages/profile/Profile";
 import { Notification } from "./pages/notification/Notification";
 import { Party } from "./pages/my_party/Party";
+import { Chat } from "./pages/chat/Chat";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -78,6 +79,7 @@ function App() {
               </>
             }
           />
+          <Route path="/chat/:partyName" element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </>
