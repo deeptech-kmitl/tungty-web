@@ -23,11 +23,13 @@ export const Chat = () => {
   const userId = localStorage.getItem("user_id");
 
   useEffect(() => {
-    fetchPartyData();
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = bodyOverflow;
+      // setInterval(async () => {
+      //   await fetchPartyData()
+      // }, 1000);
     };
   }, []);
 
@@ -39,11 +41,7 @@ export const Chat = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // console.log(token)
-      // console.log(response.status);
       const data = await response.json();
-      // console.log(data);
-
       setOriginalData(data);
       setChatlist(data);
     } catch (error) {
@@ -70,9 +68,8 @@ export const Chat = () => {
         }
       );
       if (response.ok) {
-        // Update chat list with the new message
         setChatlist((prevChatList) => [...prevChatList, { message: sendChat }]);
-        // Clear the input field
+        await fetchPartyData();
         setSendChat("");
       } else {
         console.log("Failed to send message");
