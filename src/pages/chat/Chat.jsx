@@ -34,7 +34,7 @@ export const Chat = () => {
   const fetchPartyData = async () => {
     try {
       const response = await fetch(
-        `https://tungty-service-be.onrender.com/chat/getAllMessage/t4`,
+        `https://tungty-service-be.onrender.com/chat/getAllMessage/${partyData.partyId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -59,13 +59,13 @@ export const Chat = () => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             message: sendChat,
             partyId: partyData.partyId,
             userId: userId,
-            appointmentDate: "7.99",
+            appointmentDate: currentDate,
           }),
         }
       );
@@ -93,7 +93,15 @@ export const Chat = () => {
             onClick={() => window.history.back()}
             style={{ marginLeft: "3%", cursor: "pointer" }}
           />
-          <div style={{color: "#FDC319", fontSize: "24px", maxWidth: "calc(50%)", overflow: "hidden", textOverflow: "ellipsis",}}>
+          <div
+            style={{
+              color: "#FDC319",
+              fontSize: "24px",
+              maxWidth: "calc(50%)",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
             {partyData.partyName}
           </div>
         </Header>

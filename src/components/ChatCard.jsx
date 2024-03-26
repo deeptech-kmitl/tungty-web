@@ -2,14 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const renderChatCard = ({ item }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const userId = "Test Party";
+  const userId = localStorage.getItem("user_id");
   const token = localStorage.getItem("token");
 
   return (
     <>
-      {userId == item.partyName ? (
+      {userId == item.userId ? (
         <div style={{ ...styles.chatList, alignItems: "flex-end" }}>
           <div style={styles.chatCardContainer}>
             <div
