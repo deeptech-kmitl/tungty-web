@@ -51,7 +51,15 @@ function App() {
               </>
             }
           />
-          <Route path="/member" element={<PartyMember />}></Route>
+          <Route
+            path="/member"
+            element={
+              <>
+                <PartyMember />
+                <BottomNav value={value} setValue={setValue} />
+              </>
+            }
+          ></Route>
           <Route path="/member-info" element={<MemberInfo />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route path="/create-party" element={<CreateParty />}></Route>
@@ -60,8 +68,8 @@ function App() {
             path="/profile"
             element={
               <>
-                <BottomNav />
                 <Profile />
+                <BottomNav value={value} setValue={setValue} />
               </>
             }
           ></Route>
@@ -69,7 +77,7 @@ function App() {
             path="/notification"
             element={
               <>
-                <BottomNav />
+                <BottomNav value={value} setValue={setValue} />
                 <Notification />
               </>
             }

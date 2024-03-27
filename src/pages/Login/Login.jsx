@@ -1,8 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
 import { useNavigate } from "react-router-dom";
+// import Swal from "sweetalert2";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +12,27 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const Login = async () => {
+  useEffect(() => {
+    const bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const interval = setInterval(() => {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("user_id");
+
+      if (token && userId) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user_id", userId);
+      }
+    }, 90000);
+
+    return () => {
+      clearInterval(interval);
+      document.body.style.overflow = bodyOverflow;
+    };
+  }, []);
+
+  const handleLogin = async () => {
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
     }
@@ -36,11 +57,23 @@ export const Login = () => {
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("user_id", data.userId);
 
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "เข้าสู่ระบบสำเร็จ!",
+      //   text: "ยินดีต้อนรับเข้าสู่ระบบ TungTy",
+      // }).then(() => {
       navigate("/find-party");
+      // });
     } catch (error) {
       setErrorMsg(error.message);
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "เกิดข้อผิดพลาด!",
+      //   text: error.message,
+      // });
     }
   };
+
   return (
     <div
       style={{ width: "100dvw", height: "100dvh", backgroundColor: "#4542C1" }}
@@ -69,8 +102,14 @@ export const Login = () => {
           onValueChange={(e) => setPasword(e.target.value)}
         />
         <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
-        <YellowButton title="Login" handleOnClick={Login}></YellowButton>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <YellowButton title="Login" handleOnClick={handleLogin}></YellowButton>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            cursor: "pointer",
+          }}
+        >
           <h4 style={{ color: "#ffffff" }}>ยังไม่มีบัญชี? &nbsp;</h4>
           <div
             onClick={() => {
