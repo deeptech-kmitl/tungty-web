@@ -1,11 +1,14 @@
 import React from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "@mui/material/Modal";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 export const PartyInfo = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { partyData } = location.state;
   const date = new Date(Date.parse(partyData.createDateTime));
@@ -17,12 +20,71 @@ export const PartyInfo = () => {
     date.getMinutes(),
   ];
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const handleClose = () => {
+    navigate("/find-party")
+  };
+
+  const handleJoin = async () => {
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+    let username;
+    try {
+      const response = await fetch(
+        `https://tungty-service-be.onrender.com/user/${userId}`,
+      );
+      const data = await response.json();
+      console.log(data.username);
+      username = data.username;
+    } catch (error) {
+    }
+    try {
+      const response = await fetch(
+        "https://tungty-service-be.onrender.com/party/join",
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: username,
+            partyId: partyData.partyId,
+          }),
+        }
+      );
+      console.log(partyData.partyId)
+    } catch (error) {
+    }
+    const partyName = partyData.partyName;
+    const imagepath = partyData.imagepath;
+    const memberList = partyData.memberList;
+    const partyDescription = partyData.partyDescription;
+    const createDateTime = partyData.createDateTime;
+    const appointmentTime = partyData.appointmentTime;
+    const backgroundColor = partyData.backgroundColor;
+
+    navigate(`/party/${partyData.partyName}`, {
+      state: {
+        partyData: {
+          partyName,
+          imagepath,
+          memberList,
+          partyDescription,
+          createDateTime,
+          appointmentTime,
+          backgroundColor
+        },
+      },
+    });
+  }
+
   return (
-    <Modal open={true} onClose={() => {}}>
+    <Modal open={true}>
       <div style={styles.modalContainer}>
         <IconButton
           style={{ position: "absolute", top: "5px", right: "5px", color: "white" }}
-          onClick={() => onClose()}
+          onClick={handleClose}
         >
           <CloseIcon />
         </IconButton>
@@ -59,7 +121,7 @@ export const PartyInfo = () => {
         <div style={{ marginTop: "2%", fontSize: 24, color: "white" }}>
           {partyData.partyDescription}
         </div>
-        <div style={styles.button}>JOIN</div>
+        <div style={styles.button} onClick={handleJoin}>JOIN</div>
       </div>
     </Modal>
   );

@@ -11,6 +11,7 @@ const PartyInfoCardItem = ({ data }) => {
                 <div key={index} style={styles.partyCardContainer}>
                     <RenderPartyInfoCard
                         partyName={item.partyName}
+                        partyId={item.partyId}
                         imagepath={"https://cdn-icons-png.flaticon.com/512/1719/1719420.png"}
                         memberList={item.memberList}
                         partyDescription={item.partyDescription}

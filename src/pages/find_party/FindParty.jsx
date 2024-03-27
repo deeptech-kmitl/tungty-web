@@ -8,8 +8,8 @@ import { FilterbyModal } from "../../components/FilterbyModal";
 
 export const FindParty = () => {
   const userId = localStorage.getItem("user_id");
-  // const token = localStorage.getItem("token");
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
+  const token = localStorage.getItem("token");
+  // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
   const [partylist, setPartylist] = useState([]);
   const [originalData, setOriginalData] = useState([]);
 
@@ -19,9 +19,7 @@ export const FindParty = () => {
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchPartyData();
-      setInterval(() => {
-        fetchPartyData();
-      }, 60000);
+    
     };
   }, []);
 

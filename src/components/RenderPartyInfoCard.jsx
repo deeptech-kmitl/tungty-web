@@ -5,6 +5,7 @@ const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
 
 const RenderPartyInfoCard = React.memo(({
   partyName,
+  partyId,
   imagepath,
   memberList,
   partyDescription,
@@ -23,6 +24,7 @@ const RenderPartyInfoCard = React.memo(({
       state: {
         partyData: {
           partyName,
+          partyId,
           imagepath,
           memberList,
           partyDescription,
