@@ -5,6 +5,7 @@ const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
 
 const RenderPartyCard = React.memo(({
   partyName,
+  partyId,
   imagepath,
   memberList,
   partyDescription,
@@ -23,6 +24,7 @@ const RenderPartyCard = React.memo(({
       state: {
         partyData: {
           partyName,
+          partyId,
           imagepath,
           memberList,
           partyDescription,
@@ -67,7 +69,6 @@ const styles = {
     display: "flex",
     height: "8rem",
     padding: "8%",
-    marginLeft: "10%",
     borderRadius: "10px",
     alignItems: "center",
     cursor: "pointer",
@@ -86,7 +87,7 @@ const styles = {
     flexDirection: "column",
   },
   partyName: {
-    fontSize: "30px",
+    fontSize: "24px",
     fontWeight: "bold",
     overflow: "hidden",
     textOverflow: "ellipsis",

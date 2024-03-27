@@ -8,6 +8,7 @@ const PartyInfoCardItem = ({ data }) => {
     return (
         <div className="flatList" style={styles.partyList}>
             {data.map((item, index) => (
+                (item.partyType == "Public")&&
                 <div key={index} style={styles.partyCardContainer}>
                     <RenderPartyInfoCard
                         partyName={item.partyName}
@@ -19,21 +20,18 @@ const PartyInfoCardItem = ({ data }) => {
                         appointmentTime={item.appointmentTime}
                         navigate={navigate}
                     />
-                </div>
-            ))}
+                </div>)
+                
+            )}
         </div>
     );
 };
 
 const styles = {
     partyList: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
         padding: "20px",
     },
     partyCardContainer: {
-        width: "calc(50% - 20px)",
         marginBottom: "20px",
     },
 };

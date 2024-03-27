@@ -20,6 +20,7 @@ const PartyCardItem = ({ data }) => {
           })} */}
           <RenderPartyCard
             partyName={item.partyName}
+            partyId={item.partyId}
             imagepath={"https://cdn-icons-png.flaticon.com/512/1719/1719420.png"}
             memberList={item.memberList}
             partyDescription={item.partyDescription}
@@ -35,13 +36,9 @@ const PartyCardItem = ({ data }) => {
 
 const styles = {
   partyList: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
     padding: "20px",
   },
   partyCardContainer: {
-    width: "calc(50% - 20px)",
     marginBottom: "20px",
   },
 };

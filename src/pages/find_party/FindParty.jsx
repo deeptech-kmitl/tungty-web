@@ -19,7 +19,7 @@ export const FindParty = () => {
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchPartyData();
-    
+
     };
   }, []);
 
@@ -35,7 +35,6 @@ export const FindParty = () => {
       console.log(response.status);
       const data = await response.json();
       console.log(data);
-
       setOriginalData(data);
       setPartylist(data);
     } catch (error) {
@@ -61,8 +60,10 @@ export const FindParty = () => {
             style={{ verticalAlign: "middle", marginRight: "10px" }}
           />
         </div>
-        <FilterbyModal></FilterbyModal>
-        <h1 style={{ color: '#FDC319' }}>หาปาร์ตี้</h1>
+        <div style={{ display: 'flex', alignItems:'center'}}>
+          <h2 style={{ color: '#FDC319', margin:'20px' }}>หาปาร์ตี้</h2>
+          <FilterbyModal></FilterbyModal>
+        </div>
         <div style={styles.titleNSorting}>
           <PartyInfoCardItem data={partylist} />
         </div>

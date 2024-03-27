@@ -69,7 +69,6 @@ const styles = {
     display: "flex",
     height: "8rem",
     padding: "8%",
-    marginLeft: "10%",
     borderRadius: "10px",
     alignItems: "center",
     cursor: "pointer",
@@ -88,7 +87,7 @@ const styles = {
     flexDirection: "column",
   },
   partyName: {
-    fontSize: "30px",
+    fontSize: "24px",
     fontWeight: "bold",
     overflow: "hidden",
     textOverflow: "ellipsis",

@@ -16,6 +16,7 @@ import { CreateParty } from "./pages/create&edit_party/CreateParty";
 import { EditParty } from "./pages/create&edit_party/EditParty";
 import { Party } from "./pages/my_party/Party";
 import { PartyInfo } from "./pages/find_party/PartyInfo";
+import { JoinPrivateParty } from "./pages/find_party/JoinPrivateParty";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -88,6 +89,15 @@ function App() {
               <>
                 <BottomNav value={value} setValue={setValue} />
                 <FindParty />
+              </>
+            }
+          />
+          <Route
+            path="/join-private-party"
+            element={
+              <>
+                <BottomNav value={value} setValue={setValue} />
+                <JoinPrivateParty />
               </>
             }
           />

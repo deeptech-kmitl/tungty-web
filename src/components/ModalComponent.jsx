@@ -18,7 +18,7 @@ const IconToOpenModal = ({ setModalVisible }) => {
     <div onClick={() => setModalVisible(true)}>
       <FontAwesomeIcon
         icon={["fas", "arrow-down-wide-short"]}
-        size="4x"
+        size="2x"
         color="black"
         style={{cursor: "pointer"}}
       />

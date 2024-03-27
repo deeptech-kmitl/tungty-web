@@ -19,7 +19,7 @@ export const PartyInfo = () => {
     date.getHours(),
     date.getMinutes(),
   ];
-
+  const [errorMsg, setErrorMsg] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const handleClose = () => {
     navigate("/find-party")
@@ -55,6 +55,7 @@ export const PartyInfo = () => {
       );
       console.log(partyData.partyId)
     } catch (error) {
+      setErrorMsg(error.message);
     }
     const partyName = partyData.partyName;
     const imagepath = partyData.imagepath;
@@ -121,6 +122,7 @@ export const PartyInfo = () => {
         <div style={{ marginTop: "2%", fontSize: 24, color: "white" }}>
           {partyData.partyDescription}
         </div>
+        <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
         <div style={styles.button} onClick={handleJoin}>JOIN</div>
       </div>
     </Modal>

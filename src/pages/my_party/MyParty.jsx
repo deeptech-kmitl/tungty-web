@@ -70,9 +70,19 @@ export const MyParty = () => {
   }, []);
 
   const fetchPartyData = async () => {
+    let username;
     try {
       const response = await fetch(
-        `https://tungty-service-be.onrender.com/party/myParty/${userId}`,
+        `https://tungty-service-be.onrender.com/user/${userId}`,
+      );
+      const data = await response.json();
+      console.log(data.username);
+      username = data.username;
+    } catch (error) {
+    }
+    try {
+      const response = await fetch(
+        `https://tungty-service-be.onrender.com/party/myParty/${username}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -155,7 +165,7 @@ const styles = {
     marginLeft: "5%",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "10vh",
+    fontSize: "30px",
     color: "#FFC107",
     fontWeight: "bold",
   },

@@ -16,7 +16,7 @@ const Header = ({ children }) => {
               navigate("/notification");
             }}
           >
-            <FontAwesomeIcon icon={["fas", "bell"]} size="3x" color="#FFC107" />
+            <FontAwesomeIcon icon={["fas", "bell"]} size="2x" color="#FFC107" />
           </div>
         </nav>
       ) : (
@@ -27,7 +27,7 @@ const Header = ({ children }) => {
               navigate("/notification");
             }}
           >
-            <FontAwesomeIcon icon={["fas", "bell"]} size="3x" color="#FFC107" />
+            <FontAwesomeIcon icon={["fas", "bell"]} size="2x" color="#FFC107" />
           </div>
         </nav>
       )}
