@@ -37,9 +37,24 @@ export const Chat = () => {
         `https://tungty-service-be.onrender.com/chat/getAllMessage/${partyData.partyId}`
       );
 
-      const user = await fetch(
-        `https://tungty-service-be.onrender.com/user/${userId}`
+      const members = await fetch(
+        `https://tungty-service-be.onrender.com/party/${partyData.partyId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
+
+      const memberdata = await members.json();
+      console.log(memberdata.memberList);
+
+      const user = await fetch(`http://localhost:8083/chat/getProfileImage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(memberdata.memberList),
+      });
+
       const userdata = await user.json();
       const data = await response.json();
 
@@ -68,7 +83,7 @@ export const Chat = () => {
             userId: userId,
             appointmentDate: currentDate,
             username: username,
-            profileImg: userdata.profileImg,
+            profileImg: "",
           }),
         }
       );
@@ -149,7 +164,7 @@ export const Chat = () => {
           />
         </div>
 
-        <ChatCard data={chatlist} images={datagyagay} />
+        <ChatCard data={chatlist} images={userdata} />
       </div>
       <div
         style={{

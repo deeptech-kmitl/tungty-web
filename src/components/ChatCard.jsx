@@ -14,8 +14,15 @@ const renderChatCard = ({ item, image }) => {
       element.username.toLowerCase().includes(item.username.toLowerCase())
     );
     // console.log(filteredimg[0].profileImg);
-    profileImg =
-      `https://res.cloudinary.com/dppojpoug/image/upload/` + filteredimg[0].profileImg;
+    if (filteredimg) {
+      profileImg =
+        `https://res.cloudinary.com/dppojpoug/image/upload/` +
+        filteredimg[0].profileImg;
+    } else {
+      profileImg =
+        `https://res.cloudinary.com/dppojpoug/image/upload/` +
+        filteredimg[0].profileImg;
+    }
   }
 
   // const profileImg =
@@ -97,6 +104,7 @@ const styles = {
   chatList: {
     display: "flex",
     flexDirection: "column",
+    marginBottom: "1rem",
   },
   chatCardContainer: {
     width: "auto",
