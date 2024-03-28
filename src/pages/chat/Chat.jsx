@@ -13,17 +13,20 @@ export const Chat = () => {
   const [sendChat, setSendChat] = useState([]);
   const location = useLocation();
   const { partyData } = location.state;
+  console.log(partyData.memberList)
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("user_id");
+  const username = localStorage.getItem("username");
 
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    fetchChatData();
     return () => {
       document.body.style.overflow = bodyOverflow;
-      setInterval(() => fetchChatData, 3000);
+      // setInterval(async () => {
+      //   await fetchPartyData()
+      // }, 1000);
     };
   }, []);
 
@@ -55,11 +58,14 @@ export const Chat = () => {
             partyId: partyData.partyId,
             userId: userId,
             appointmentDate: currentDate,
+            username : username,
+            profileImg: profileImg
           }),
         }
       );
       if (response.ok) {
         setChatlist((prevChatList) => [...prevChatList, { message: sendChat }]);
+        await fetchPartyData();
         setSendChat("");
         await fetchChatData();
       } else {

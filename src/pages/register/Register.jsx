@@ -4,11 +4,52 @@ import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
 import { Padding } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import CloudinaryUploadWidget from "../../components/CloudinaryUploadWidget";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
 export const Register = () => {
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
   // const [allusername, setallUsername] = useState([]);
+  const [publicId, setPublicId] = useState("");
+  // Replace with your own cloud name
+  const [cloudName] = useState("dppojpoug");
+  // Replace with your own upload preset
+  const [uploadPreset] = useState("xwmhguyo");
+
+  // Upload Widget Configuration
+  // Remove the comments from the code below to add
+  // additional functionality.
+  // Note that these are only a few examples, to see
+  // the full list of possible parameters that you
+  // can add see:
+  //   https://cloudinary.com/documentation/upload_widget_reference
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset,
+    // cropping: true, //add a cropping step
+    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    // multiple: false,  //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    // clientAllowedFormats: ["images"], //restrict uploading to image files only
+    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+    // theme: "purple", //change to a purple theme
+  });
+
+  // Create a Cloudinary instance and set your cloud name.
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName,
+    },
+  });
+
+  const myImage = cld.image(publicId);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -19,7 +60,8 @@ export const Register = () => {
     faculty: "",
     field: "",
     year: "",
-    profileImg: "Test",
+    profileImg: "",
+    aboutMe: "nice to meet you",
   });
 
   useEffect(() => {
@@ -39,6 +81,8 @@ export const Register = () => {
   };
 
   const handleSubmit = async (e) => {
+    handleChange("profileImg", publicId);
+    // console.log(formData);
     e.preventDefault();
     if (
       formData.name == "" ||
@@ -48,9 +92,11 @@ export const Register = () => {
       formData.studentId == "" ||
       formData.faculty == "" ||
       formData.field == "" ||
-      formData.year == ""
+      formData.year == "" ||
+      formData.profileImg == ""
     ) {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
+      throw new Error(`กรุณากรอกข้อมูลให้ครบถ้วน!`);
     }
     // ใช้ตรวจ username ที่ซ้ำ
     // try {
@@ -92,14 +138,16 @@ export const Register = () => {
       //   throw new Error(`Error ${response.status}`);
       // }
 
-      const responseData = await response.json();
-      console.log(responseData.errorMessage.includes("username"));
-      if (responseData.errorMessage.includes("username")) {
-        setErrorMsg("username นี้มีคนใช้แล้ว");
-        throw new Error(`username ซ้ำ`);
-      } else if (responseData.errorMessage.includes("studentId")) {
-        setErrorMsg("student ID นี้มีคนใช้แล้ว");
-        throw new Error(`studentId ซ้ำ`);
+      if (!response.ok) {
+        const responseData = await response.json();
+        console.log(responseData.errorMessage.includes("username"));
+        if (responseData.errorMessage.includes("username")) {
+          setErrorMsg("username นี้มีคนใช้แล้ว");
+          throw new Error(`username ซ้ำ`);
+        } else if (responseData.errorMessage.includes("studentId")) {
+          setErrorMsg("student ID นี้มีคนใช้แล้ว");
+          throw new Error(`studentId ซ้ำ`);
+        }
       }
 
       navigate("/");
@@ -374,7 +422,57 @@ export const Register = () => {
               placeholder="Year"
             />
           </div>
+
+          <div
+            style={{
+              marginBottom: "30px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
+            <h3
+              style={{
+                textAlign: "left",
+                color: "#ffffff",
+                justifyContent: "baseline",
+                justifyItems: "baseline",
+                alignContent: "baseline",
+                alignItems: "baseline",
+                alignSelf: "baseline",
+                marginRight: "1rem"
+              }}
+            >
+              Profile Image
+            </h3>
+            <CloudinaryUploadWidget
+              uwConfig={uwConfig}
+              setPublicId={setPublicId}
+            />
+            <div
+              style={{
+                width: "200px",
+                justifyContent: "center",
+                justifyItems: "center",
+                alignContent: "center",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
+            >
+              <AdvancedImage
+                style={{ maxWidth: "100%" }}
+                cldImg={myImage}
+                plugins={[responsive(), placeholder()]}
+              />
+            </div>
+          </div>
+
           <h4 style={{ color: "#FF5C5C" }}>{errorMsg}</h4>
+
           <div style={{ paddingBottom: "24px" }}>
             <YellowButton
               title="Register"

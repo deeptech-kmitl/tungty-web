@@ -5,7 +5,7 @@ const renderChatCard = ({ item }) => {
   // const navigate = useNavigate();
 
   const userId = localStorage.getItem("user_id");
-  const token = localStorage.getItem("token");
+  const profileImg = `https://res.cloudinary.com/dppojpoug/image/upload/` + item.profileImg
 
   return (
     <>
@@ -35,7 +35,7 @@ const renderChatCard = ({ item }) => {
             }}
           >
             <img
-              src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
+              src={profileImg}
               alt="Chat Image"
               style={styles.chatImage}
             />
@@ -48,9 +48,9 @@ const renderChatCard = ({ item }) => {
                 fontWeight: "",
                 alignSelf: "center",
               }}
-              title={item.partyName}
+              title={item.username}
             >
-              {item.userId}
+              {item.username}
             </p>
           </div>
           <div style={styles.chatCardContainer}>
