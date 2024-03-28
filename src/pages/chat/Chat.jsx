@@ -43,7 +43,7 @@ export const Chat = () => {
       const userdata = await user.json();
       const data = await response.json();
 
-      console.log(data);
+      // console.log(data);
       setUserdata(userdata);
       setOriginalData(data);
       setChatlist(data);
@@ -73,7 +73,10 @@ export const Chat = () => {
         }
       );
       if (response.ok) {
-        setChatlist((prevChatList) => [...prevChatList, { message: sendChat, userId: userId }]);
+        setChatlist((prevChatList) => [
+          ...prevChatList,
+          { message: sendChat, userId: userId },
+        ]);
         setSendChat("");
         await fetchChatData();
       } else {
@@ -83,6 +86,25 @@ export const Chat = () => {
       console.error("Error sending message:", error);
     }
   };
+
+  const datagyagay = [
+    {
+      username: "GolemGalapagos",
+      profileImg: "v0z1wzlxsoxph9jnbbrm",
+    },
+    {
+      username: "WatsaduExtream",
+      profileImg: "h1osevcenv89mvvsd8n8",
+    },
+    {
+      username: "GolemGalapagos2",
+      profileImg: "4v0z1wzlxsoxph9jnbbrm",
+    },
+    {
+      username: "4",
+      profileImg: "456",
+    },
+  ];
 
   return (
     <>
@@ -127,7 +149,7 @@ export const Chat = () => {
           />
         </div>
 
-        <ChatCard data={chatlist} />
+        <ChatCard data={chatlist} images={datagyagay} />
       </div>
       <div
         style={{

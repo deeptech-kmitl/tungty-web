@@ -1,11 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const renderChatCard = ({ item }) => {
+const renderChatCard = ({ item, image }) => {
   // const navigate = useNavigate();
 
   const userId = localStorage.getItem("user_id");
-  const profileImg = `https://res.cloudinary.com/dppojpoug/image/upload/` + item.profileImg
+
+  var filteredimg = [];
+  var profileImg = "";
+
+  if (userId !== item.userId) {
+    filteredimg = image.filter((element) =>
+      element.username.toLowerCase().includes(item.username.toLowerCase())
+    );
+    // console.log(filteredimg[0].profileImg);
+    profileImg =
+      `https://res.cloudinary.com/dppojpoug/image/upload/` + filteredimg[0].profileImg;
+  }
+
+  // const profileImg =
+  //   `https://res.cloudinary.com/dppojpoug/image/upload/` + item.profileImg;
 
   return (
     <>
@@ -34,11 +48,7 @@ const renderChatCard = ({ item }) => {
               alignItems: "flex-end",
             }}
           >
-            <img
-              src={profileImg}
-              alt="Chat Image"
-              style={styles.chatImage}
-            />
+            <img src={profileImg} alt="Chat Image" style={styles.chatImage} />
             <p
               style={{
                 ...styles.chatName,
@@ -73,11 +83,11 @@ const renderChatCard = ({ item }) => {
   );
 };
 
-const ChatCard = ({ data }) => {
+const ChatCard = ({ data, images }) => {
   return (
     <div style={{ padding: "1rem" }}>
       {data.map((item, index) => (
-        <div key={index}>{renderChatCard({ item })}</div>
+        <div key={index}>{renderChatCard({ item, image: images })}</div>
       ))}
     </div>
   );
