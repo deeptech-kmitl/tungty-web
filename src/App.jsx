@@ -14,6 +14,7 @@ import { Profile } from "./pages/profile/Profile";
 import { Notification } from "./pages/notification/Notification";
 import { Party } from "./pages/my_party/Party";
 import { Chat } from "./pages/chat/Chat";
+import { ChatList } from "./pages/chatlist/Chatlist";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -80,6 +81,15 @@ function App() {
             }
           />
           <Route path="/chat/:partyName" element={<Chat />} />
+          <Route
+            path="/chatlist"
+            element={
+              <>
+                <ChatList />
+                <BottomNav value={value} setValue={setValue} />
+              </>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>

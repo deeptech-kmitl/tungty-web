@@ -37,7 +37,7 @@ export const BottomNav = ({ value, setValue }) => {
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">แชท</span>}
           icon={<ChatIcon />}
-          onClick={() => navigate("/member")}
+          onClick={() => navigate("/chatlist")}
         />
         <BottomNavigationAction
           label={<span className="kanit-400 bottomNavLabel">โปรไฟล์</span>}
