@@ -68,35 +68,35 @@ export const ChatList = () => {
     }
   };
 
-  // if (loading) {
-  //   return (
-  //     <div style={styles.spinnerContainer}>
-  //       <HashLoader
-  //         color={"#4542C1"}
-  //         loading={loading}
-  //         cssOverride={override}
-  //         size={100}
-  //         aria-label="Loading Spinner"
-  //         data-testid="loader"
-  //       />
-  //     </div>
-  //   );
-  // } else {
-  return (
-    <div style={styles.pageContainer}>
-      <Header />
-      <div style={styles.searchbar}>
-        <SearchBar
-          search={search}
-          setSearch={setSearch}
-          handleSearch={handleSearch}
+  if (loading) {
+    return (
+      <div style={styles.spinnerContainer}>
+        <HashLoader
+          color={"#4542C1"}
+          loading={loading}
+          cssOverride={override}
+          size={100}
+          aria-label="Loading Spinner"
+          data-testid="loader"
         />
       </div>
-      <ChatListCard data={partylist} />
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div style={styles.pageContainer}>
+        <Header />
+        <div style={styles.searchbar}>
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+            handleSearch={handleSearch}
+          />
+        </div>
+        <ChatListCard data={partylist} />
+      </div>
+    );
+  }
 };
-// };
 
 const styles = {
   pageContainer: {
