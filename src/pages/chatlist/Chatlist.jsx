@@ -61,7 +61,6 @@ export const ChatList = () => {
       setOriginalData(data);
       setPartylist(data);
       setLoading(false);
-      console.log(partylist);
     } catch (error) {
       console.log("error" + error);
       setLoading(false);
@@ -82,38 +81,19 @@ export const ChatList = () => {
       </div>
     );
   } else {
-    if (partylist.length == 0) {
-      return (
-        <div style={styles.pageContainer}>
-          <Header />
-          <div className="screen-center">
-            <h3
-              style={{
-                display: "block",
-                margin: "0 auto",
-                alignSelf: "center",
-              }}
-            >
-              ไม่มีการสนทนา
-            </h3>
-          </div>
+    return (
+      <div style={styles.pageContainer}>
+        <Header />
+        <div style={styles.searchbar}>
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+            handleSearch={handleSearch}
+          />
         </div>
-      );
-    } else {
-      return (
-        <div style={styles.pageContainer}>
-          <Header />
-          <div style={styles.searchbar}>
-            <SearchBar
-              search={search}
-              setSearch={setSearch}
-              handleSearch={handleSearch}
-            />
-          </div>
-          <ChatListCard data={partylist} />
-        </div>
-      );
-    }
+        <ChatListCard data={partylist} />
+      </div>
+    );
   }
 };
 
