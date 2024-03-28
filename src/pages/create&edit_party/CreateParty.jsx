@@ -14,7 +14,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 
-
 export const CreateParty = () => {
     const navigate = useNavigate();
     const [selectedType, setSelectedType] = useState("");
@@ -28,7 +27,6 @@ export const CreateParty = () => {
 
     const handleTest = (date) => {
         if (date instanceof Date) {
-
             setSelectedDate(date);
             const dateConvert = dayjs(date).format('YYYY-MM-DDTHH:mm:ssZ')
             console.log(dateConvert)
@@ -56,8 +54,8 @@ export const CreateParty = () => {
         partyCategory: "",
         appointmentDate: "", // Initial empty string
         appointmentTime: "",
-        memberAmount: "",
-        memberList: [],
+        memberAmount: 5,
+        memberList: ["cgdfgdfgd"],
     });
 
     const handleChange = (name, value) => {
@@ -82,27 +80,25 @@ export const CreateParty = () => {
         }));
     };
 
-    function generateRandomCode(length) {
-        let result = "";
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        return result;
-    }
+    // function generateRandomCode(length) {
+    //     let result = "";
+    //     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    //     for (let i = 0; i < length; i++) {
+    //         result += characters.charAt(Math.floor(Math.random() * characters.length));
+    //     }
+    //     return result;
+    // }
 
     const handleCreateParty = async () => {
         console.log(formData)
         if (partyType === "private") {
-            const generatedCode = generateRandomCode(10); // Generate 10-digit random code
-            formData.partyCode = generatedCode; // Add generated code to formData
             formData.partyType = "private"
         }
         else {
             formData.partyType = "public"
         }
         const apptime = formData.appointmentDate
-        const replacetime = "T"+formData.appointmentTime+":00"
+        const replacetime = "T" + formData.appointmentTime + ":00"
         const realAppointmentTime = apptime.replace("T00:00:00", replacetime)
         console.log(realAppointmentTime)
 
@@ -111,31 +107,21 @@ export const CreateParty = () => {
         try {
             const response = await fetch(
                 `https://tungty-service-be.onrender.com/party`,
-              {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-              }
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHb2xlbUdhbGFwYWdvcyIsImV4cCI6MTcxNDIyMTc4MSwiaWF0IjoxNzExNjI5NzgxLCJ1c2VySWQiOiJhZDZhODAxZi1iNzIxLTRhMjUtOTJiYy1kZjRlYjU3YjIwZDUifQ.Ae0C_yGjarDpUeVfDXNXimu0mb9EXLN90LGozeG6VuQ`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                }
             );
-      
+
             const responseData = await response;
             console.log(response)
-            // console.log(responseData.errorMessage.includes("username"));
-            // if (responseData.errorMessage.includes("username")) {
-            //   setErrorMsg("username นี้มีคนใช้แล้ว");
-            //   throw new Error(`username ซ้ำ`);
-            // } else if (responseData.errorMessage.includes("studentId")) {
-            //   setErrorMsg("student ID นี้มีคนใช้แล้ว");
-            //   throw new Error(`studentId ซ้ำ`);
-            // }
-      
-            // navigate("/");
-          } catch (error) {
+        } catch (error) {
             console.error(error);
-          }
+        }
     };
 
     return (
@@ -176,7 +162,7 @@ export const CreateParty = () => {
                     <label style={{ color: "#4542C1" }}>Party name :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.partyName} onValueChange={(e) => handleChange("partyName", e.target.value)} />
                     <label style={{ color: "#4542C1" }}>Member amont :</label><br />
-                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.memberAmount} onValueChange={(e) => handleChange("memberAmount", e.target.value)} />
+                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.memberAmount} onValueChange={(e) => handleChange("memberAmount", e.target.value)} type={"number"}/>
                     <label style={{ color: "#4542C1" }}>Date :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.appointmentTime} onValueChange={(e) => handleChange("appointmentTime", e.target.value)} />
                     <label style={{ color: "#4542C1" }}>About :</label><br />
