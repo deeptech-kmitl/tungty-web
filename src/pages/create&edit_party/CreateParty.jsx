@@ -123,7 +123,7 @@ export const CreateParty = () => {
             );
             console.log(token)
             console.log(formData);
-            navigate(`/party/${formData.partyName}`);
+            navigate(`/myparty`);
         } catch (error) {
             console.log("error" + error);
         }
@@ -162,7 +162,7 @@ export const CreateParty = () => {
                         <MenuItem value="language">ภาษา/ศาสนา/ความเชื่อ</MenuItem>
                         <MenuItem value="book">หนังสือ</MenuItem>
                         <MenuItem value="technology">เทคโนโลยี</MenuItem>
-                        <MenuItem value="other">อื่นๆ</MenuItem>
+                        <MenuItem value="other">อื่น</MenuItem>
                     </Select>
                     <label style={{ color: "#4542C1" }}>Party name :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.partyName} onValueChange={(e) => handleChange("partyName", e.target.value)} />

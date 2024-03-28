@@ -129,20 +129,6 @@ export const EditParty = ( props ) => {
     };
 
     const handleDeleteParty = async () => {
-        // try {
-        //     const response = await fetch(
-        //         `https://tungty-service-be.onrender.com/party/${formData.partyName}`, // เพิ่ม partyId เข้าไปใน URL
-        //         {
-        //             method: "DELETE",
-        //             headers: { Authorization: `Bearer ${token}` },
-        //         }
-        //     );
-        //     console.log("delete");
-        // } catch (error) {
-        //     console.log("error" + error);
-        // }
-        // navigate('/myparty');
-        // console.log("hi");
     };
     
 

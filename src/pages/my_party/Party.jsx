@@ -111,7 +111,7 @@ export const Party = () => {
             {partyData.partyName}
           </div>
           {(isOwner) &&
-            <div onClick={() => navigate(`/edit-party/${partyData.partyName}`, 
+            <div onClick={() => navigate(`/edit-party/${partyData.partyId}`, 
                 {state: {partyData}}
               )}
             >

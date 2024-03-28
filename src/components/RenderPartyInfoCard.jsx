@@ -20,7 +20,7 @@ const RenderPartyInfoCard = React.memo(({
 
   const navigateToParty = () => {
     // Navigate to party page
-    navigate(`/party-info/${partyName}`, {
+    navigate(`/party-info/${partyId}`, {
       state: {
         partyData: {
           partyName,
