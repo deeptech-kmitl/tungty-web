@@ -100,8 +100,8 @@ const styles = {
     textOverflow: "ellipsis",
     display: "flex",
     height: "1rem",
-    padding: "32px",
-    borderRadius: "16px",
+    padding: "8%",
+    borderRadius: "10px",
     alignItems: "center",
     cursor: "pointer",
     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)",
@@ -127,7 +127,7 @@ const styles = {
     padding: "20px",
   },
   chatCardContainer: {
-    // width: "calc(80%)",
+    width: "calc(80%)",
     marginBottom: "20px",
   },
 };
