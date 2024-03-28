@@ -1,20 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "../../components/SearchBar";
 import Header from "../../components/Header";
-import {
-  ModalComponent,
-  IconToOpenModal, // Make sure to import IconToOpenModal
-} from "../../components/ModalComponent";
 import HashLoader from "react-spinners/HashLoader";
 import { green } from "@mui/material/colors";
-import PartyCardItem from "./../../components/PartyCardItem";
+import ChatListCard from "../../components/ChatListCard";
 
-export const MyParty = () => {
+export const ChatList = () => {
   const userId = localStorage.getItem("user_id");
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
@@ -22,7 +17,6 @@ export const MyParty = () => {
   const [originalData, setOriginalData] = useState([]);
   const [partylist, setPartylist] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const override = {
     display: "block",
@@ -31,23 +25,6 @@ export const MyParty = () => {
   };
 
   library.add(fas);
-
-  const handleSortFilter = (selectedOption) => {
-    const sortedData = [...originalData];
-    if (selectedOption === "popular") {
-      sortedData.sort((b, a) => a.memberList.length - b.memberList.length);
-    } else if (selectedOption === "newest") {
-      sortedData.sort(
-        (b, a) => Date.parse(a.createDateTime) - Date.parse(b.createDateTime)
-      );
-    } else {
-      sortedData.sort(
-        (a, b) => Date.parse(a.createDateTime) - Date.parse(b.createDateTime)
-      );
-    }
-    setPartylist(sortedData);
-    console.log("Selected option:", selectedOption);
-  };
 
   const handleSearch = (search) => {
     const filteredList = originalData.filter((element) =>
@@ -59,21 +36,28 @@ export const MyParty = () => {
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
     // Set initial partylist state when component mounts
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const fetchPartyData = async () => {
+      try {
+        const response = await fetch(
+          `https://tungty-service-be.onrender.com/party/myParty/${username}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = await response.json();
+
+        setOriginalData(data);
+        setPartylist(data);
+        setLoading(false);
+        console.log(partylist);
+      } catch (error) {
+        console.log("error" + error);
+        setLoading(false);
+      }
+    };
     fetchPartyData();
     return () => {
       document.body.style.overflow = bodyOverflow;
@@ -83,28 +67,25 @@ export const MyParty = () => {
     };
   }, []);
 
-  const fetchPartyData = async () => {
-    try {
-      const response = await fetch(
-        `https://tungty-service-be.onrender.com/party/myParty/${username}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      // console.log(token)
-      // console.log(response.status);
-      const data = await response.json();
-      // console.log(data);
+  // const fetchPartyData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://tungty-service-be.onrender.com/party/myParty/${username}`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     const data = await response.json();
 
-      setOriginalData(data);
-      setPartylist(data);
-      setLoading(false);
-      console.log(data);
-    } catch (error) {
-      console.log("error" + error);
-      setLoading(false);
-    }
-  };
+  //     setOriginalData(data);
+  //     setPartylist(data);
+  //     setLoading(false);
+  //     console.log(partylist);
+  //   } catch (error) {
+  //     console.log("error" + error);
+  //     setLoading(false);
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -132,37 +113,25 @@ export const MyParty = () => {
                 alignSelf: "center",
               }}
             >
-              ไม่มีปาร์ตี้
+              ไม่มีการสนทนา
             </h3>
           </div>
         </div>
       );
-    } else {
-      return (
-        <div style={styles.pageContainer}>
-          <Header />
-          <div style={styles.searchbar}>
-            <SearchBar
-              search={search}
-              setSearch={setSearch}
-              handleSearch={handleSearch}
-            />
-          </div>
-          <div style={styles.titleNSorting}>
-            <div
-              style={{
-                ...styles.titlePage,
-                fontSize: screenWidth < 768 ? "5vh" : "10vh",
-              }}
-            >
-              ปาร์ตี้ของฉัน
-            </div>
-            <ModalComponent handleSortFilter={handleSortFilter} />
-          </div>
-          <PartyCardItem data={partylist} />
-        </div>
-      );
     }
+    return (
+      <div style={styles.pageContainer}>
+        <Header />
+        <div style={styles.searchbar}>
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+            handleSearch={handleSearch}
+          />
+        </div>
+        <ChatListCard data={partylist} />
+      </div>
+    );
   }
 };
 
@@ -196,7 +165,7 @@ const styles = {
     marginLeft: "5%",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "30px",
+    fontSize: "10vh",
     color: "#FFC107",
     fontWeight: "bold",
   },

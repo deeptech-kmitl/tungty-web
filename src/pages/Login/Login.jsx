@@ -19,10 +19,12 @@ export const Login = () => {
     const interval = setInterval(() => {
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("user_id");
+      const username = localStorage.getItem("username");
 
       if (token && userId) {
         localStorage.setItem("token", token);
         localStorage.setItem("user_id", userId);
+        localStorage.setItem("username", username);
       }
     }, 90000);
 
@@ -33,6 +35,7 @@ export const Login = () => {
   }, []);
 
   const handleLogin = async () => {
+    localStorage.clear()
     if (username == "" || password == "") {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
     }
@@ -56,6 +59,7 @@ export const Login = () => {
       // console.log(data.accessToken)
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("user_id", data.userId);
+      localStorage.setItem("username", data.username);
 
       // Swal.fire({
       //   icon: "success",

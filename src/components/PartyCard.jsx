@@ -1,8 +1,20 @@
 import React from "react";
 import PersonIcon from "@mui/icons-material/Person";
 
-export const PartyCard = ({ name, image, bgColor, member, date, desc }) => {
-  const partyCard = {
+export const PartyCard = ({
+  name,
+  image,
+  bgColor,
+  member,
+  date,
+  desc,
+  cardStyle,
+  imageStyle,
+  nameStyle,
+  memberStyle,
+  descStyle,
+}) => {
+  const defaultPartyCardStyle = {
     display: "flex",
     backgroundColor: bgColor,
     flexDirection: "row",
@@ -15,7 +27,7 @@ export const PartyCard = ({ name, image, bgColor, member, date, desc }) => {
     padding: 10,
   };
 
-  const partyImage = {
+  const defaultPartyImageStyle = {
     resizeMode: "contain",
     aspectRatio: 1 / 1,
     width: 60,
@@ -23,26 +35,31 @@ export const PartyCard = ({ name, image, bgColor, member, date, desc }) => {
     borderRadius: 10,
     marginRight: 10,
   };
-  const partyName = {
+
+  const defaultPartyNameStyle = {
     fontWeight: "bold",
     color: "#4542C1",
   };
+
+  const mergedCardStyle = { ...defaultPartyCardStyle, ...cardStyle };
+  const mergedImageStyle = { ...defaultPartyImageStyle, ...imageStyle };
+  const mergedNameStyle = { ...defaultPartyNameStyle, ...nameStyle };
+
   return (
-    <div style={partyCard} onClick={() => {}}>
-      <img src={image} alt={name} style={partyImage} />
+    <div style={mergedCardStyle} onClick={() => {}}>
+      <img src={image} alt={name} style={mergedImageStyle} />
       <div style={{ textAlign: "left", marginLeft: "1dvw" }}>
         <div
           style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            // flexWrap: "wrap",
           }}
         >
-          <h3 style={{ ...partyName, margin: "0px" }}>{name}</h3>
+          <h3 style={{ ...mergedNameStyle, margin: "0px" }}>{name}</h3>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <PersonIcon style={{ width: "18px" }} />
-            <h4 style={{ margin: "0px" }}>{member}</h4>
+            <h4 style={{ margin: "0px", ...memberStyle }}>{member}</h4>
           </div>
         </div>
         <h5
@@ -53,6 +70,7 @@ export const PartyCard = ({ name, image, bgColor, member, date, desc }) => {
             display: "-webkit-box",
             WebkitLineClamp: "2",
             WebkitBoxOrient: "vertical",
+            ...descStyle,
           }}
         >
           {desc}
