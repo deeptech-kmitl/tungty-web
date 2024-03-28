@@ -12,7 +12,11 @@ const RenderPartyCard = React.memo(({
   createDateTime,
   appointmentTime,
   navigate,
+  cardStyle,
+  imageStyle,
+  textStyle
 }) => {
+  const mergedStyle = { ...styles.partyCard, ...cardStyle };
   const [backgroundColor] = useState(() => {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
@@ -39,15 +43,15 @@ const RenderPartyCard = React.memo(({
   return (
     <div
       className="partyCard"
-      style={{ ...styles.partyCard, backgroundColor}}
+      style={{ ...mergedStyle, backgroundColor}}
       onClick={navigateToParty}
     >
-      <img src={imagepath} alt="Party Image" style={styles.partyImage} />
+      <img src={imagepath} alt="Party Image" style={{...styles.partyImage, ...imageStyle}} />
       <div style={{ ...styles.partyDetails, flex: 1 }}>
-        <p style={styles.partyName} title={partyName}>
+        <p style={{...styles.partyName, ...textStyle}} title={partyName}>
           {partyName}
         </p>
-        <p style={styles.partyDescription} title={partyDescription}>
+        <p style={{...styles.partyDescription, ...textStyle}} title={partyDescription}>
           {partyDescription}
         </p>
       </div>

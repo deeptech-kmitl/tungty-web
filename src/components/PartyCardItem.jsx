@@ -1,23 +1,15 @@
+// PartyCardItem.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import RenderPartyCard from "./RenderPartyCard";
 
-const PartyCardItem = ({ data }) => {
+const PartyCardItem = ({ data, cardStyle, cardContainerStyle, partyListStyle, ImageStyle, TextStyle }) => { // Step 1: Accept cardContainerStyle prop
   const navigate = useNavigate();
 
   return (
-    <div className="flatList" style={styles.partyList}>
+    <div className="flatList" style={{...styles.partyList, ...partyListStyle}}>
       {data.map((item, index) => (
-        <div key={index} style={styles.partyCardContainer}>
-          {/* {RenderPartyCard({
-            partyName: item.partyName,
-            imagepath: item.imagepath,
-            memberList: item.memberList,
-            partyDescription: item.partyDescription,
-            createDateTime: item.createDateTime,
-            appointmentTime: item.appointmentTime,
-            navigate: navigate
-          })} */}
+        <div key={index} style={{ ...styles.partyCardContainer, ...cardContainerStyle }}> {/* Step 2: Apply cardContainerStyle */}
           <RenderPartyCard
             partyId={item.partyId}
             partyName={item.partyName}
@@ -29,6 +21,9 @@ const PartyCardItem = ({ data }) => {
             createDateTime={item.createDateTime}
             appointmentTime={item.appointmentTime}
             navigate={navigate}
+            cardStyle={cardStyle}
+            imageStyle={ImageStyle}
+            textStyle={TextStyle}
           />
         </div>
       ))}

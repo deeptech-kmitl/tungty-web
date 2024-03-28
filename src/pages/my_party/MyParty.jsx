@@ -120,7 +120,7 @@ export const MyParty = () => {
           <div style={styles.titlePage}>ปาร์ตี้ของฉัน</div>
           <ModalComponent handleSortFilter={handleSortFilter} />
         </div>
-        <PartyCardItem data={partylist} />
+        <PartyCardItem data={partylist}/>
       </div>
     );
   }
