@@ -9,7 +9,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 export const Chat = () => {
   const [originalData, setOriginalData] = useState([]);
-  const [userdata, setUserdata] = useState([])
+  const [userdata, setUserdata] = useState([]);
   const [chatlist, setChatlist] = useState([]);
   const [sendChat, setSendChat] = useState([]);
   const location = useLocation();
@@ -22,11 +22,11 @@ export const Chat = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    fetchChatData()
+    fetchChatData();
     return () => {
       document.body.style.overflow = bodyOverflow;
       setInterval(async () => {
-        await fetchChatData()
+        await fetchChatData();
       }, 5000);
     };
   }, []);
@@ -37,8 +37,10 @@ export const Chat = () => {
         `https://tungty-service-be.onrender.com/chat/getAllMessage/${partyData.partyId}`
       );
 
-      const user = await fetch(`https://tungty-service-be.onrender.com/user/${userId}`)
-      const userdata = await user.json()
+      const user = await fetch(
+        `https://tungty-service-be.onrender.com/user/${userId}`
+      );
+      const userdata = await user.json();
       const data = await response.json();
 
       console.log(data);
@@ -65,13 +67,13 @@ export const Chat = () => {
             partyId: partyData.partyId,
             userId: userId,
             appointmentDate: currentDate,
-            username : username,
-            profileImg: userdata.profileImg
+            username: username,
+            profileImg: userdata.profileImg,
           }),
         }
       );
       if (response.ok) {
-        setChatlist((prevChatList) => [...prevChatList, { message: sendChat }]);
+        setChatlist((prevChatList) => [...prevChatList, { message: sendChat, userId: userId }]);
         setSendChat("");
         await fetchChatData();
       } else {
@@ -100,11 +102,30 @@ export const Chat = () => {
               maxWidth: "calc(50%)",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
             }}
           >
             {partyData.partyName}
           </div>
         </Header>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            justifyItems: "center",
+            alignContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+          }}
+        >
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
+            alt="Chat Image"
+            style={styles.chatImage}
+          />
+        </div>
 
         <ChatCard data={chatlist} />
       </div>
@@ -134,6 +155,13 @@ export const Chat = () => {
 
 const styles = {
   pageContainer: { height: "96vh", overflowY: "scroll" },
+  chatImage: {
+    width: "20%",
+    height: "20%",
+    objectFit: "cover",
+    borderRadius: "50%",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+  },
   buttonChat: {
     padding: "8px",
     margin: "0px",

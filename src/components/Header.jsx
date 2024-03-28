@@ -45,6 +45,7 @@ const styles = {
     zIndex: 1,
     backgroundColor: "#4542C1",
     alignItems: "center",
+    overflow: "hidden",
   },
   navbar: {
     height: "7vh",
