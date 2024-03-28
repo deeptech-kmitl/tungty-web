@@ -21,7 +21,7 @@ const renderChatCard = ({ item, image }) => {
     } else {
       profileImg =
         `https://res.cloudinary.com/dppojpoug/image/upload/` +
-        filteredimg[0].profileImg;
+        filteredimg[0].profileImg
     }
   }
 

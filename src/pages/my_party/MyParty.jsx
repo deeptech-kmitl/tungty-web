@@ -66,7 +66,7 @@ export const MyParty = () => {
       fetchPartyData();
       setInterval(() => {
         fetchPartyData();
-      }, 30000);
+      }, 6000);
     };
   }, []);
 
@@ -78,10 +78,7 @@ export const MyParty = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // console.log(token)
-      // console.log(response.status);
       const data = await response.json();
-      // console.log(data);
 
       setOriginalData(data);
       setPartylist(data);

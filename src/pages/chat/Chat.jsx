@@ -158,7 +158,7 @@ export const Chat = () => {
           }}
         >
           <img
-            src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
+            src={partyData.imagepath}
             alt="Chat Image"
             style={styles.chatImage}
           />

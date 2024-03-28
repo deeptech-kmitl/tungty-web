@@ -13,13 +13,11 @@ const PartyCardItem = ({ data, cardStyle, cardContainerStyle, partyListStyle, Im
           <RenderPartyCard
             partyId={item.partyId}
             partyName={item.partyName}
-            imagepath={
-              "https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
-            }
             memberList={item.memberList}
             partyDescription={item.partyDescription}
             createDateTime={item.createDateTime}
             appointmentTime={item.appointmentTime}
+            partyCategory={item.partyCategory}
             navigate={navigate}
             cardStyle={cardStyle}
             imageStyle={ImageStyle}
