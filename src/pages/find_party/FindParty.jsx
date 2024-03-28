@@ -19,7 +19,6 @@ export const FindParty = () => {
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchPartyData();
-
     };
   }, []);
 

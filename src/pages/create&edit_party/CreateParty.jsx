@@ -8,8 +8,6 @@ import { Radio } from "@mui/material";
 import { Select, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
-import moment from 'moment';
-// import DatePicker from 'react-datepicker';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
@@ -54,16 +52,24 @@ export const CreateParty = () => {
         partyCategory: "",
         appointmentDate: "", // Initial empty string
         appointmentTime: "",
-        memberAmount: 5,
-        memberList: ["cgdfgdfgd"],
+        memberAmount: "",
+        memberList: [],
     });
 
     const handleChange = (name, value) => {
+        if (name === "memberAmount") {
+            value = parseInt(value); // Convert to integer
+            if (isNaN(value)) {
+                // Handle invalid input
+                value = 0; // or any default value you prefer
+            }
+        }
         setFormData((prevFormData) => ({
             ...prevFormData,
             [name]: value,
         }));
     };
+
 
     const handleTypeChange = (event) => {
         setSelectedType(event.target.value);
@@ -76,26 +82,17 @@ export const CreateParty = () => {
     const handleDateChange = (newValue) => {
         setFormData(prevFormData => ({
             ...prevFormData,
-            appointmentDate: newValue // กำหนดค่าวันที่จาก date picker ให้กับ appointmentDate
+            appointmentDate: newValue
         }));
     };
-
-    // function generateRandomCode(length) {
-    //     let result = "";
-    //     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    //     for (let i = 0; i < length; i++) {
-    //         result += characters.charAt(Math.floor(Math.random() * characters.length));
-    //     }
-    //     return result;
-    // }
 
     const handleCreateParty = async () => {
         console.log(formData)
         if (partyType === "private") {
-            formData.partyType = "private"
+            formData.partyType = "Private"
         }
         else {
-            formData.partyType = "public"
+            formData.partyType = "Public"
         }
         const apptime = formData.appointmentDate
         const replacetime = "T" + formData.appointmentTime + ":00"
@@ -104,23 +101,31 @@ export const CreateParty = () => {
 
         const userId = localStorage.getItem("user_id");
         const token = localStorage.getItem("token");
+        let username;
+        try {
+          const response = await fetch(
+            `https://tungty-service-be.onrender.com/user/${userId}`,
+          );
+          const data = await response.json();
+          console.log(data.username);
+          username = data.username;
+        } catch (error) {
+        }
+        formData.memberList = [username]
         try {
             const response = await fetch(
                 `https://tungty-service-be.onrender.com/party`,
                 {
                     method: "POST",
-                    headers: {
-                        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHb2xlbUdhbGFwYWdvcyIsImV4cCI6MTcxNDIyMTc4MSwiaWF0IjoxNzExNjI5NzgxLCJ1c2VySWQiOiJhZDZhODAxZi1iNzIxLTRhMjUtOTJiYy1kZjRlYjU3YjIwZDUifQ.Ae0C_yGjarDpUeVfDXNXimu0mb9EXLN90LGozeG6VuQ`,
-                        "Content-Type": "application/json",
-                    },
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
                     body: JSON.stringify(formData),
                 }
             );
-
-            const responseData = await response;
-            console.log(response)
+            console.log(token)
+            console.log(formData);
+            navigate(`/party/${formData.partyName}`);
         } catch (error) {
-            console.error(error);
+            console.log("error" + error);
         }
     };
 
@@ -157,13 +162,21 @@ export const CreateParty = () => {
                         <MenuItem value="language">ภาษา/ศาสนา/ความเชื่อ</MenuItem>
                         <MenuItem value="book">หนังสือ</MenuItem>
                         <MenuItem value="technology">เทคโนโลยี</MenuItem>
-                        <MenuItem value="other">อื่น</MenuItem>
+                        <MenuItem value="other">อื่นๆ</MenuItem>
                     </Select>
                     <label style={{ color: "#4542C1" }}>Party name :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.partyName} onValueChange={(e) => handleChange("partyName", e.target.value)} />
                     <label style={{ color: "#4542C1" }}>Member amont :</label><br />
-                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.memberAmount} onValueChange={(e) => handleChange("memberAmount", e.target.value)} type={"number"}/>
+                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.memberAmount} onValueChange={(e) => handleChange("memberAmount", e.target.value)} keyboardType="numeric" />
                     <label style={{ color: "#4542C1" }}>Date :</label><br />
+                    <div>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker value={value} onChange={(newValue) => setValue(newValue)} />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
+                    <label style={{ color: "#4542C1" }}>Time :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.appointmentTime} onValueChange={(e) => handleChange("appointmentTime", e.target.value)} />
                     <label style={{ color: "#4542C1" }}>About :</label><br />
                     <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%", height: "auto", maxHeight: "200px" }} value={formData.partyDescription} multiline rows={6} onValueChange={(e) => handleChange("partyDescription", e.target.value)} />
@@ -191,12 +204,6 @@ export const CreateParty = () => {
                         label="Private Party"
                         style={{ color: "#4542C1" }}
                     />
-                    <div>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['DatePicker']}>
-                                <DatePicker value={value} onChange={(newValue) => setValue(newValue)} />
-                            </DemoContainer>
-                        </LocalizationProvider></div>
                     <div style={{ textAlign: "center", alignContent: "center" }}>
                         <YellowButton title="Create Party" handleOnClick={handleCreateParty} />
                     </div>

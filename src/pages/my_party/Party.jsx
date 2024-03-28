@@ -25,6 +25,7 @@ export const Party = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    console.log(partyData)
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchData();
@@ -35,6 +36,7 @@ export const Party = () => {
     let username;
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
+    let partyOwner;
     try {
       const response = await fetch(
         `https://tungty-service-be.onrender.com/user/${userId}`,
@@ -42,10 +44,10 @@ export const Party = () => {
       const data = await response.json();
       console.log(data.username);
       username = data.username;
+      console.log(username)
     } catch (error) {
     }
-    console.log(partyData.partyId)
-    let partyOwner;
+    console.log(partyData.partyName)
     try {
       const response = await fetch(
         `https://tungty-service-be.onrender.com/party/${partyData.partyId}`,
@@ -55,14 +57,18 @@ export const Party = () => {
           },
         }
       );
-      console.log(response)
-      partyOwner = response.partyOwner
+      const data = await response.json();
+      partyOwner = data.partyOwner;
+      console.log(partyOwner)
     } catch (error) {
     }
+    console.log(username)
+    console.log(partyOwner)
     if (username == partyOwner) {
       setIsOwner(true)
     }
     console.log(isOwner)
+    console.log(partyData)
   }
 
   return (
@@ -104,30 +110,33 @@ export const Party = () => {
           >
             {partyData.partyName}
           </div>
-          {(isOwner)&&
-            <div onClick={() => navigate('/edit-party')}>
+          {(isOwner) &&
+            <div onClick={() => navigate(`/edit-party/${partyData.partyName}`, 
+                {state: {partyData}}
+              )}
+            >
               <EditIcon></EditIcon>
             </div>
           }
-          <div style={styles.icons}>
-            <div
-              style={styles.iconContainer}
-              onPress={() => Navigation.navigate("Member")}
-            >
-              <FontAwesomeIcon icon={["fas", "user"]} size="2x" color="#8B88FF" />
-              <div style={{ marginLeft: "10px", fontSize: 32 }}>
-                {partyData.memberList.length}{" "}
-              </div>
+        <div style={styles.icons}>
+          <div
+            style={styles.iconContainer}
+            onPress={() => Navigation.navigate("Member")}
+          >
+            <FontAwesomeIcon icon={["fas", "user"]} size="2x" color="#8B88FF" />
+            <div style={{ marginLeft: "10px", fontSize: 32 }}>
+              {partyData.memberList.length}{" "}
             </div>
           </div>
-          <div style={{ marginTop: "2%", fontSize: 24 }}>
-            {partyData.partyDescription}
-          </div>
         </div>
-        <div style={{ ...styles.button, backgroundColor: partyData.backgroundColor, color: "white", cursor: "pointer" }}>
-          CHAT
+        <div style={{ marginTop: "2%", fontSize: 24 }}>
+          {partyData.partyDescription}
         </div>
       </div>
+      <div style={{ ...styles.button, backgroundColor: partyData.backgroundColor, color: "white", cursor: "pointer" }}>
+        CHAT
+      </div>
+    </div >
     </>
   );
 };

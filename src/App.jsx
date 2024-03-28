@@ -53,6 +53,14 @@ function App() {
             }
           />
           <Route
+            path="/edit-party/*"
+            element={
+              <>
+                <EditParty />
+              </>
+            }
+          />
+          <Route
             path="/member"
             element={
               <>
@@ -64,7 +72,6 @@ function App() {
           <Route path="/member-info" element={<MemberInfo />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route path="/create-party" element={<CreateParty />}></Route>
-          <Route path="/edit-party" element={<EditParty />}></Route>
           <Route
             path="/profile"
             element={
@@ -118,6 +125,13 @@ function PartyInfoPage() {
   return (
     <Routes>
       <Route path=":partyId" element={<PartyInfo />} />
+    </Routes>
+  );
+}
+function EditPartyPage() {
+  return (
+    <Routes>
+      <Route path=":partyId" element={<EditParty />} />
     </Routes>
   );
 }

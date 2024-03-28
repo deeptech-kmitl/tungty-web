@@ -12,6 +12,7 @@ const RenderPartyCard = React.memo(({
   createDateTime,
   appointmentTime,
   navigate,
+  appointmentDate,
 }) => {
   const [backgroundColor] = useState(() => {
     const randomIndex = Math.floor(Math.random() * colors.length);
@@ -30,7 +31,8 @@ const RenderPartyCard = React.memo(({
           partyDescription,
           createDateTime,
           appointmentTime,
-          backgroundColor
+          backgroundColor,
+          appointmentDate,
         },
       },
     });

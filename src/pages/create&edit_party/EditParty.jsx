@@ -1,32 +1,150 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Avatar from "@mui/material/Avatar";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Radio } from "@mui/material";
 import { Select, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
 import { WhiteTextField } from "../../components/WhiteTextField";
 import { YellowButton } from "../../components/YellowButton";
-import CustomDatePicker from "../../components/DatePicker";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import dayjs from 'dayjs';
+import { useLocation } from "react-router-dom";
 
-export const EditParty = () => {
+export const EditParty = ( props ) => {
     const navigate = useNavigate();
     const [selectedType, setSelectedType] = useState("");
     const [isPublic, setIsPublic] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [partyType, setPartyType] = useState("public")
+    const [value, setValue] = React.useState(null);
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+    const [selectedDate, setSelectedDate] = useState(null);
+    const location = useLocation();
+    const { partyData } = location.state || {};
+
+    useEffect(() => {
+        // fetchData();
+        // console.log(dayjs(value).format('YYYY-MM-DDTHH:mm:ssZ'))
+        console.log(partyData.appointmentDate)
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            appointmentDate: dayjs(value).format('YYYY-MM-DDTHH:mm:ssZ'),
+        }));
+
+    }, [value]
+    )
+
+    const fetchData = async () => {
+        const userId = localStorage.getItem("user_id");
+        const token = localStorage.getItem("token");
+        let partyOwner;
+        try {
+          const response = await fetch(
+            `https://tungty-service-be.onrender.com/user/${userId}`,
+          );
+          const data = await response.json();
+          console.log(data.username);
+          username = data.username;
+        } catch (error) {
+        }
+        console.log(partyData.partyId)
+        try {
+          const response = await fetch(
+            `https://tungty-service-be.onrender.com/party/${partyData.partyId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const data = await response.json();
+          partyOwner = data.partyOwner;
+        } catch (error) {
+        }
+
+        if (username == partyOwner) {
+          setIsOwner(true)
+        }
+        console.log(isOwner)
+    }
+
+    const [formData, setFormData] = useState({
+        partyName: partyData.partyName,
+        partyDescription: partyData.partyDescription,
+        partyType: "public",
+        partyCategory: partyData.partyCategory,
+        appointmentDate: partyData.appointmentDate,
+        appointmentTime: partyData.appointmentTime,
+        partyId: partyData.partyId,
+    });
+
+    const handleChange = (name, value) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
 
     const handleTypeChange = (event) => {
         setSelectedType(event.target.value);
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            partyCategory: event.target.value,
+        }));
     };
 
-    const handleCheckboxChange = (event) => {
-        setIsPublic(event.target.checked);
+    const handleDateChange = (newValue) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            appointmentDate: newValue
+        }));
     };
 
-    const handleEditParty = () => {
+    const handleEditParty = async () => {
+        const apptime = formData.appointmentDate
+        const replacetime = "T" + formData.appointmentTime + ":00"
+        const realAppointmentTime = apptime.replace("T00:00:00", replacetime)
+        console.log(partyData.appointmentTime)
+        console.log(formData)
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/party`,
+                {
+                    method: "PUT",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formData),
+                }
+            );
+            console.log(token)
+            console.log(formData);
+        } catch (error) {
+            console.log("error" + error);
+        }
+        // navigate(`/party/${formData.partyName}`);
+        navigate('/myparty');
     };
 
-    const handleDeleteParty = () => {
+    const handleDeleteParty = async () => {
+        // try {
+        //     const response = await fetch(
+        //         `https://tungty-service-be.onrender.com/party/${formData.partyName}`, // เพิ่ม partyId เข้าไปใน URL
+        //         {
+        //             method: "DELETE",
+        //             headers: { Authorization: `Bearer ${token}` },
+        //         }
+        //     );
+        //     console.log("delete");
+        // } catch (error) {
+        //     console.log("error" + error);
+        // }
+        // navigate('/myparty');
+        // console.log("hi");
     };
+    
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}> {/* กำหนด LocalizationProvider และ AdapterDayjs */}
@@ -39,9 +157,6 @@ export const EditParty = () => {
                         <ArrowBackIcon style={{ marginLeft: "16px", position: "absolute", top: "50%", transform: "translateY(-50%)" }} />
                     </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <h2 style={{ color: '#FDC319' }}>CODE:AZBrsD593</h2>
-                </div>
                 <div style={{ paddingRight: "75px", paddingLeft: "75px", display: "flex", justifyContent: "center" }}>
                     <Avatar
                         sx={{ width: "30vw", height: "30vw" }}
@@ -50,7 +165,8 @@ export const EditParty = () => {
                 </div>
                 <div style={{ margin: "20px auto", maxWidth: "300px" }}>
                     <label style={{ color: "#4542C1" }}>Party Type :</label><br />
-                    <Select value={selectedType} onChange={handleTypeChange} style={{ width: "100%", backgroundColor: '#D9D9D9' }}>
+
+                    <Select value={selectedType} onChange={handleTypeChange} style={{ width: "100%", backgroundColor: '#D9D9D9' }}  >
                         <MenuItem value="">โปรดเลือก</MenuItem>
                         <MenuItem value="food">อาหาร</MenuItem>
                         <MenuItem value="entertain">บันเทิง</MenuItem>
@@ -63,25 +179,51 @@ export const EditParty = () => {
                         <MenuItem value="language">ภาษา/ศาสนา/ความเชื่อ</MenuItem>
                         <MenuItem value="book">หนังสือ</MenuItem>
                         <MenuItem value="technology">เทคโนโลยี</MenuItem>
-                        <MenuItem value="other">อื่น</MenuItem>
+                        <MenuItem value="other">อื่นๆ</MenuItem>
                     </Select>
                     <label style={{ color: "#4542C1" }}>Party name :</label><br />
-                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} />
+                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.partyName} onValueChange={(e) => handleChange("partyName", e.target.value)} />
                     <label style={{ color: "#4542C1" }}>Date :</label><br />
-                    <CustomDatePicker /><br />
+                    <div>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker value={value} onChange={(newValue) => setValue(newValue)} />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
                     <label style={{ color: "#4542C1" }}>Time :</label><br />
-                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} />
+                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%" }} value={formData.appointmentTime} onValueChange={(e) => handleChange("appointmentTime", e.target.value)} />
                     <label style={{ color: "#4542C1" }}>About :</label><br />
-                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%", height: "auto", maxHeight: "200px" }} multiline rows={6} />
-                    <FormControlLabel control={<Checkbox checked={isPublic} onChange={handleCheckboxChange} />}
-                        label="Public Party" style={{ color: "#4542C1" }}
-                    />
-                    <FormControlLabel control={<Checkbox checked={!isPublic} onChange={handleCheckboxChange} />}
-                        label="Private Party" style={{ color: "#4542C1" }}
-                    />
+                    <WhiteTextField style={{ backgroundColor: "#D9D9D9", width: "100%", height: "auto", maxHeight: "200px" }} value={formData.partyDescription} multiline rows={6} onValueChange={(e) => handleChange("partyDescription", e.target.value)} />
+                    <div>
+                        <FormControlLabel
+                            control={
+                                <Radio
+                                    checked={partyType === "public"}
+                                    onChange={() => setPartyType("public")}
+                                    value="public"
+                                    name="partyType"
+                                />
+                            }
+                            label="Public Party"
+                            style={{ color: "#4542C1" }}
+                        />
+                        <FormControlLabel
+                            control={
+                                <Radio
+                                    checked={partyType === "private"}
+                                    onChange={() => setPartyType("private")}
+                                    value="private"
+                                    name="partyType"
+                                />
+                            }
+                            label="Private Party"
+                            style={{ color: "#4542C1" }}
+                        />
+                    </div>
                     <div style={{ textAlign: "center", alignContent: "center", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                        <YellowButton title="Save" onClick={handleEditParty} />
-                        <YellowButton title="Delete" onClick={handleDeleteParty} style={{ backgroundColor: 'red', color: 'black' }} />
+                        <YellowButton title="Save" handleOnClick={handleEditParty} />
+                        <YellowButton title="Delete" handleOnClick={handleDeleteParty} style={{ backgroundColor: 'red', color: 'black' }} />
                     </div>
                 </div>
             </div>
