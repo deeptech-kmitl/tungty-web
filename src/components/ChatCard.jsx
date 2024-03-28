@@ -105,7 +105,7 @@ const styles = {
   chatImage: {
     width: "4rem",
     height: "4rem",
-    resizeMode: "stretch",
+    objectFit: "cover",
     borderRadius: "50%",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
