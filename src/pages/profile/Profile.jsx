@@ -12,10 +12,17 @@ export const Profile = () => {
   const [profile, setProfile] = useState([]);
   const user_id = localStorage.getItem("user_id");
 
+  const logout = (handleLogout) => {
+    localStorage.clear();
+    navigate("/");
+    handleLogout();
+  };
+  
   useEffect(() => {
     fetch(`https://tungty-service-be.onrender.com/user/${user_id}`)
       .then(response => response.json())
       .then(data => setProfile(data))
+      
   }, []);
 
   return (
@@ -56,7 +63,7 @@ export const Profile = () => {
         style={{
           borderRadius: "16px",
           borderColor: "#4542C1",
-          boxShadow: "4px 7px 5px #E6EEF3",
+          boxShadow: "5px 5px 5px #E6EEF3",
           shadowOffset: {
             width: 30,
             height: -50,
@@ -70,8 +77,6 @@ export const Profile = () => {
             alignContent: "center",
             display: "flex",
             flexDirection: "column",
-            paddingRight: "24px",
-            paddingLeft: "24px",
           }}
         >
           <div
@@ -82,8 +87,8 @@ export const Profile = () => {
             }}
           >
             <Avatar
-              sx={{ width: "175px", height: "175px", alignSelf: "center" }}
-              src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
+              sx={{ width: "150px", height: "150px", alignSelf: "center" }}
+              src={`https://res.cloudinary.com/dppojpoug/image/upload/${profile.profileImg}`}
             />
           </div>
           <h2 style={{ color: "#FDC319" }}>{profile.name} {profile.surname}</h2>
@@ -105,7 +110,7 @@ export const Profile = () => {
             </p>
           </div>
           <div>
-            <YellowButton title="Logout" handleOnClick={() => {}} />
+            <YellowButton title="Logout" handleOnClick={() => logout(logout)} />
           </div>
         </div>
       </div>
