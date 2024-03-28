@@ -101,6 +101,24 @@ export const ChatList = () => {
       </div>
     );
   } else {
+    if (partylist.length == 0) {
+      return (
+        <div>
+          <Header />
+          <div className="screen-center">
+            <h3
+              style={{
+                display: "block",
+                margin: "0 auto",
+                alignSelf: "center",
+              }}
+            >
+              ไม่มีการสนทนา
+            </h3>
+          </div>
+        </div>
+      );
+    }
     return (
       <div style={styles.pageContainer}>
         <Header />

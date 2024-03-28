@@ -74,9 +74,9 @@ export const MyParty = () => {
     // Set initial partylist state when component mounts
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    fetchPartyData();
     return () => {
       document.body.style.overflow = bodyOverflow;
-      fetchPartyData();
       setInterval(() => {
         fetchPartyData();
       }, 60000);
@@ -119,23 +119,49 @@ export const MyParty = () => {
       </div>
     );
   } else {
-    return (
-      <div style={styles.pageContainer}>
-        <Header />
-        <div style={styles.searchbar}>
-          <SearchBar
-            search={search}
-            setSearch={setSearch}
-            handleSearch={handleSearch}
-          />
+    if (partylist.length == 0) {
+      return (
+        <div>
+          <Header />
+          <div className="screen-center">
+            <h3
+              style={{
+                display: "block",
+                margin: "0 auto",
+                alignSelf: "center",
+              }}
+            >
+              ไม่มีปาร์ตี้
+            </h3>
+          </div>
         </div>
-        <div style={styles.titleNSorting}>
-          <div style={{...styles.titlePage, fontSize: screenWidth < 768 ? "5vh" : "10vh",}}>ปาร์ตี้ของฉัน</div>
-          <ModalComponent handleSortFilter={handleSortFilter} />
+      );
+    } else {
+      return (
+        <div style={styles.pageContainer}>
+          <Header />
+          <div style={styles.searchbar}>
+            <SearchBar
+              search={search}
+              setSearch={setSearch}
+              handleSearch={handleSearch}
+            />
+          </div>
+          <div style={styles.titleNSorting}>
+            <div
+              style={{
+                ...styles.titlePage,
+                fontSize: screenWidth < 768 ? "5vh" : "10vh",
+              }}
+            >
+              ปาร์ตี้ของฉัน
+            </div>
+            <ModalComponent handleSortFilter={handleSortFilter} />
+          </div>
+          <PartyCardItem data={partylist} />
         </div>
-        <PartyCardItem data={partylist} />
-      </div>
-    );
+      );
+    }
   }
 };
 
