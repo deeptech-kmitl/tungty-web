@@ -97,6 +97,9 @@ export const Register = () => {
     ) {
       setErrorMsg("กรุณากรอกข้อมูลให้ครบถ้วน!");
       throw new Error(`กรุณากรอกข้อมูลให้ครบถ้วน!`);
+    } else if (formData.studentId.length != 8) {
+      setErrorMsg("รหัสนักศึกษาต้องมี 8 ตัว");
+      throw new Error(`studentId ต้องมี 8 ตัว"`);
     }
     // ใช้ตรวจ username ที่ซ้ำ
     // try {
@@ -444,7 +447,7 @@ export const Register = () => {
                 alignContent: "baseline",
                 alignItems: "baseline",
                 alignSelf: "baseline",
-                marginRight: "1rem"
+                marginRight: "1rem",
               }}
             >
               Profile Image

@@ -14,10 +14,10 @@ const renderChatCard = ({ item, image }) => {
       element.username.toLowerCase().includes(item.username.toLowerCase())
     );
     // console.log(filteredimg[0].profileImg);
-    if (filteredimg) {
+    if (filteredimg.length == 0) {
       profileImg =
         `https://res.cloudinary.com/dppojpoug/image/upload/` +
-        filteredimg[0].profileImg;
+        "j2kobmpy5ykp1xaj6xbt";
     } else {
       profileImg =
         `https://res.cloudinary.com/dppojpoug/image/upload/` +
