@@ -44,7 +44,6 @@ export const Party = () => {
       <div style={styles.pageContainer}>
         <div style={styles.container}>
           <h2 style={styles.datecreated}>
-            {/* {month + " " + day + ", " + year + " " + partyData.appointmentTime} */}
             {month + " " + day + ", " + year + " AT " + hour + ":" + minute}
           </h2>
           <div

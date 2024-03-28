@@ -22,6 +22,7 @@ export const MyParty = () => {
   const [originalData, setOriginalData] = useState([]);
   const [partylist, setPartylist] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const override = {
     display: "block",
@@ -56,6 +57,18 @@ export const MyParty = () => {
       filteredList.length > 0 ? filteredList : originalData;
     setPartylist(updatedRenderList);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     // Set initial partylist state when component mounts
@@ -117,7 +130,7 @@ export const MyParty = () => {
           />
         </div>
         <div style={styles.titleNSorting}>
-          <div style={styles.titlePage}>ปาร์ตี้ของฉัน</div>
+          <div style={{...styles.titlePage, fontSize: screenWidth < 768 ? "5vh" : "10vh",}}>ปาร์ตี้ของฉัน</div>
           <ModalComponent handleSortFilter={handleSortFilter} />
         </div>
         <PartyCardItem data={partylist} />

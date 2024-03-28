@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = ({ children }) => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -16,7 +29,11 @@ const Header = ({ children }) => {
               navigate("/notification");
             }}
           >
-            <FontAwesomeIcon icon={["fas", "bell"]} size="2x" color="#FFC107" />
+            <FontAwesomeIcon
+              icon={["fas", "bell"]}
+              size={screen.width < 768 ? "xl" : "2xl"}
+              color="#FFC107"
+            />
           </div>
         </nav>
       ) : (
@@ -27,7 +44,7 @@ const Header = ({ children }) => {
               navigate("/notification");
             }}
           >
-            <FontAwesomeIcon icon={["fas", "bell"]} size="2x" color="#FFC107" />
+            <FontAwesomeIcon icon={["fas", "bell"]} size={screen.width < 768 ? "xl" : "2xl"} color="#FFC107" />
           </div>
         </nav>
       )}
