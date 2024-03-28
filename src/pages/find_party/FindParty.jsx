@@ -41,6 +41,7 @@ export const FindParty = () => {
       setLoading(false);
     } catch (error) {
       console.log("error" + error);
+      setLoading(false);
     }
   };
   if (loading) {
