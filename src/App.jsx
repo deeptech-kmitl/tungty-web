@@ -17,6 +17,8 @@ import { EditParty } from "./pages/create&edit_party/EditParty";
 import { Party } from "./pages/my_party/Party";
 import { PartyInfo } from "./pages/find_party/PartyInfo";
 import { JoinPrivateParty } from "./pages/find_party/JoinPrivateParty";
+import { Chat } from "./pages/chat/Chat";
+import { ChatList } from "./pages/chatlist/Chatlist";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -104,7 +106,17 @@ function App() {
             element={
               <>
                 <BottomNav value={value} setValue={setValue} />
-                <JoinPrivateParty />
+                <JoinPrivateParty />{" "}
+              </>
+            }
+          />
+          <Route path="/chat/:partyName" element={<Chat />} />
+          <Route
+            path="/chatlist"
+            element={
+              <>
+                <ChatList />
+                <BottomNav value={value} setValue={setValue} />
               </>
             }
           />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   Button,
@@ -14,11 +14,23 @@ import { yellow } from "@mui/material/colors";
 library.add(fas);
 
 const IconToOpenModal = ({ setModalVisible }) => {
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div onClick={() => setModalVisible(true)}>
       <FontAwesomeIcon
         icon={["fas", "arrow-down-wide-short"]}
-        size="2x"
+        size={screen.width < 768 ? "2x": "4x"}
         color="black"
         style={{cursor: "pointer"}}
       />
@@ -27,6 +39,7 @@ const IconToOpenModal = ({ setModalVisible }) => {
 };
 
 const ModalComponent = ({ handleSortFilter }) => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const handleClose = () => {
@@ -46,14 +59,14 @@ const ModalComponent = ({ handleSortFilter }) => {
       </div>
       {modalVisible && (
         <Modal open={modalVisible} onClose={handleClose}>
-          <div style={styles.modalView}>
+          <div style={{...styles.modalView, width: screen.width < 768 ? "150px" : "300px"}}>
             <div style={styles.modalTop}>
-              <h2 style={styles.modalText}>Sort by</h2>
+              <h2 style={{...styles.modalText, fontSize: screen.width < 768 ? "2vh" : "4vh"}}>Sort by</h2>
               <Button onClick={handleClose}>
                 <FontAwesomeIcon
                   icon={["fas", "xmark"]}
                   color="white"
-                  size="3x"
+                  size={screen.width < 768 ? "2x": "3x"}
                   style={{cursor: "pointer"}}
                 />
               </Button>
