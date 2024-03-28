@@ -59,13 +59,14 @@ export const ChatList = () => {
         setLoading(false);
       }
     };
-    return () => {
-      document.body.style.overflow = bodyOverflow;
-      fetchPartyData();
-      setInterval(() => {
-        fetchPartyData();
-      }, 60000);
-    };
+    fetchPartyData();
+    // return () => {
+    //   document.body.style.overflow = bodyOverflow;
+    //   fetchPartyData();
+    //   setInterval(() => {
+    //     fetchPartyData();
+    //   }, 60000);
+    // };
   }, []);
 
   // const fetchPartyData = async () => {
