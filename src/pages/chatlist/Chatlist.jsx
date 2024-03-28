@@ -39,34 +39,54 @@ export const ChatList = () => {
     // Set initial partylist state when component mounts
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    console.log("useEffect");
+    const fetchPartyData = async () => {
+      try {
+        const response = await fetch(
+          `https://tungty-service-be.onrender.com/party/myParty/${username}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = await response.json();
+
+        setOriginalData(data);
+        setPartylist(data);
+        setLoading(false);
+        console.log(partylist);
+      } catch (error) {
+        console.log("error" + error);
+        setLoading(false);
+      }
+    };
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchPartyData();
-      // setInterval(() => {
-      //   fetchPartyData();
-      // }, 60000);
+      setInterval(() => {
+        fetchPartyData();
+      }, 60000);
     };
   }, []);
 
-  const fetchPartyData = async () => {
-    try {
-      const response = await fetch(
-        `https://tungty-service-be.onrender.com/party/myParty/${username}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const data = await response.json();
+  // const fetchPartyData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://tungty-service-be.onrender.com/party/myParty/${username}`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     const data = await response.json();
 
-      setOriginalData(data);
-      setPartylist(data);
-      setLoading(false);
-      console.log(partylist);
-    } catch (error) {
-      console.log("error" + error);
-      setLoading(false);
-    }
-  };
+  //     setOriginalData(data);
+  //     setPartylist(data);
+  //     setLoading(false);
+  //     console.log(partylist);
+  //   } catch (error) {
+  //     console.log("error" + error);
+  //     setLoading(false);
+  //   }
+  // };
 
   if (loading) {
     return (
