@@ -9,7 +9,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 export const Chat = () => {
   const [originalData, setOriginalData] = useState([]);
-  const [userdata, setUserdata] = useState([])
+  const [userdata, setUserdata] = useState([]);
   const [chatlist, setChatlist] = useState([]);
   const [sendChat, setSendChat] = useState([]);
   const location = useLocation();
@@ -22,11 +22,11 @@ export const Chat = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    fetchChatData()
+    fetchChatData();
     return () => {
       document.body.style.overflow = bodyOverflow;
       setInterval(async () => {
-        await fetchChatData()
+        await fetchChatData();
       }, 5000);
     };
   }, []);
@@ -45,6 +45,7 @@ export const Chat = () => {
       );
 
       const memberdata = await members.json();
+      console.log(memberdata.memberList);
 
       const user = await fetch(`http://localhost:8083/chat/getProfileImage`, {
         method: "POST",
@@ -57,7 +58,7 @@ export const Chat = () => {
       const userdata = await user.json();
       const data = await response.json();
 
-      console.log(data);
+      // console.log(data);
       setUserdata(userdata);
       setOriginalData(data);
       setChatlist(data);
@@ -81,13 +82,16 @@ export const Chat = () => {
             partyId: partyData.partyId,
             userId: userId,
             appointmentDate: currentDate,
-            username : username,
-            profileImg: userdata.profileImg
+            username: username,
+            profileImg: "",
           }),
         }
       );
       if (response.ok) {
-        setChatlist((prevChatList) => [...prevChatList, { message: sendChat }]);
+        setChatlist((prevChatList) => [
+          ...prevChatList,
+          { message: sendChat, userId: userId },
+        ]);
         setSendChat("");
         await fetchChatData();
       } else {
@@ -97,6 +101,25 @@ export const Chat = () => {
       console.error("Error sending message:", error);
     }
   };
+
+  const datagyagay = [
+    {
+      username: "GolemGalapagos",
+      profileImg: "v0z1wzlxsoxph9jnbbrm",
+    },
+    {
+      username: "WatsaduExtream",
+      profileImg: "h1osevcenv89mvvsd8n8",
+    },
+    {
+      username: "GolemGalapagos2",
+      profileImg: "4v0z1wzlxsoxph9jnbbrm",
+    },
+    {
+      username: "4",
+      profileImg: "456",
+    },
+  ];
 
   return (
     <>
@@ -116,13 +139,32 @@ export const Chat = () => {
               maxWidth: "calc(50%)",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
             }}
           >
             {partyData.partyName}
           </div>
         </Header>
 
-        <ChatCard data={chatlist} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            justifyItems: "center",
+            alignContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+          }}
+        >
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
+            alt="Chat Image"
+            style={styles.chatImage}
+          />
+        </div>
+
+        <ChatCard data={chatlist} images={userdata} />
       </div>
       <div
         style={{
@@ -150,6 +192,13 @@ export const Chat = () => {
 
 const styles = {
   pageContainer: { height: "96vh", overflowY: "scroll" },
+  chatImage: {
+    width: "20%",
+    height: "20%",
+    objectFit: "cover",
+    borderRadius: "50%",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+  },
   buttonChat: {
     padding: "8px",
     margin: "0px",
