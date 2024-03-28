@@ -3,13 +3,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import RenderPartyCard from "./RenderPartyCard";
 
-const PartyCardItem = ({ data, cardStyle, cardContainerStyle, partyListStyle, ImageStyle, TextStyle }) => { // Step 1: Accept cardContainerStyle prop
+const PartyCardItem = ({ data, cardStyle, cardContainerStyle, partyListStyle, ImageStyle, TextStyle}) => {
   const navigate = useNavigate();
-
   return (
     <div className="flatList" style={{...styles.partyList, ...partyListStyle}}>
       {data.map((item, index) => (
-        <div key={index} style={{ ...styles.partyCardContainer, ...cardContainerStyle }}> {/* Step 2: Apply cardContainerStyle */}
+        <div key={index} style={{ ...styles.partyCardContainer, ...cardContainerStyle }}>
           <RenderPartyCard
             partyId={item.partyId}
             partyName={item.partyName}

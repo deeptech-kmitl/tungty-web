@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { blue, green, pink, purple, red } from "@mui/material/colors";
 const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
@@ -17,7 +17,21 @@ const RenderPartyCard = React.memo(
     imageStyle,
     textStyle,
   }) => {
-    const mergedStyle = { ...styles.partyCard, ...cardStyle };
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setScreenWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
+    const mergedStyle = { ...styles.partyCard, ...cardStyle, height: screenWidth < 786 ? "5rem": "8rem" };
     var imagepath = "";
     const [backgroundColor] = useState(() => {
       const randomIndex = Math.floor(Math.random() * colors.length);
@@ -102,14 +116,29 @@ const RenderPartyCard = React.memo(
         <img
           src={imagepath}
           alt="Party Image"
-          style={{ ...styles.partyImage, ...imageStyle }}
+          style={{
+            ...styles.partyImage,
+            ...imageStyle,
+            width: screenWidth < 768 ? "20%" : "30%",
+          }}
         />
         <div style={{ ...styles.partyDetails, flex: 1 }}>
-          <p style={{ ...styles.partyName, ...textStyle }} title={partyName}>
+          <p
+            style={{
+              ...styles.partyName,
+              ...textStyle,
+              fontSize: screenWidth < 768 ? "14px" : "30px",
+            }}
+            title={partyName}
+          >
             {partyName}
           </p>
           <p
-            style={{ ...styles.partyDescription, ...textStyle }}
+            style={{
+              ...styles.partyDescription,
+              ...textStyle,
+              fontSize: screenWidth < 768 ? "8px" : "16px",
+            }}
             title={partyDescription}
           >
             {partyDescription}
@@ -123,8 +152,12 @@ const RenderPartyCard = React.memo(
               alignContent: "flex-end",
             }}
           >
-            <FontAwesomeIcon icon={["fas", "user"]} size="lg" color="#FFC107" />
-            <span style={{ marginLeft: "10px" }}>
+            <FontAwesomeIcon
+              icon={["fas", "user"]}
+              size={screen.width < 768 ? "sm" : "2xl"}
+              color="#FFC107"
+            />
+            <span style={{ marginLeft: "10px", fontSize: screen.width < 768 ? "14px": "30px" }}>
               {memberList ? memberList.length : 0}
             </span>
           </div>
@@ -159,14 +192,12 @@ const styles = {
     flexDirection: "column",
   },
   partyName: {
-    fontSize: "30px",
     fontWeight: "bold",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
   partyDescription: {
-    fontSize: "16px",
     padding: "1 %",
     fontWeight: "bold",
     overflow: "hidden",
@@ -175,7 +206,6 @@ const styles = {
   },
   icons: {
     display: "flex",
-    fontSize: "3vh",
     alignItems: "center",
     justifyContent: "flex-end",
   },

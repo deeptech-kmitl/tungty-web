@@ -47,7 +47,7 @@ export const Chat = () => {
       const memberdata = await members.json();
       console.log(memberdata.memberList);
 
-      const user = await fetch(`http://localhost:8083/chat/getProfileImage`, {
+      const user = await fetch(`https://tungty-service-be.onrender.com/chat/getProfileImage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
