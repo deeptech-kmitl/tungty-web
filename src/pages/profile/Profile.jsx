@@ -27,16 +27,18 @@ export const Profile = () => {
 
   return (
     <div
-      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
+      style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF", }}
     >
       <div
         style={{
           backgroundColor: "#4542C1",
           padding: "1px",
           color: "#ffffff",
+          zIndex: 50,
           position: "relative",
           justifyContent: "space-between",
           alignItems: "center",
+          overflow: "hidden"
         }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>

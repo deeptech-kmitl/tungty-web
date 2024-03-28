@@ -29,7 +29,7 @@ export const EditProfile = () => {
 
   return (
     <div
-      style={{ width: "100dvw", height: "100dvh", backgroundColor: "#FFFFFF" }}
+      style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF" }}
     >
       <div
         style={{
