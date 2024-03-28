@@ -9,11 +9,11 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 export const Chat = () => {
   const [originalData, setOriginalData] = useState([]);
+  const [userdata, setUserdata] = useState([])
   const [chatlist, setChatlist] = useState([]);
   const [sendChat, setSendChat] = useState([]);
   const location = useLocation();
   const { partyData } = location.state;
-  console.log(partyData.memberList)
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("user_id");
@@ -22,11 +22,12 @@ export const Chat = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    fetchChatData()
     return () => {
       document.body.style.overflow = bodyOverflow;
-      // setInterval(async () => {
-      //   await fetchPartyData()
-      // }, 1000);
+      setInterval(async () => {
+        await fetchChatData()
+      }, 5000);
     };
   }, []);
 
@@ -35,7 +36,13 @@ export const Chat = () => {
       const response = await fetch(
         `https://tungty-service-be.onrender.com/chat/getAllMessage/${partyData.partyId}`
       );
+
+      const user = await fetch(`https://tungty-service-be.onrender.com/user/${userId}`)
+      const userdata = await user.json()
       const data = await response.json();
+
+      console.log(data);
+      setUserdata(userdata);
       setOriginalData(data);
       setChatlist(data);
     } catch (error) {
@@ -59,13 +66,12 @@ export const Chat = () => {
             userId: userId,
             appointmentDate: currentDate,
             username : username,
-            profileImg: profileImg
+            profileImg: userdata.profileImg
           }),
         }
       );
       if (response.ok) {
         setChatlist((prevChatList) => [...prevChatList, { message: sendChat }]);
-        await fetchPartyData();
         setSendChat("");
         await fetchChatData();
       } else {

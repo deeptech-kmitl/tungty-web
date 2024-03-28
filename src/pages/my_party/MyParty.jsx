@@ -16,6 +16,7 @@ import PartyCardItem from "./../../components/PartyCardItem";
 
 export const MyParty = () => {
   const userId = localStorage.getItem("user_id");
+  const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
   const [search, setSearch] = useState("");
   const [originalData, setOriginalData] = useState([]);
@@ -72,7 +73,7 @@ export const MyParty = () => {
   const fetchPartyData = async () => {
     try {
       const response = await fetch(
-        `https://tungty-service-be.onrender.com/party/myParty/${userId}`,
+        `https://tungty-service-be.onrender.com/party/myParty/${username}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

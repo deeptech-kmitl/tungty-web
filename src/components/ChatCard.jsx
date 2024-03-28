@@ -20,7 +20,7 @@ const renderChatCard = ({ item }) => {
                 style={{ ...styles.chatName, color: "white" }}
                 title={item.content}
               >
-                {item.content}
+                {item.message}
               </p>
             </div>
           </div>
@@ -63,7 +63,7 @@ const renderChatCard = ({ item }) => {
               }}
             >
               <p style={styles.chatName} title={item.content}>
-                {item.content}
+                {item.message}
               </p>
             </div>
           </div>
@@ -103,9 +103,9 @@ const styles = {
     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)",
   },
   chatImage: {
-    width: "9%",
-    height: "9%",
-    resizeMode: "contain",
+    width: "4rem",
+    height: "4rem",
+    resizeMode: "stretch",
     borderRadius: "50%",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
