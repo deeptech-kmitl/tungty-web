@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { blue, green, pink, purple, red } from "@mui/material/colors";
 const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
@@ -63,7 +63,7 @@ export const RenderChatCard = React.memo(({ item }) => {
         "https://res.cloudinary.com/dppojpoug/image/upload/v1709255878/iqtn6srv5zn1lf853rau";
   }
 
-  const partyData = {...item, imagepath}
+  const partyData = { ...item, imagepath };
   const navigateToChat = (item) => {
     navigate(`/chat/${item.partyName}`, { state: { partyData: partyData } });
   };
@@ -71,7 +71,7 @@ export const RenderChatCard = React.memo(({ item }) => {
   return (
     <div
       className="chatCard"
-      style={{ ...styles.chatCard, backgroundColor: "#D9D9D9" }}
+      style={{ ...styles.chatCard, backgroundColor: "#ECF2F6" }}
       onClick={() => navigateToChat(item)}
     >
       <img src={imagepath} alt="Chat Image" style={styles.chatImage} />
@@ -87,7 +87,7 @@ const ChatListCard = ({ data }) => {
     <div className="flatList" style={styles.chatList}>
       {data.map((item, index) => (
         <div key={index} style={styles.chatCardContainer}>
-            <RenderChatCard item={item} />
+          <RenderChatCard item={item} />
         </div>
       ))}
     </div>
@@ -100,8 +100,8 @@ const styles = {
     textOverflow: "ellipsis",
     display: "flex",
     height: "1rem",
-    padding: "8%",
-    borderRadius: "10px",
+    padding: "32px",
+    borderRadius: "16px",
     alignItems: "center",
     cursor: "pointer",
     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)",
@@ -113,7 +113,7 @@ const styles = {
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   chatName: {
-    fontSize: "calc(30px)",
+    fontSize: "16px",
     fontWeight: "bold",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -127,7 +127,7 @@ const styles = {
     padding: "20px",
   },
   chatCardContainer: {
-    width: "calc(80%)",
+    // width: "calc(80%)",
     marginBottom: "20px",
   },
 };
