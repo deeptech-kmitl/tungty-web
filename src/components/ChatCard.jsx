@@ -46,7 +46,7 @@ const renderChatCard = ({ item }) => {
                 marginBottom: "0",
                 color: "#4542C1",
                 fontWeight: "",
-                alignSelf: "center",
+                alignSelf: "flex-start",
               }}
               title={item.username}
             >
@@ -91,7 +91,7 @@ const styles = {
   chatCardContainer: {
     width: "auto",
     maxWidth: "calc(70%)",
-    margin: "9px",
+    marginLeft: "9px",
   },
   chatCard: {
     flexDirection: "row",
