@@ -39,7 +39,6 @@ export const ChatList = () => {
     // Set initial partylist state when component mounts
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    console.log("useEffect");
     const fetchPartyData = async () => {
       try {
         const response = await fetch(
@@ -60,13 +59,12 @@ export const ChatList = () => {
       }
     };
     fetchPartyData();
-    // return () => {
-    //   document.body.style.overflow = bodyOverflow;
-    //   fetchPartyData();
-    //   setInterval(() => {
-    //     fetchPartyData();
-    //   }, 60000);
-    // };
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      setInterval(() => {
+        fetchPartyData();
+      }, 60000);
+    };
   }, []);
 
   // const fetchPartyData = async () => {
