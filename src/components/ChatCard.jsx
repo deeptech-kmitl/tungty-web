@@ -5,7 +5,28 @@ const renderChatCard = ({ item }) => {
   // const navigate = useNavigate();
 
   const userId = localStorage.getItem("user_id");
-  const profileImg = `https://res.cloudinary.com/dppojpoug/image/upload/` + item.profileImg
+
+  var filteredimg = [];
+  var profileImg = "";
+
+  if (userId !== item.userId) {
+    filteredimg = image.filter((element) =>
+      element.username.toLowerCase().includes(item.username.toLowerCase())
+    );
+    // console.log(filteredimg[0].profileImg);
+    if (filteredimg) {
+      profileImg =
+        `https://res.cloudinary.com/dppojpoug/image/upload/` +
+        filteredimg[0].profileImg;
+    } else {
+      profileImg =
+        `https://res.cloudinary.com/dppojpoug/image/upload/` +
+        filteredimg[0].profileImg;
+    }
+  }
+
+  // const profileImg =
+  //   `https://res.cloudinary.com/dppojpoug/image/upload/` + item.profileImg;
 
   return (
     <>

@@ -55,7 +55,7 @@ export const Party = () => {
           >
             <div style={styles.imageWrapper}>
               <img
-                src="https://cdn-icons-png.flaticon.com/512/1719/1719420.png"
+                src={partyData.imagepath}
                 alt="Party Image"
                 style={styles.partyImage}
               />
@@ -130,7 +130,7 @@ const styles = {
   },
   partyImage: {
     display: "block",
-    maxWidth: "100%",
+    width: "15rem",
     height: "auto",
     borderRadius: "50%",
   },
@@ -139,14 +139,12 @@ const styles = {
     alignItems: "center",
     padding: "10px",
     borderRadius: "50%",
-    width: "300px",
-    height: "300px",
   },
   imageWrapper: {
     overflow: "hidden",
     borderRadius: "50%",
-    width: "100%",
-    height: "100%",
+    width: "15rem",
+    height: "15rem",
   },
   icons: {
     alignItems: "center",
