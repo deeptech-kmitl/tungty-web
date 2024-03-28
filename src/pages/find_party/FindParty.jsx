@@ -6,10 +6,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import PartyInfoCardItem from "../../components/PartyInfoCardItem";
 import { FilterbyModal } from "../../components/FilterbyModal";
 import HashLoader from "react-spinners/HashLoader";
+import FloatingButton from "../../components/createPartyButton";
+import { useNavigate } from "react-router-dom";
 
 export const FindParty = () => {
   const userId = localStorage.getItem("user_id");
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIdXkyIiwiZXhwIjoxNzEzODA0NTQzLCJpYXQiOjE3MTEyMTI1NDMsInVzZXJJZCI6IjkxYjY5OGE2LTY1N2EtNDY4Ni05Yzk3LTYxYThlNTA1NjQxOCJ9.UvZs8Mw60D1DhNhN9SA1m1-iTrzaClYFOBrKMJKb6uI";
   const [partylist, setPartylist] = useState([]);
   const [originalData, setOriginalData] = useState([]);
@@ -93,6 +96,7 @@ export const FindParty = () => {
           <div style={styles.titleNSorting}>
             <PartyInfoCardItem data={partylist} />
           </div>
+          <FloatingButton onClick={() => navigate("/create-party")}></FloatingButton>
         </div>
       </div>
     );
