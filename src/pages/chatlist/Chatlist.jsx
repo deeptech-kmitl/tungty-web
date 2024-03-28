@@ -61,6 +61,7 @@ export const ChatList = () => {
       setOriginalData(data);
       setPartylist(data);
       setLoading(false);
+      console.log(loading);
     } catch (error) {
       console.log("error" + error);
       setLoading(false);
