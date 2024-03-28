@@ -60,8 +60,8 @@ export const FindParty = () => {
             style={{ verticalAlign: "middle", marginRight: "10px" }}
           />
         </div>
-        <div style={{ display: 'flex', alignItems:'center'}}>
-          <h2 style={{ color: '#FDC319', margin:'20px' }}>หาปาร์ตี้</h2>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h2 style={{ color: '#FDC319', margin: '20px' }}>หาปาร์ตี้</h2>
           <FilterbyModal></FilterbyModal>
         </div>
         <div style={styles.titleNSorting}>
