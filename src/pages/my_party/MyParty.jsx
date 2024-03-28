@@ -84,7 +84,6 @@ export const MyParty = () => {
   }, []);
 
   const fetchPartyData = async () => {
-    let username;
     try {
       const response = await fetch(
         `https://tungty-service-be.onrender.com/party/myParty/${username}`,
@@ -100,6 +99,7 @@ export const MyParty = () => {
       setOriginalData(data);
       setPartylist(data);
       setLoading(false);
+      console.log(data);
     } catch (error) {
       console.log("error" + error);
       setLoading(false);
