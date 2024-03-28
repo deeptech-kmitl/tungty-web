@@ -93,10 +93,10 @@ export const MyParty = () => {
     return (
       <div style={styles.spinnerContainer}>
         <HashLoader
-          color={green[600]}
+          color={"#4542C1"}
           loading={loading}
           cssOverride={override}
-          size={150}
+          size={100}
           aria-label="Loading Spinner"
           data-testid="loader"
         />
@@ -117,7 +117,7 @@ export const MyParty = () => {
           <div style={styles.titlePage}>ปาร์ตี้ของฉัน</div>
           <ModalComponent handleSortFilter={handleSortFilter} />
         </div>
-        <PartyCardItem data={partylist}/>
+        <PartyCardItem data={partylist} />
       </div>
     );
   }
