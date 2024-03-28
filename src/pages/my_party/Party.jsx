@@ -6,8 +6,10 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const Party = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { partyData } = location.state;
   const date = new Date(Date.parse(partyData.createDateTime));
@@ -19,16 +21,62 @@ export const Party = () => {
     date.getHours(),
     date.getMinutes(),
   ];
+  const [isOwner, setIsOwner] = useState(false);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    console.log(partyData);
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      fetchData();
+    };
+  }, []);
+
+  const fetchData = async () => {
+    let username;
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+    let partyOwner;
+    try {
+      const response = await fetch(
+        `https://tungty-service-be.onrender.com/user/${userId}`
+      );
+      const data = await response.json();
+      console.log(data.username);
+      username = data.username;
+      console.log(username);
+    } catch (error) {}
+    console.log(partyData.partyName);
+    try {
+      const response = await fetch(
+        `https://tungty-service-be.onrender.com/party/${partyData.partyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      partyOwner = data.partyOwner;
+      console.log(partyOwner);
+    } catch (error) {}
+    console.log(username);
+    console.log(partyOwner);
+    if (username == partyOwner) {
+      setIsOwner(true);
+    }
+    console.log(isOwner);
+    console.log(partyData);
+  };
 
   const navigateToChat = () => {
     navigate(`/chat/${partyData.partyName}`, {
       state: {
-        partyData
+        partyData,
       },
     });
-  }
+  };
 
   return (
     <>
@@ -71,6 +119,17 @@ export const Party = () => {
           >
             {partyData.partyName}
           </div>
+          {isOwner && (
+            <div
+              onClick={() =>
+                navigate(`/edit-party/${partyData.partyName}`, {
+                  state: { partyData },
+                })
+              }
+            >
+              <EditIcon></EditIcon>
+            </div>
+          )}
           <div style={styles.icons}>
             <div
               style={styles.iconContainer}

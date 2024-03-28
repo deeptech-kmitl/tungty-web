@@ -84,6 +84,7 @@ export const MyParty = () => {
   }, []);
 
   const fetchPartyData = async () => {
+    let username;
     try {
       const response = await fetch(
         `https://tungty-service-be.onrender.com/party/myParty/${username}`,
@@ -195,7 +196,7 @@ const styles = {
     marginLeft: "5%",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "10vh",
+    fontSize: "30px",
     color: "#FFC107",
     fontWeight: "bold",
   },
