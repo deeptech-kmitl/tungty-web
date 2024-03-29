@@ -10,13 +10,13 @@ export const PartyMember = () => {
   let { partyId } = useParams();
 
   const [memberList, setMemberList] = useState([]);
-  
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token == null) {
       navigate("/");
     }
-    fetch(`https://tungty-service-be.onrender.com/party/${username}`,  {
+    fetch(`https://tungty-service-be.onrender.com/party/${partyId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -24,7 +24,7 @@ export const PartyMember = () => {
       })
       .then((data) => {
         setMemberList(data.memberList);
-        console.log(data.memberList)
+        console.log(data.memberList);
       });
   }, []);
 
@@ -45,7 +45,7 @@ export const PartyMember = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/find-party");
+            navigate("/myparty");
           }}
         >
           <ArrowBackIcon
@@ -84,7 +84,7 @@ export const PartyMember = () => {
                 },
               }}
               onClick={() => {
-                navigate(`/member-info/${item}`);
+                navigate(`/member-info/${partyId}/${item}`);
               }}
             >
               <Avatar

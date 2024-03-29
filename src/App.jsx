@@ -29,7 +29,7 @@ function App() {
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/member/:partyId" element={<PartyMember />}></Route>
-          <Route path="/member-info/:username"  element={<MemberInfo/>}></Route>
+          <Route path="/member-info/:partyId/:username"  element={<MemberInfo/>}></Route>
           <Route
             path="/myparty"
             element={

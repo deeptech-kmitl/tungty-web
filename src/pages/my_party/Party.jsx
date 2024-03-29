@@ -130,7 +130,7 @@ export const Party = () => {
           <div style={styles.icons}>
             <div
               style={styles.iconContainer}
-              onClick={() => navigate("/Member")}
+              onClick={() => navigate(`/member/${partyData.partyId}`)}
             >
               <FontAwesomeIcon
                 icon={["fas", "user"]}

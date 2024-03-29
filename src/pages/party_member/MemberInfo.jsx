@@ -11,11 +11,12 @@ export const MemberInfo = () => {
   const navigate = useNavigate();
   let { username } = useParams();
   const [userInfo, setUserInfo] = useState([]);
+  let { partyId } = useParams();
 
   useEffect(() => {
     fetch(`https://tungty-service-be.onrender.com/user/username/${username}`)
-      .then(response => response.json())
-      .then(data => setUserInfo(data))
+      .then((response) => response.json())
+      .then((data) => setUserInfo(data));
   }, []);
 
   return (
@@ -35,7 +36,7 @@ export const MemberInfo = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/member");
+            navigate(`/member/${partyId}`);
           }}
         >
           <ArrowBackIcon
@@ -54,7 +55,7 @@ export const MemberInfo = () => {
           borderRadius: "16px",
           borderColor: "#4542C1",
           boxShadow: "4px 7px 5px #3431A0",
-          wordBreak: 'break-all',
+          wordBreak: "break-all",
           shadowOffset: {
             width: 30,
             height: -50,
@@ -75,8 +76,10 @@ export const MemberInfo = () => {
             sx={{ width: 200, height: 200, alignSelf: "center" }}
             src={`https://res.cloudinary.com/dppojpoug/image/upload/${userInfo.profileImg}`}
           />
-          <h2 style={{ color: "#FDC319" }}>{userInfo.name} {userInfo.surname}</h2>
-          
+          <h2 style={{ color: "#FDC319" }}>
+            {userInfo.name} {userInfo.surname}
+          </h2>
+
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <p>{userInfo.field}</p>
@@ -86,9 +89,7 @@ export const MemberInfo = () => {
             </Grid>
           </Grid>
           <Divider variant="middle" />
-          <p>
-            {userInfo.aboutMe}
-          </p>
+          <p>{userInfo.aboutMe}</p>
         </div>
       </div>
     </div>
