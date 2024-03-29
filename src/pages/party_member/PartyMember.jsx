@@ -2,27 +2,32 @@ import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export const PartyMember = () => {
   const navigate = useNavigate();
-  const memberList = [
-    {
-      name: "nate natacha",
-      img: "https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp",
-    },
-    {
-      name: "nate natacha",
-      img: "https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp",
-    },
-    {
-      name: "nate natacha",
-      img: "https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp",
-    },
-    {
-      name: "nate natacha",
-      img: "https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp",
-    },
-  ];
+  let { partyId } = useParams();
+
+  const [memberList, setMemberList] = useState([]);
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token == null) {
+      navigate("/");
+    }
+    fetch(`https://tungty-service-be.onrender.com/party/${username}`,  {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setMemberList(data.memberList);
+        console.log(data.memberList)
+      });
+  }, []);
+
   return (
     <div
       style={{ width: "100dvw", height: "100dvh", backgroundColor: "#EFEFEF" }}
@@ -79,7 +84,7 @@ export const PartyMember = () => {
                 },
               }}
               onClick={() => {
-                navigate("/member-info");
+                navigate(`/member-info/${item}`);
               }}
             >
               <Avatar
@@ -93,7 +98,7 @@ export const PartyMember = () => {
                   color: "#4542C1",
                 }}
               >
-                {item.name}
+                {item}
               </p>
             </div>
           </div>

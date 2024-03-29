@@ -3,10 +3,21 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import { YellowButton } from "../../components/YellowButton";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
 
 export const MemberInfo = () => {
   const navigate = useNavigate();
+  let { username } = useParams();
+  const [userInfo, setUserInfo] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://tungty-service-be.onrender.com/user/username/${username}`)
+      .then(response => response.json())
+      .then(data => setUserInfo(data))
+  }, []);
+
   return (
     <div
       style={{ width: "100dvw", height: "100dvh", backgroundColor: "#4542C1" }}
@@ -42,8 +53,8 @@ export const MemberInfo = () => {
         style={{
           borderRadius: "16px",
           borderColor: "#4542C1",
-          // border: "3px solid #4542C1",
           boxShadow: "4px 7px 5px #3431A0",
+          wordBreak: 'break-all',
           shadowOffset: {
             width: 30,
             height: -50,
@@ -62,17 +73,22 @@ export const MemberInfo = () => {
         >
           <Avatar
             sx={{ width: 200, height: 200, alignSelf: "center" }}
-            src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
+            src={`https://res.cloudinary.com/dppojpoug/image/upload/${userInfo.profileImg}`}
           />
-          <h2 style={{ color: "#FDC319" }}>blujay bj</h2>
+          <h2 style={{ color: "#FDC319" }}>{userInfo.name} {userInfo.surname}</h2>
+          
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <p>{userInfo.field}</p>
+            </Grid>
+            <Grid item xs={6}>
+              <p>ปี {userInfo.year}</p>
+            </Grid>
+          </Grid>
           <Divider variant="middle" />
           <p>
-            เรียนที่คณะเทคโนโลยีสารสนเทศ สจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก
-            ชอบเล่นบาสมากชวนเล่นได้ค่ะ{" "}
+            {userInfo.aboutMe}
           </p>
-          <div>
-            <YellowButton title="CHAT" handleOnClick={() => {}} />
-          </div>
         </div>
       </div>
     </div>

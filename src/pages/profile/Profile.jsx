@@ -5,14 +5,26 @@ import Grid from "@mui/material/Grid";
 import { YellowButton } from "../../components/YellowButton";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export const Profile = () => {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState([]);
+  const user_id = localStorage.getItem("user_id");
 
-  const handleLogout = () => {
-    localStorage.clear()
+  const logout = (handleLogout) => {
+    localStorage.clear();
     navigate("/");
-  }
+    handleLogout();
+  };
+  
+  useEffect(() => {
+    fetch(`https://tungty-service-be.onrender.com/user/${user_id}`)
+      .then(response => response.json())
+      .then(data => setProfile(data))
+      
+  }, []);
+
   return (
     <div
       style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF", }}
@@ -53,7 +65,8 @@ export const Profile = () => {
         style={{
           borderRadius: "16px",
           borderColor: "#4542C1",
-          boxShadow: "4px 7px 5px #E6EEF3",
+          boxShadow: "5px 5px 5px #E6EEF3",
+          wordBreak: 'break-all',
           shadowOffset: {
             width: 30,
             height: -50,
@@ -67,8 +80,6 @@ export const Profile = () => {
             alignContent: "center",
             display: "flex",
             flexDirection: "column",
-            paddingRight: "24px",
-            paddingLeft: "24px",
           }}
         >
           <div
@@ -79,34 +90,30 @@ export const Profile = () => {
             }}
           >
             <Avatar
-              sx={{ width: "175px", height: "175px", alignSelf: "center" }}
-              src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
+              sx={{ width: "150px", height: "150px", alignSelf: "center" }}
+              src={`https://res.cloudinary.com/dppojpoug/image/upload/${profile.profileImg}`}
             />
           </div>
-          <h2 style={{ color: "#FDC319" }}>blujay bj</h2>
+          <h2 style={{ color: "#FDC319" }}>{profile.name} {profile.surname}</h2>
           <Divider variant="middle" />
           <div style={{ textAlign: "left" }}>
             <Grid container spacing={1}>
               <Grid item xs={6}>
-                <p>คณะ : IT </p>
+                <p>คณะ : {profile.faculty} </p>
               </Grid>
               <Grid item xs={6}>
-                <p>สาขา : IT</p>
+                <p>สาขา : {profile.field}</p>
               </Grid>
               <Grid item xs={6}>
-                <p>ปี : 3</p>
-              </Grid>
-              <Grid item xs={6}>
-                <p>รหัส : 63xxxxx</p>
+                <p>ปี : {profile.year}</p>
               </Grid>
             </Grid>
             <p>
-              เรียนที่คณะเทคโนโลยีสารสนเทศ สจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก
-              ชอบเล่นบาสมากชวนเล่นได้ค่ะ
+            {profile.aboutMe}
             </p>
           </div>
           <div>
-            <YellowButton title="Logout" handleOnClick={handleLogout} />
+            <YellowButton title="Logout" handleOnClick={() => logout(logout)} />
           </div>
         </div>
       </div>
