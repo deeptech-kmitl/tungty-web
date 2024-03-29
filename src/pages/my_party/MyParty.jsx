@@ -99,6 +99,7 @@ export const MyParty = () => {
       setOriginalData(data);
       setPartylist(data);
       setLoading(false);
+      console.log(data);
     } catch (error) {
       console.log("error" + error);
       setLoading(false);
@@ -195,7 +196,7 @@ const styles = {
     marginLeft: "5%",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "10vh",
+    fontSize: "30px",
     color: "#FFC107",
     fontWeight: "bold",
   },
