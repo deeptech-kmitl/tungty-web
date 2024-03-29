@@ -8,6 +8,7 @@ import { FilterbyModal } from "../../components/FilterbyModal";
 import HashLoader from "react-spinners/HashLoader";
 import FloatingButton from "../../components/createPartyButton";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../../components/SearchBar";
 
 export const FindParty = () => {
   const userId = localStorage.getItem("user_id");
@@ -17,6 +18,7 @@ export const FindParty = () => {
   const [partylist, setPartylist] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
@@ -26,6 +28,15 @@ export const FindParty = () => {
       document.body.style.overflow = bodyOverflow;
     };
   }, []);
+
+  const handleSearch = (search) => {
+    const filteredList = originalData.filter((element) =>
+      element.partyName.toLowerCase().includes(search.toLowerCase())
+    );
+    const updatedRenderList =
+      filteredList.length > 0 ? filteredList : originalData;
+    setPartylist(updatedRenderList);
+  };
 
   const fetchPartyData = async () => {
     try {
@@ -71,22 +82,24 @@ export const FindParty = () => {
       </div>
     );
   } else {
+
     return (
       <div style={styles.pageContainer}>
         <NotificationAppBar />
+        <div style={styles.bottomBar}>
+          <div style={styles.greenContainer} >
+            <span style={styles.text}>Public Party</span>
+          </div>
+          <div style={styles.redContainer} onClick={() => navigate("/join-private-party")}>
+            <span style={styles.textRight}>Private Party</span>
+          </div>
+        </div>
         <div style={{ textAlign: "center", marginTop: "16px" }}>
-          <div
-            style={{
-              backgroundColor: "#D9D9D9",
-              width: "auto",
-              borderRadius: 24,
-              display: "inline-block",
-              verticalAlign: "middle",
-            }}
-          >
-            <WhiteTextField style={{ backgroundColor: "#D9D9D9" }} />
-            <SearchIcon
-              style={{ verticalAlign: "middle", marginRight: "10px" }}
+          <div style={styles.searchbar}>
+            <SearchBar
+              search={search}
+              setSearch={setSearch}
+              handleSearch={handleSearch}
             />
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -96,17 +109,13 @@ export const FindParty = () => {
           <div style={styles.titleNSorting}>
             <PartyInfoCardItem data={partylist} />
           </div>
-          <FloatingButton onClick={() => navigate("/create-party")}></FloatingButton>
+          <div onClick={() => navigate("/create-party")}><FloatingButton ></FloatingButton></div>
         </div>
       </div>
     );
   }
 };
 const styles = {
-  pageContainer: {
-    height: "97vh",
-    overflowY: "scroll",
-  },
   searchbar: {
     flexDirection: "row",
     marginTop: "3%",
@@ -121,5 +130,37 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  pageContainer: {
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    overflowY: "scroll",
+  },
+  bottomBar: {
+    display: "flex",
+    height: "100px", // ปรับความสูงตามที่ต้องการ
+  },
+  greenContainer: {
+    flex: 1,
+    backgroundColor: "#4542C1",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  redContainer: {
+    flex: 1,
+    backgroundColor: "#F1F1F1",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    color: "white",
+    fontSize: "20px",
+  },
+  textRight: {
+    color: "black",
+    fontSize: "20px",
   },
 };

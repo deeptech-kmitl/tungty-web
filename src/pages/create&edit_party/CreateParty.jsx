@@ -50,11 +50,34 @@ export const CreateParty = () => {
         partyDescription: "",
         partyType: "",
         partyCategory: "",
-        appointmentDate: "", // Initial empty string
+        appointmentDate: "2024-03-29T11:13:00+07:00", // Initial empty string
         appointmentTime: "",
         memberAmount: "",
         memberList: [],
     });
+
+    const [formDataNoti, setFormDataNoti] = useState({
+        partyName: formData.partyName,
+        typeAction: "notify",
+        notifyDescription: `${formData.partyName} meeting will start now`,
+        userId: userId,
+        appointmentDate: formData.appointmentTime, // Initial empty string
+        appointmentTime: formData.appointmentTime,
+        status: "Pending",
+        partyId: "",
+    });
+
+    const [formDataNoti15Min, setFormDataNoti15Min] = useState({
+        partyName: formData.partyName,
+        typeAction: "notify",
+        notifyDescription: `${formData.partyName} meeting will start in 15 minutes`,
+        userId: userId,
+        appointmentDate: formData.appointmentTime, // Initial empty string
+        appointmentTime: formData.appointmentTime,
+        status: "Pending",
+        partyId: "",
+    });
+
 
     const handleChange = (name, value) => {
         if (name === "memberAmount") {
@@ -98,17 +121,14 @@ export const CreateParty = () => {
         const replacetime = "T" + formData.appointmentTime + ":00"
         const realAppointmentTime = apptime.replace("T00:00:00", replacetime)
         console.log(realAppointmentTime)
-
-        const userId = localStorage.getItem("user_id");
-        const token = localStorage.getItem("token");
         let username;
         try {
-          const response = await fetch(
-            `https://tungty-service-be.onrender.com/user/${userId}`,
-          );
-          const data = await response.json();
-          console.log(data.username);
-          username = data.username;
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/user/${userId}`,
+            );
+            const data = await response.json();
+            console.log(data.username);
+            username = data.username;
         } catch (error) {
         }
         formData.memberList = [username]
@@ -123,6 +143,32 @@ export const CreateParty = () => {
             );
             console.log(token)
             console.log(formData);
+            navigate(`/myparty`);
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/createNotify`,
+                {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDataNoti),
+                }
+            );
+            navigate(`/myparty`);
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/createNotify`,
+                {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDataNoti15Min),
+                }
+            );
             navigate(`/myparty`);
         } catch (error) {
             console.log("error" + error);
