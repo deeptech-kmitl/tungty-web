@@ -53,15 +53,17 @@ export const EditProfile = () => {
 
   const sendChange = () => {
     console.log(formData)
-    fetch(`https://tungty-service-be.onrender.com/user/edit_profile${user_id}`, {
+    fetch(`https://tungty-service-be.onrender.com/user/edit_profile`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify({
+        ...formData,
+        userId: user_id
+      })
     })
-      .then(response => response.json())
       .then(() => navigate("/profile"));
   };
 
