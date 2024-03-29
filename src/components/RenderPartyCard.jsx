@@ -16,6 +16,7 @@ const RenderPartyCard = React.memo(
     cardStyle,
     imageStyle,
     textStyle,
+    partyCode
   }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -52,6 +53,7 @@ const RenderPartyCard = React.memo(
             appointmentTime,
             partyCategory,
             backgroundColor,
+            partyCode,
           },
         },
       });

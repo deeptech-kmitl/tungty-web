@@ -23,6 +23,7 @@ export const FindParty = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    console.log()
     fetchPartyData();
     return () => {
       document.body.style.overflow = bodyOverflow;

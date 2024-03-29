@@ -23,6 +23,7 @@ const PartyCardItem = ({ data, cardStyle, cardContainerStyle, partyListStyle, Im
             cardStyle={cardStyle}
             imageStyle={ImageStyle}
             textStyle={TextStyle}
+            partyCode={item.partyCode}
           />
         </div>
       ))}
