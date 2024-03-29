@@ -5,26 +5,59 @@ import { WhiteTextField } from "../../components/WhiteTextField";
 import Grid from "@mui/material/Grid";
 import { YellowButton } from "../../components/YellowButton";
 import { useState, useEffect } from "react";
+import { createIconSetFromFontello } from "react-native-vector-icons";
+const token = localStorage.getItem("token");
+
+
 
 export const EditProfile = () => {
   const navigate = useNavigate();
-  const [changeYear, setInputchangeYear] = useState("");
   const [requestEdit, setRequestEdit] = useState({});
+  const [profile, setProfile] = useState([]);
+  const user_id = localStorage.getItem("user_id");
+  const [formData, setFormData] = useState({
+    userId: profile.userId || "",
+    name: profile.name || "",
+    surname: profile.surname || "",
+    username: profile.username || "",
+    password: profile.password || "",
+    studentId: profile.studentId || "",
+    faculty: profile.faculty || "",
+    field: profile.field || "",
+    year: profile.year || "",
+    profileImg: "Test",
+    aboutMe: profile.aboutMe || ""
+  });
+
+
   useEffect(() => {
     if (Object.keys(requestEdit).length > 0) {
       EditProfile();
     }
   }, [requestEdit]);
 
+  useEffect(() => {
+    fetch(`https://tungty-service-be.onrender.com/user/${user_id}`)
+      .then(response => response.json())
+      .then(data => setFormData(data))
+
+  }, []);
+
   const sendChange = () => {
-    fetch("https://tungty-service-be.onrender.com/user/edit_profile", {
+
+    const putData = {
+      ...formData,
+      userId: user_id
+    }
+
+
+    fetch(`https://tungty-service-be.onrender.com/user/edit_profile`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestEdit),
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+      body: JSON.stringify(putData)
     })
       .then(response => response.json())
+      .then(() => navigate("/profile"))
   };
 
   return (
@@ -58,16 +91,9 @@ export const EditProfile = () => {
         </div>
       </div>
       <div
-        // className="screen-center"
         style={{
           borderRadius: "16px",
           borderColor: "#4542C1",
-          // boxShadow: "4px 7px 5px #E6EEF3",
-          // shadowOffset: {
-          //   width: 30,
-          //   height: -50,
-          // },
-          // backgroundColor: "#FBC31E",
         }}
       >
         <div style={{ padding: "24px", alignContent: "center" }}>
@@ -81,8 +107,8 @@ export const EditProfile = () => {
             <Grid item xs={9}>
               <input
                 type="number"
-                value={changeYear}
-                onChange={(e) => setInputchangeYear(e.target.value)}
+                value={formData.year}
+                onChange={(e) => setFormData({ ...formData, year: e.target.value })}
                 style={{
                   padding: "10px 16px",
                   borderRadius: 24,
@@ -99,6 +125,8 @@ export const EditProfile = () => {
             </Grid>
             <Grid item xs={9}>
               <textarea
+                value={formData.aboutMe}
+                onChange={(e) => setFormData({ ...formData, aboutMe: e.target.value })}
                 style={{
                   padding: "10px 16px",
                   borderRadius: 24,
@@ -113,53 +141,13 @@ export const EditProfile = () => {
             </Grid>
           </Grid>
           <div style={{ textAlign: "center" }}>
-            <YellowButton title="แก้ไขข้อมูล" onClick={() => setRequestEdit({ changeYear })} />
+            <YellowButton title="แก้ไขข้อมูล" handleOnClick={sendChange} />
           </div>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <h3 style={{ color: "#4542C1" }}>เปลี่ยนรหัสผ่าน</h3>
-            </Grid>
-            <Grid item xs={3}>
-              <p style={{ color: "#4542C1" }}>รหัสผ่านใหม่</p>
-            </Grid>
-            <Grid item xs={9}>
-              <input
-                type="password"
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: 24,
-                  width: "50dvw",
-                  borderWidth: "0px",
-                  fontFamily: "Kanit",
-                  fontSize: "1em",
-                  backgroundColor: "#E6EEF3",
-                }}
-              ></input>
-            </Grid>
-            <Grid item xs={3}>
-              <p style={{ color: "#4542C1" }}>ยืนยันรหัสผ่าน</p>
-            </Grid>
-            <Grid item xs={9}>
-              <input
-                type="password"
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: 24,
-                  width: "50dvw",
-                  borderWidth: "0px",
-                  fontFamily: "Kanit",
-                  fontSize: "1em",
-                  backgroundColor: "#E6EEF3",
-                }}
-              ></input>
-            </Grid>
-          </Grid>
           <div
             style={{
               textAlign: "center",
             }}
           >
-            <YellowButton title="เปลี่ยนรหัสผ่าน" handleOnClick={() => { }} />
           </div>
         </div>
       </div>

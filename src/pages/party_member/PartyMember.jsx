@@ -16,7 +16,7 @@ export const PartyMember = () => {
     if (token == null) {
       navigate("/");
     }
-    fetch(`https://tungty-service-be.onrender.com/party/${partyId}`,  {
+    fetch(`https://tungty-service-be.onrender.com/party/${username}`,  {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {

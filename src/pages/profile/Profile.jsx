@@ -66,6 +66,7 @@ export const Profile = () => {
           borderRadius: "16px",
           borderColor: "#4542C1",
           boxShadow: "5px 5px 5px #E6EEF3",
+          wordBreak: 'break-all',
           shadowOffset: {
             width: 30,
             height: -50,

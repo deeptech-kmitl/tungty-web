@@ -53,8 +53,8 @@ export const MemberInfo = () => {
         style={{
           borderRadius: "16px",
           borderColor: "#4542C1",
-          // border: "3px solid #4542C1",
           boxShadow: "4px 7px 5px #3431A0",
+          wordBreak: 'break-all',
           shadowOffset: {
             width: 30,
             height: -50,
@@ -73,7 +73,7 @@ export const MemberInfo = () => {
         >
           <Avatar
             sx={{ width: 200, height: 200, alignSelf: "center" }}
-            src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
+            src={`https://res.cloudinary.com/dppojpoug/image/upload/${userInfo.profileImg}`}
           />
           <h2 style={{ color: "#FDC319" }}>{userInfo.name} {userInfo.surname}</h2>
           
