@@ -13,7 +13,21 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useLocation } from "react-router-dom";
 
-export const EditParty = ( props ) => {
+export const EditParty = (props) => {
+    function getCurrentTimeFormatted() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Add leading zero for single-digit months
+        const day = String(now.getDate()).padStart(2, '0'); // Add leading zero for single-digit days
+        const hour = String(now.getHours()).padStart(2, '0'); // Add leading zero for single-digit hours
+        const minute = String(now.getMinutes()).padStart(2, '0'); // Add leading zero for single-digit minutes
+        const second = String(now.getSeconds()).padStart(2, '0'); // Add leading zero for single-digit seconds
+      
+        // Offset for time zone (+07:00 in this case)
+        const offset = now.getTimezoneOffset() / 60; // Convert minutes to hours
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}+${offset.toString().padStart(2, '0')}:00`;
+      }
+
     const navigate = useNavigate();
     const [selectedType, setSelectedType] = useState("");
     const [isPublic, setIsPublic] = useState(false);
@@ -34,7 +48,6 @@ export const EditParty = ( props ) => {
             ...prevFormData,
             appointmentDate: dayjs(value).format('YYYY-MM-DDTHH:mm:ssZ'),
         }));
-
     }, [value]
     )
 
@@ -43,31 +56,31 @@ export const EditParty = ( props ) => {
         const token = localStorage.getItem("token");
         let partyOwner;
         try {
-          const response = await fetch(
-            `https://tungty-service-be.onrender.com/user/${userId}`,
-          );
-          const data = await response.json();
-          console.log(data.username);
-          username = data.username;
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/user/${userId}`,
+            );
+            const data = await response.json();
+            console.log(data.username);
+            username = data.username;
         } catch (error) {
         }
         console.log(partyData.partyId)
         try {
-          const response = await fetch(
-            `https://tungty-service-be.onrender.com/party/${partyData.partyId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const data = await response.json();
-          partyOwner = data.partyOwner;
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/party/${partyData.partyId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            const data = await response.json();
+            partyOwner = data.partyOwner;
         } catch (error) {
         }
 
         if (username == partyOwner) {
-          setIsOwner(true)
+            setIsOwner(true)
         }
         console.log(isOwner)
     }
@@ -80,6 +93,46 @@ export const EditParty = ( props ) => {
         appointmentDate: partyData.appointmentDate,
         appointmentTime: partyData.appointmentTime,
         partyId: partyData.partyId,
+    });
+    const [formDataNoti, setFormDataNoti] = useState({
+        partyName: formData.partyName,
+        typeAction: "notify",
+        notifyDescription: `${formData.partyName} meeting will start now`,
+        userId: userId,
+        appointmentDate: getCurrentTimeFormatted(), // Initial empty string
+        appointmentTime: formData.appointmentTime,
+        status: "Pending",
+        partyId: "",
+    });
+    const [formDataNoti15Min, setFormDataNoti15Min] = useState({
+        partyName: formData.partyName,
+        typeAction: "notify",
+        notifyDescription: `${formData.partyName} meeting will start in 15 minutes`,
+        userId: userId,
+        appointmentDate: getCurrentTimeFormatted(), // Initial empty string
+        appointmentTime: formData.appointmentTime,
+        status: "Pending",
+        partyId: "",
+    });
+    const [formEditDataNoti, setEditFormDataNoti] = useState({
+        partyName: formData.partyName,
+        typeAction: "edit",
+        notifyDescription: `${formData.partyName} was edited`,
+        userId: userId,
+        appointmentDate: getCurrentTimeFormatted(), // Initial empty string
+        appointmentTime: formData.appointmentTime,
+        status: "Unread",
+        partyId: "",
+    });
+    const [formDeleteDataNoti, setDeleteFormDataNoti] = useState({
+        partyName: formData.partyName,
+        typeAction: "delete",
+        notifyDescription: `${formData.partyName} was deleted`,
+        userId: userId,
+        appointmentDate: getCurrentTimeFormatted(), // Initial empty string
+        appointmentTime: formData.appointmentTime,
+        status: "Unread",
+        partyId: "",
     });
 
     const handleChange = (name, value) => {
@@ -119,8 +172,54 @@ export const EditParty = ( props ) => {
                     body: JSON.stringify(formData),
                 }
             );
-            console.log(token)
-            console.log(formData);
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/createNotify`,
+                {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formEditDataNoti),
+                }
+            );
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/delete/${formData.partyId}`,
+                {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDeleteDataNoti),
+                }
+            );
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/createNotify`,
+                {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDataNoti),
+                }
+            );
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/createNotify`,
+                {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDataNoti15Min),
+                }
+            );
         } catch (error) {
             console.log("error" + error);
         }
@@ -129,22 +228,33 @@ export const EditParty = ( props ) => {
     };
 
     const handleDeleteParty = async () => {
-        // try {
-        //     const response = await fetch(
-        //         `https://tungty-service-be.onrender.com/party/${formData.partyName}`, // เพิ่ม partyId เข้าไปใน URL
-        //         {
-        //             method: "DELETE",
-        //             headers: { Authorization: `Bearer ${token}` },
-        //         }
-        //     );
-        //     console.log("delete");
-        // } catch (error) {
-        //     console.log("error" + error);
-        // }
-        // navigate('/myparty');
-        // console.log("hi");
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/delete/${formData.partyId}`,
+                {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDeleteDataNoti),
+                }
+            );
+        } catch (error) {
+            console.log("error" + error);
+        }
+        try {
+            const response = await fetch(
+                `https://tungty-service-be.onrender.com/notify/delete/${formData.partyId}`,
+                {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
+                    body: JSON.stringify(formDeleteDataNoti),
+                }
+            );
+        } catch (error) {
+            console.log("error" + error);
+        }
     };
-    
+
+ 
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}> {/* กำหนด LocalizationProvider และ AdapterDayjs */}

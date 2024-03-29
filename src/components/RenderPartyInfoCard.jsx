@@ -3,65 +3,73 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { blue, green, pink, purple, red } from "@mui/material/colors";
 const colors = [pink[600], red[600], blue[600], green[600], purple[600]];
 
-const RenderPartyInfoCard = React.memo(({
-  partyName,
-  partyId,
-  imagepath,
-  memberList,
-  partyDescription,
-  createDateTime,
-  appointmentTime,
-  navigate,
-}) => {
-  const [backgroundColor] = useState(() => {
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  });
-
-  const navigateToParty = () => {
-    // Navigate to party page
-    navigate(`/party-info/${partyName}`, {
-      state: {
-        partyData: {
-          partyName,
-          partyId,
-          imagepath,
-          memberList,
-          partyDescription,
-          createDateTime,
-          appointmentTime,
-          backgroundColor
-        },
-      },
+const RenderPartyInfoCard = React.memo(
+  ({
+    partyName,
+    partyId,
+    imagepath,
+    memberList,
+    partyDescription,
+    createDateTime,
+    appointmentTime,
+    navigate,
+  }) => {
+    const [backgroundColor] = useState(() => {
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      return colors[randomIndex];
     });
-  };
 
-  return (
-    <div
-      className="partyCard"
-      style={{ ...styles.partyCard, backgroundColor}}
-      onClick={navigateToParty}
-    >
-      <img src={imagepath} alt="Party Image" style={styles.partyImage} />
-      <div style={{ ...styles.partyDetails, flex: 1 }}>
-        <p style={styles.partyName} title={partyName}>
-          {partyName}
-        </p>
-        <p style={styles.partyDescription} title={partyDescription}>
-          {partyDescription}
-        </p>
-      </div>
-      <div style={{ alignSelf: "flex-end" }}>
-        <div style={{ ...styles.icons, justifyContent: "flex-end", alignContent: "flex-end" }}>
-          <FontAwesomeIcon icon={["fas", "user"]} size="lg" color="#FFC107" />
-          <span style={{ marginLeft: "10px" }}>
-            {memberList ? memberList.length : 0}
-          </span>
+    const navigateToParty = () => {
+      // Navigate to party page
+      navigate(`/party-info/${partyId}`, {
+        state: {
+          partyData: {
+            partyName,
+            partyId,
+            imagepath,
+            memberList,
+            partyDescription,
+            createDateTime,
+            appointmentTime,
+            backgroundColor,
+          },
+        },
+      });
+    };
+
+    return (
+      <div
+        className="partyCard"
+        style={{ ...styles.partyCard, backgroundColor }}
+        onClick={navigateToParty}
+      >
+        <img src={imagepath} alt="Party Image" style={styles.partyImage} />
+        <div style={{ ...styles.partyDetails, flex: 1 }}>
+          <p style={styles.partyName} title={partyName}>
+            {partyName}
+          </p>
+          <p style={styles.partyDescription} title={partyDescription}>
+            {partyDescription}
+          </p>
+        </div>
+        <div style={{ alignSelf: "flex-end" }}>
+          <div
+            style={{
+              ...styles.icons,
+              justifyContent: "flex-end",
+              alignContent: "flex-end",
+            }}
+          >
+            <FontAwesomeIcon icon={["fas", "user"]} size="sm" color="#FFC107" />
+            <span style={{ marginLeft: "10px" }}>
+              {memberList ? memberList.length : 0}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 const styles = {
   partyCard: {
@@ -75,7 +83,7 @@ const styles = {
     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)",
   },
   partyImage: {
-    width: "30%",
+    width: "20%",
     resizeMode: "contain",
   },
   partyDetails: {
@@ -87,14 +95,14 @@ const styles = {
     flexDirection: "column",
   },
   partyName: {
-    fontSize: "24px",
+    fontSize: "14px",
     fontWeight: "bold",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
   partyDescription: {
-    fontSize: "16px",
+    fontSize: "8px",
     padding: "1 %",
     fontWeight: "bold",
     overflow: "hidden",

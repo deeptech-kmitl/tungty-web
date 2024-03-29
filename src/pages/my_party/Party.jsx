@@ -119,17 +119,14 @@ export const Party = () => {
           >
             {partyData.partyName}
           </div>
-          {isOwner && (
-            <div
-              onClick={() =>
-                navigate(`/edit-party/${partyData.partyName}`, {
-                  state: { partyData },
-                })
-              }
+          {(isOwner) &&
+            <div onClick={() => navigate(`/edit-party/${partyData.partyId}`, 
+                {state: {partyData}}
+              )}
             >
               <EditIcon></EditIcon>
             </div>
-          )}
+          }
           <div style={styles.icons}>
             <div
               style={styles.iconContainer}

@@ -65,7 +65,7 @@ export const PartyInfo = () => {
     const appointmentTime = partyData.appointmentTime;
     const backgroundColor = partyData.backgroundColor;
 
-    navigate(`/party/${partyData.partyName}`, {
+    navigate(`/party/${partyData.partyId}`, {
       state: {
         partyData: {
           partyName,
