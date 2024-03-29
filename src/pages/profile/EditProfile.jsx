@@ -20,8 +20,8 @@ export const EditProfile = () => {
     faculty: "",
     field: "",
     year: "",
-    profileImg: "Test",
-    aboutMe: ""
+    profileImg: "",
+    aboutMe: "",
   });
 
   useEffect(() => {
@@ -32,8 +32,8 @@ export const EditProfile = () => {
 
   useEffect(() => {
     fetch(`https://tungty-service-be.onrender.com/user/${user_id}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setProfile(data);
         setFormData({
           userId: data.userId || "",
@@ -45,36 +45,51 @@ export const EditProfile = () => {
           faculty: data.faculty || "",
           field: data.field || "",
           year: parseInt(data.year) || "",
-          profileImg: "Test",
-          aboutMe: data.aboutMe || ""
+          profileImg: data.profileImg || "",
+          aboutMe: data.aboutMe || "",
         });
       });
   }, []);
 
   const sendChange = () => {
-    console.log(formData)
+    console.log(formData);
     fetch(`https://tungty-service-be.onrender.com/user/edit_profile`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         ...formData,
-        userId: user_id
-      })
-    })
-      .then(() => navigate("/profile"));
+        userId: user_id,
+      }),
+    }).then(() => navigate("/profile"));
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF" }}>
-      <div style={{ backgroundColor: "#4542C1", padding: "1px", color: "#ffffff", position: "relative" }}>
+    <div
+      style={{ width: "100vw", height: "100vh", backgroundColor: "#FFFFFF" }}
+    >
+      <div
+        style={{
+          backgroundColor: "#4542C1",
+          padding: "1px",
+          color: "#ffffff",
+          position: "relative",
+        }}
+      >
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h3>Edit Profile</h3>
         </div>
         <div onClick={() => navigate("/profile")}>
-          <ArrowBackIcon style={{ marginLeft: "16px", position: "absolute", top: "50%", transform: "translateY(-50%)" }} />
+          <ArrowBackIcon
+            style={{
+              marginLeft: "16px",
+              position: "absolute",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          />
         </div>
       </div>
       <div style={{ borderRadius: "16px", borderColor: "#4542C1" }}>
@@ -90,7 +105,9 @@ export const EditProfile = () => {
               <input
                 type="number"
                 value={formData.year}
-                onChange={e => setFormData({ ...formData, year: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, year: e.target.value })
+                }
                 style={{
                   padding: "10px 16px",
                   borderRadius: 24,
@@ -98,7 +115,7 @@ export const EditProfile = () => {
                   borderWidth: "0px",
                   fontFamily: "Kanit",
                   fontSize: "1em",
-                  backgroundColor: "#E6EEF3"
+                  backgroundColor: "#E6EEF3",
                 }}
               />
             </Grid>
@@ -108,7 +125,9 @@ export const EditProfile = () => {
             <Grid item xs={9}>
               <textarea
                 value={formData.aboutMe}
-                onChange={e => setFormData({ ...formData, aboutMe: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, aboutMe: e.target.value })
+                }
                 style={{
                   padding: "10px 16px",
                   borderRadius: 24,
@@ -116,7 +135,7 @@ export const EditProfile = () => {
                   borderWidth: "0px",
                   fontFamily: "Kanit",
                   fontSize: "1em",
-                  backgroundColor: "#E6EEF3"
+                  backgroundColor: "#E6EEF3",
                 }}
                 rows={5}
               />
