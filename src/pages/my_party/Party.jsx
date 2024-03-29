@@ -26,7 +26,7 @@ export const Party = () => {
   useEffect(() => {
     const bodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    console.log(partyData);
+    // console.log(partyData.partyCode);
     return () => {
       document.body.style.overflow = bodyOverflow;
       fetchData();
@@ -144,6 +144,9 @@ export const Party = () => {
           </div>
           <div style={{ marginTop: "2%", fontSize: 24 }}>
             {partyData.partyDescription}
+          </div>
+          <div style={{ marginTop: "2%", fontSize: 24, fontWeight:'bold', color:'red' }}>
+            {partyData.partyCode}
           </div>
         </div>
         <div

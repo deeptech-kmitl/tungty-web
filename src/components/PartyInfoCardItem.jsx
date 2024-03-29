@@ -19,6 +19,7 @@ const PartyInfoCardItem = ({ data }) => {
                         createDateTime={item.createDateTime}
                         appointmentTime={item.appointmentTime}
                         navigate={navigate}
+                        partyCode={item.partyCode}
                     />
                 </div>)
                 
